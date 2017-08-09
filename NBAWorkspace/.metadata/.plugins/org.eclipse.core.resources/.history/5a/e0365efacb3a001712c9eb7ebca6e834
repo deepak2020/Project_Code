@@ -1,0 +1,16 @@
+package java_basics;
+
+public class While {
+
+	public static void main(String[] args) {
+		
+			
+		while (i<=10){
+			System.out.println("number is "+ i);
+			i++;
+		}
+		
+		
+	}
+
+}

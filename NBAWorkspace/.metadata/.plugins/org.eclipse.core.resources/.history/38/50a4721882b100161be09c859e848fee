@@ -1,0 +1,21 @@
+app_url=${run.url}
+hub_url=${run.hub_url}
+#hub_url_nonSauceLab=http://qa-jenkins.nba.internal:4444/wd/hub
+hub_url_nonSauceLab=http://localhost:4444/wd/hub
+hub_url_SauceLab=http://pyneema:dd01d1a4-ffc5-4db3-ab46-e591492aedbf@ondemand.saucelabs.com:80/wd/hub
+admin_url=${run.admin_url}
+
+browser=${run.browser}
+platform=${run.platform}
+
+# DB details 
+driver=com.mysql.jdbc.Driver
+host=${db.host}
+port=3306
+user=${db.user}
+pass=${db.pass}
+dbname=nba
+
+#api stuff
+domain=${app.domain}
+nlpDomain=${app.nlpDomain}

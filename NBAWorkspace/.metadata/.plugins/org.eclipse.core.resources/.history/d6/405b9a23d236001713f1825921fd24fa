@@ -1,0 +1,16 @@
+package Java_Day_4;
+
+public class Abstract_implementation extends Sesssion_Abstract{
+
+	public static void main(String[] args) {
+		
+
+	}
+
+	@Override
+	public void sum(int a, int b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

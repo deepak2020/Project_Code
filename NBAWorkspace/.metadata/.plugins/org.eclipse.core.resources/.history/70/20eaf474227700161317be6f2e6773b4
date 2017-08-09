@@ -1,0 +1,17 @@
+package testPackage;
+
+public class Variables {
+
+	public static void main(String[] args) {
+		Variables obj = new Variables();
+		obj.localVariable();
+
+	}
+
+	
+	void localVariable(){
+		String a = "I am local Variable Dude" ;
+		
+		System.out.println(a);
+	}
+}

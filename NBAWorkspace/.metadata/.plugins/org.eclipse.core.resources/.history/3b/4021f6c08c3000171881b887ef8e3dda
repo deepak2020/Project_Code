@@ -1,0 +1,25 @@
+package Java_Day_1;
+
+import java.util.Scanner;
+
+public class Calculator {
+
+	Scanner scan = new Scanner(System.in);
+	int number = scan.nextInt();
+	String operator = scan.next();
+
+	public static void main(String[] args) {
+
+	}
+
+	
+	public int calculation(){
+		 int output = 0;
+		 
+		 if (operator.equals("+")){
+			 output = number+number;
+		 }
+		 
+		 return output;
+	}
+}

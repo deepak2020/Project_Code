@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1483356366199_1" label="" name="">
+<item TAG_MARKER_ID="36120" TAG_RESOURCE_FACTORY_ID="org.eclipse.ui.internal.model.ResourceFactory" factoryID="org.eclipse.debug.ui.elementFactory.breakpoints" path="/Selenium_June/src/selenium_Automation/Mouse_Hover.java" type="1"/>
+<item TAG_MARKER_ID="33782" TAG_RESOURCE_FACTORY_ID="org.eclipse.ui.internal.model.ResourceFactory" factoryID="org.eclipse.debug.ui.elementFactory.breakpoints" path="/Java_Class_16/src/Collections/Collection_day_1.java" type="1"/>
+<item TAG_MARKER_ID="32766" TAG_RESOURCE_FACTORY_ID="org.eclipse.ui.internal.model.ResourceFactory" factoryID="org.eclipse.debug.ui.elementFactory.breakpoints" path="/Java_Class_16/src/dayOne/Class_Object.java" type="1"/>
+<item TAG_MARKER_ID="33334" TAG_RESOURCE_FACTORY_ID="org.eclipse.ui.internal.model.ResourceFactory" factoryID="org.eclipse.debug.ui.elementFactory.breakpoints" path="/Java_Class_16/src/daytwo/Contructo_practice.java" type="1"/>
+<item TAG_MARKER_ID="32972" TAG_RESOURCE_FACTORY_ID="org.eclipse.ui.internal.model.ResourceFactory" factoryID="org.eclipse.debug.ui.elementFactory.breakpoints" path="/Selenium_Franework/src/Execution_Class.java" type="1"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1452067762744_0" label="Window Working Set" name="Aggregate for window 1452067762744"/>
+</workingSetManager>

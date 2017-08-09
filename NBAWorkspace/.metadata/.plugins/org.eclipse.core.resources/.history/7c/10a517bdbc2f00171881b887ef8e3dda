@@ -1,0 +1,25 @@
+package Java_Day_1;
+
+public class static_keyword_4 {
+	int a;
+	
+	static int b;
+	
+	public static void main(String[] args) {
+		
+		static_keyword_4 = new static_keyword_4();
+		
+
+	}
+	
+	public void changeValue(){
+		a = 10;
+		b = 20;
+	}
+	
+	public void printValue(){
+		System.out.println(a);
+		System.out.println(b);
+	}
+
+}

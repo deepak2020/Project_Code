@@ -1,0 +1,16 @@
+@end
+Feature: Share Reviews with Facebook
+
+  Scenario: As normal user from the detailed review page
+    Given User is on login page
+    When User login with "admin1_user" and "admin1_password"
+    And User clicks on "Insight_Tab"
+    And User clicks on "Reviews_Tab"
+    And User select values "Twitter" in "source_dropdown" and apply
+    And User clicks on "Details_button" present on Review page
+    And User clicks on "Share_Facebook" present on Review page
+    And User switch window
+    And User fills in "Facebook_Email" with "seamailmail@gmail.com" present on Review page
+    And User fills in "Facebook_Password" with "seamail2!" present on Review page
+    And User clicks on "Facebook_submit" present on Review page
+    Then User clicks on "Facebook_Share_Review" present on Review page

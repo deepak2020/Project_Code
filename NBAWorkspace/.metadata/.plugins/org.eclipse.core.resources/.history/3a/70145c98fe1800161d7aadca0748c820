@@ -1,0 +1,74 @@
+package com.Dashboard.pages;
+
+import com.Dashboard.global.GlobalCommonMethods;
+
+
+
+public class LoginPage extends GlobalCommonMethods {
+	public void logoutDashboard() {
+		wait(5);
+		log("Clicking on User_Action_Dropdown");
+		click(getProperty("dashboardUIPropertiesFiles/loginWebElement.properties", "user_action_dropdown"));
+		wait(3);
+		log("Clicking on Logout_Link");
+		click(getProperty("dashboardUIPropertiesFiles/loginWebElement.properties", "logout_link"));
+		waitForElement(
+				getProperty("dashboardUIPropertiesFiles/loginWebElement.properties", "login_button"), 5);
+	}
+	
+	public void loginDashboard(String user, String password){
+		open(getProperty("test.properties", "app_url"));
+		waitForElement(
+				getProperty(
+						"dashboardUIPropertiesFiles/loginWebElement.properties",
+						"login_button"), 10);
+		type(getProperty(
+				"dashboardUIPropertiesFiles/loginWebElement.properties",
+				"username_textbox"),
+				getProperty(
+						"dashboardUIPropertiesFiles/baseData.properties",
+						user));
+		type(getProperty(
+				"dashboardUIPropertiesFiles/loginWebElement.properties",
+				"password_textbox"),
+				getProperty(
+						"dashboardUIPropertiesFiles/baseData.properties",
+						password));
+		click(getProperty(
+				"dashboardUIPropertiesFiles/loginWebElement.properties",
+				"login_button"));
+		
+		waitForElement(
+				getProperty(
+						"dashboardUIPropertiesFiles/loginWebElement.properties",
+						"title_prefix"), 20);
+	}
+	
+	public void loginAdmin(String user, String password){
+		open(getProperty("test.properties", "admin_url"));
+		waitForElement(
+				getProperty(
+						"dashboardUIPropertiesFiles/loginWebElement.properties",
+						"admin_login_button"), 10);
+		type(getProperty(
+				"dashboardUIPropertiesFiles/loginWebElement.properties",
+				"admin_username_textbox"),
+				getProperty(
+						"dashboardUIPropertiesFiles/baseData.properties",
+						user));
+		type(getProperty(
+				"dashboardUIPropertiesFiles/loginWebElement.properties",
+				"admin_password_textbox"),
+				getProperty(
+						"dashboardUIPropertiesFiles/baseData.properties",
+						password));
+		click(getProperty(
+				"dashboardUIPropertiesFiles/loginWebElement.properties",
+				"admin_login_button"));
+		
+		waitForElement(
+				getProperty(
+						"dashboardUIPropertiesFiles/loginWebElement.properties",
+						"admin_title_prefix"), 20);
+	}
+}

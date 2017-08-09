@@ -1,0 +1,234 @@
+package com.Dashboard.StepDefinations;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class CommonStepdefinition extends PageFactory{
+	
+	@Given("^User clicks on \"([^\"]*)\"$")
+	public void user_clicks_on(String locator) throws Throwable {
+		try {
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					locator.toLowerCase()),5);
+			click(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception PendingException) {
+		}
+	}
+
+	@Then("^URL should contain \"(.*)\"$")
+	public void URL_should_contain(String pieceOfURL) {
+		try {
+			waitForElement(
+					getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+							"user_data_container"), 5);
+			Assert.assertEquals(isURLContains(pieceOfURL), true,
+					"Current URL does not contain said piece, which is: "
+							+ pieceOfURL);
+		} catch (Exception PendingException) {
+		}
+	}
+	
+	@When("^User fills in \"(.*)\" with \"(.*)\"$")
+	public void user_fills_in_with(String locator, String value)
+			throws Throwable {
+		try {
+			wait(3);
+			type(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+					locator.toLowerCase()),
+					getProperty("dashboardUIPropertiesFiles/baseData.properties", value));
+		} catch (Exception PendingException) {
+		}
+	}
+	
+	@Then("^\"([^\"]*)\" should be present$")
+	public void should_be_present(String locator) throws Throwable {
+		try {
+			wait(3);
+			waitForElement(
+					getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+							locator.toLowerCase()), 5);
+		} catch (Exception PendingException) {
+		}
+	}
+	
+	@When("^User switch to \"([^\"]*)\" client$")
+	public void user_switch_to_client(String client) throws Throwable {
+		try {
+			wait(3);
+			click(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+					"user_action_dropdown"));
+			click(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties", "admin_link"));
+			wait(3);
+			click(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+					"client_dropdown_under_admin_section"));
+			typeAndEnter(
+					getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+							"client_textbox_under_admin_section"), client);
+
+		} catch (Exception PendingException) {
+			PendingException.printStackTrace();
+		}
+	}
+	
+	
+	@When("^User search client with three characters \"([^\"]*)\"$")
+	public void user_search_client_with_3_characters(String client) throws Throwable {
+		try {
+			wait(3);
+			click(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+					"user_action_dropdown"));
+			click(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties", "admin_link"));
+			wait(3);		
+			click(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+					"client_dropdown_under_admin_section_search"));
+			
+			type(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+							"search_client_searchbox"), client);
+			click(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+					"select_client"));	
+				
+		} catch (Exception PendingException) {
+			PendingException.printStackTrace();
+		}
+	}
+	
+	
+	@When("^User refresh the page$")
+	public void user_refresh_the_page() throws Throwable {
+		try {
+			wait(3);
+			refreshPage();
+		} catch (Exception PendingException) {
+			PendingException.printStackTrace();
+		}
+	}
+
+	@When("^User switch to \"([^\"]*)\" user$")
+	public void user_switch_to_user(String user) throws Throwable {
+		try {
+			wait(3);
+			click(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+					"user_action_dropdown"));
+			click(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties", "admin_link"));
+			wait(3);
+			click(getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+					"user_dropdown_under_admin_section"));
+			typeAndEnter(
+					getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+							"user_textbox_under_admin_section"), user);
+
+		} catch (Exception PendingException) {
+			PendingException.printStackTrace();
+		}
+	}
+
+	@When("^User scroll down \"([^\"]*)\" times$")
+	public void user_scroll_down_times(int count) throws Throwable {
+		try {
+			wait(10);			
+			for(int i=0;i<count;i++)
+			((JavascriptExecutor)getDriver()).executeScript("scroll(0,1000)");			
+		} catch (Exception PendingException) {
+			PendingException.printStackTrace();
+		}
+	}
+	
+	@Then("^URL should not contain \"(.*)\"$")
+	public void URL_should_not_contain(String pieceOfURL) {
+		try {
+			waitForElement(
+					getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+							"user_data_container"), 5);
+			wait(10);
+			Assert.assertEquals(isURLContains(pieceOfURL), false,
+					"Current URL contains said piece, which is: "
+							+ pieceOfURL);
+		} catch (Exception PendingException) {
+		}
+	}
+	
+	@When("^User waits for \"(.*)\"$")
+	public void user_waits_for(String locator) throws Throwable {
+		try {
+			waitForElement(
+					getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+							locator.toLowerCase()), 10);
+		} catch (Exception PendingException) {
+			PendingException.printStackTrace();
+		}
+	}
+	
+/*********************************************************************************************************	
+*********************************** Operations on Filter Bar *********************************************
+**********************************************************************************************************/
+	@When("^User select \"(.*)\" in \"(.*)\" and apply$")
+	public void user_select_in_filter_and_apply(String value,String dropDown) throws Throwable {
+		try {
+			CommonPage().selectInFilter(value,dropDown);
+			wait(3);
+		} catch (Exception PendingException) {
+			PendingException.printStackTrace();
+		}
+	}
+	
+	@When("^User select values \"(.*)\" in \"(.*)\" and apply$")
+	public void user_select_value_in_filter_and_apply(String multipleValues,String dropDown) throws Throwable {
+		try {
+			String[] values = multipleValues.split(",");
+			for(String value:values){
+				CommonPage().typeInFilter(value,dropDown);
+			}
+			wait(3);
+		} catch (Exception PendingException) {
+			PendingException.printStackTrace();
+		}
+	}
+	
+	@Given("^User clears all filters selected$")
+	public void user_clears_all_filters_selected() throws Throwable {
+		try {
+			CommonPage().clearAllFilters();
+			wait(3);
+		} catch (Exception PendingException) {
+			PendingException.printStackTrace();
+		}
+	}
+	
+	@Then("^\"([^\"]*)\" should be present on filters$")
+	public void should_be_present_on_filters(String locator) throws Throwable {
+		try {
+			waitForElement(
+					getProperty("dashboardUIPropertiesFiles/commonWebElement.properties",
+							locator.toLowerCase()), 5);
+		} catch (Exception PendingException) {
+			PendingException.printStackTrace();
+		}
+	}
+	
+	/*********************************************************************************************************	
+	*********************************** Database Operations **************************************************
+	**********************************************************************************************************/
+	
+	@Given("^User performs database operation$")
+	public void user_performs_database_operation() throws Throwable {
+		try {
+			String Query=null;
+			Query = "DELETE FROM DOCUMENT WHERE HARVESTER_ID = 51416368  AND HARVEST_TIME LIKE '2016%' LIMIT 2000;";//"SELECT * FROM DOCUMENT WHERE DATASOURCE = 'HYATT' LIMIT 20;";
+			CommonPage().dataBaseUpdate(Query);
+		} catch (Exception PendingException) {
+			PendingException.printStackTrace();
+		}
+	}
+}

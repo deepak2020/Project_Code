@@ -1,0 +1,23 @@
+package com.poc.Test;
+
+import cucumber.api.CucumberOptions;
+import cucumber.api.testng.AbstractTestNGCucumberTests;
+
+@CucumberOptions(plugin = { "html:reports/cucumber-html-report",
+"json:reports/cucumber.json", "pretty:reports/cucumber-pretty.txt", }, 
+dryRun = false,
+strict = true,
+monochrome = true,
+features = "C:\\Users\\deepak.kumar\\NBAWorkspace\\Cuccumber_Demo\\src\\test\\resources\\com\\poc\\HelloWorld", 
+glue = { "/src/test/java/com/poc/HelloWorldTest/HelloWorldStepDefinition.java" },
+tags = {"@regression"}
+		)
+
+public class TestRunner  extends AbstractTestNGCucumberTests {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

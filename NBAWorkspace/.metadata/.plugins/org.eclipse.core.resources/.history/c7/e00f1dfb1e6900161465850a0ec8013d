@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test runner" parallel="classes" thread-count="5">
+	<test name="Package with subpackages">
+		<!-- <packages> <package name="com.Dashboard.TestRunner.*" /> </packages> -->
+		<classes>
+			<class name="com.Dashboard.TestRunner.LaunchpadLaunchpadTest" />
+		</classes>
+
+	</test>
+</suite>

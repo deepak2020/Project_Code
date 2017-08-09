@@ -1,0 +1,21 @@
+package Calculator;
+
+public class Calculation  {
+
+	public static void main(String[] args) {
+		Calculator obj = new Calculator();
+		int sum = obj.sum(10, 30);
+		System.out.println(sum);
+		int subtract = obj.subtract(10, 40);
+		System.out.println(subtract);
+		System.out.println(obj.division(40, 10));
+		System.out.println(obj.multiply(10, 10));
+		
+		
+		
+		
+		
+
+	}
+
+}

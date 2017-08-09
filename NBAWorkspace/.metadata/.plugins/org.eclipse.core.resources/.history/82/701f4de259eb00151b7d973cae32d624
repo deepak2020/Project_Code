@@ -1,0 +1,19 @@
+package com.Dashboard.StepDefinations;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.When;
+
+public class AdvantageStepDefinition extends PageFactory {
+	@When("^User clicks on Advantage_Link$")
+	public void user_clicks_on_Advantage_Link() throws Throwable {
+		try {
+			wait(3);
+			System.out.println(getProperty("advantageWebElement.properties", "Advantage_Link"));
+			click(getProperty("advantageWebElement.properties", "Advantage_Link"));
+		} catch (Exception PendingException) {
+		}
+	}
+
+}

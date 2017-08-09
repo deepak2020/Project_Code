@@ -1,0 +1,20 @@
+import java.util.ArrayList;
+
+
+public class Collections_Session {
+
+	public static void main(String[] args) {
+		
+		ArrayList<String> al = new ArrayList<String>();
+		al.add("Deepak");
+		al.add("Deepak1");
+		al.add("Deepak2");
+		al.add("Deepak3");
+		al.add("Deepak4");
+		al.add("Deepak5");
+		
+		System.out.println(al.get(1));
+		
+	}
+
+}

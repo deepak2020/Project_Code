@@ -1,0 +1,16 @@
+package testPackage;
+
+public class Variables {
+
+	public static void main(String[] args) {
+	
+
+	}
+
+	
+	void localVariable(){
+		String a = "I am local Variable Dude" ;
+		
+		System.out.println(a);
+	}
+}

@@ -1,0 +1,9 @@
+public class Iterattion {
+	
+	int a =10;
+	public static void main (){
+		System.out.println(a);
+	}
+
+}
+//

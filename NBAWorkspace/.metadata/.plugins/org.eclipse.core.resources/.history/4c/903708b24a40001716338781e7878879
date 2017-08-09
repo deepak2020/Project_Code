@@ -1,0 +1,11 @@
+package dayOne;
+
+public class If_Else {
+
+	public static void main(String[] args) {
+		int a = 7;
+
+		
+	}
+
+}

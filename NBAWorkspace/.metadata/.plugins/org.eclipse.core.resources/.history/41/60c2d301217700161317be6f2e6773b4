@@ -1,0 +1,12 @@
+package testPackage;
+
+public class AccessModifier1 {
+	int a;
+	public static void main(String[] args) {
+		AccessModifier obj = new AccessModifier(); //Default method called as Constructor
+		obj.sum();
+		System.out.println("Value of a is "a);
+
+	}
+
+}

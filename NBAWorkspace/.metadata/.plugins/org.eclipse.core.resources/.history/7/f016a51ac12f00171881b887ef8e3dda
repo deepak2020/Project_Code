@@ -1,0 +1,14 @@
+package Java_Day_1;
+
+public class For_loop {
+
+	public static void main(String[] args) {
+		
+		for (int a = 100; a>=0; a--)
+		{
+			if (a%2==0)
+			System.out.println("Number is "+ a);
+		}
+	}
+
+}

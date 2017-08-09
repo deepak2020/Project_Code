@@ -1,0 +1,58 @@
+Feature: Launchpad Scenarios
+
+  # Background:
+  # Given Browser Initialization
+  Scenario: New User saves to Launchpad
+    Given User is on login page
+    When User login to admin module with "nba_user" and "nba_password"
+    And User generate random user for "chipotle"
+    Then User login to Dasboard with new user
+    And User create launchpad
+    And User clean launchpad
+    When User login to admin module with "nba_user" and "nba_password"
+    And User clean up created user
+
+
+  
+  Scenario: Sharing a Launchpad with a User
+    Given User is on login page
+    When User login to admin module with "nba_user" and "nba_password"
+    And User generate random user for "hyatt"
+    Then User login to Dasboard with new user
+    And User create launchpad
+    And User share launchpad with a "Sally Sha"
+
+	@launchpad
+  Scenario: Add 25 subscriptions to a New LaunchPad
+  Given User is on login page
+    When User login to admin module with "nba_user" and "nba_password"
+    And User generate random user for "hyatt"
+    Then User login to Dasboard with new user
+    And User create launchpad
+    And User share launchpad with a "Sally"
+    And User share launchpad with a "Tom"
+    And User share launchpad with a "Ken"
+    And User share launchpad with a "Joe"
+    And User share launchpad with a "Kyle"
+    And User share launchpad with a "Tad"
+    And User share launchpad with a "Adam"
+    And User share launchpad with a "Brian"
+    And User share launchpad with a "Josh"
+    And User share launchpad with a "Patrick"
+    And User share launchpad with a "Jeff"
+    And User share launchpad with a "Beth"
+    And User share launchpad with a "Ron"
+    And User share launchpad with a "Rich"
+    And User share launchpad with a "Amy"
+    And User share launchpad with a "Carl"
+    And User share launchpad with a "Steve"
+    And User share launchpad with a "George"
+    And User share launchpad with a "Cody"
+    And User share launchpad with a "Nabil"
+    And User share launchpad with a "Don"
+    And User share launchpad with a "Eddy"
+    And User share launchpad with a "Ryan"
+    
+    
+    
+    

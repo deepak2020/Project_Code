@@ -1,0 +1,14 @@
+package Java_Day_4;
+
+public class Polymorphism_inheritence extends Polymorphism {
+
+	public static void main(String[] args) {
+		Polymorphism obj = new Polymorphism();
+		obj.sum(10, 20, 30, 40);
+		
+		
+		Polymorphism_inheritence obj1 = new Polymorphism_inheritence();
+		obj1.sum(20, 40);
+	}
+
+}

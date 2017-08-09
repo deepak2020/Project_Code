@@ -1,0 +1,13 @@
+package commonMethods;
+
+import org.openqa.selenium.WebDriver;
+
+public class GlobalMethods {
+	
+	WebDriver driver;
+	
+	public static void openBrowser(){
+		
+	}
+
+}

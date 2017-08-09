@@ -1,0 +1,14 @@
+package com.Dashboard.TestRunner;
+
+import cucumber.api.CucumberOptions;
+import cucumber.api.testng.AbstractTestNGCucumberTests;
+
+@CucumberOptions(plugin = { "html:reports/cucumber-html-report",
+		"json:reports/cucumber.json", "pretty:reports/cucumber-pretty.txt",
+		"usage:reports/cucumber-usage.json" }, dryRun = false, features = "src/test/resources/features"
+ ,glue ={"com/Dashboard/StepDefinations"}
+,tags="@honda"
+)
+public class RunTronTest extends AbstractTestNGCucumberTests {
+
+}

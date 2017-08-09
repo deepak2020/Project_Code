@@ -1,0 +1,24 @@
+Feature: Engagement Tests on connect tab
+
+  # Background:
+  # Given Browser Initialization
+ 
+  Scenario: In Admin 3.0 click engageAdmin check box
+    Given User is on login page
+    When User login to admin module with "zaphod_user" and "zaphod_password"
+    And User switch to "Five Guys" client in admin 3.0
+    And User search for "nb-qa+FIVELP1@sprinklr.com"
+    And User "nb-qa+FIVELP1@sprinklr.com" marked as Engagement Admin
+
+ @tron1
+  Scenario: Verify engagement admin permissions
+    Given User is on login page
+    When User login with "admin1_user" and "admin1_password"
+    And User clicks on "Connect_Tab"
+    And User clicks on "Create_Queue_Button" present on Connect tab
+    And User select "Category_food_Queue" in "Category_Dropdown_Queue" and apply on create Queue pop up
+    And User clicks on "Queue_Title" present on Connect tab
+    Then User enters "Queue_Title" on create Queue pop up
+    And User verify "Success_Message"
+    And User clicks on "Close_Icon" on create Queue pop up
+    

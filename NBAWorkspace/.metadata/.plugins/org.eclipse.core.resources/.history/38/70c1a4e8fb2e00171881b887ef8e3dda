@@ -1,0 +1,40 @@
+package Java_Day_1;
+
+public class static_keyword_3 {
+	
+	int a = ;
+	
+	static int b;
+
+	public static void main(String[] args) {
+		
+		static_keyword_3 obj = new static_keyword_3();
+		obj.changeValue();
+		obj.displayValue();
+		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+		static_keyword_3 obj1 = new static_keyword_3();
+		obj1.displayValue();
+		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		
+		static_keyword_3 obj2 = new static_keyword_3();
+		obj2.changeValue();
+		obj2.displayValue();
+	}
+	
+	public void changeValue(String ){
+		a="one bed added by changeValue";
+		b = "2 glass added by changeValue";
+	}
+	
+	public void displayValue(){
+		System.out.println(a);
+		System.out.println(b);
+	}
+	
+	
+	
+
+}

@@ -1,0 +1,14 @@
+package daytwo;
+
+public class Contructo_practice {
+	
+	public Contructo_practice() {
+		
+	}
+
+	public static void main(String[] args) {
+		
+
+	}
+
+}

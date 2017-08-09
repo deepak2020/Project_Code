@@ -1,0 +1,94 @@
+package com.Dashboard.StepDefinations;
+
+import static com.jayway.restassured.RestAssured.given;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Assert;
+
+import com.Dashboard.global.PageFactory;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.restassured.path.json.JsonPath;
+
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+
+public class NLPStepDefinition extends PageFactory {
+
+	public static String nlpDomain;
+	
+	@Before("@nlp")
+	public void setNlpDomain() {
+		nlpDomain = getConfigProperties().getProperty("nlpDomain");
+	}
+
+	@Given("^User apply nlp on a data for given source as \"([^\"]*)\"$")
+	public void user_apply_nlp_on_a_data_for_given_source(String source) throws SQLException {
+		String insightDetectionURL = nlpDomain + getBaseDataProperties().getProperty("nlp_endpoint");
+
+		String sourceId = (String) CommonPage().dataBaseSelect("SELECT * FROM SOURCE WHERE NAME = '" + source + "' AND URL IS NOT NULL;", "ID");
+		Map<String, String> requestParams = new HashMap<String, String>();
+		requestParams.put("content", "The steak was good.");
+		requestParams.put("sourceId", sourceId);
+		requestParams.put("type", "restaurant");
+		requestParams.put("clientId", getBaseDataProperties().getProperty("clientId"));
+
+		String formParametersJson = null;
+		try {
+			formParametersJson = new ObjectMapper().writeValueAsString(requestParams);
+		} catch (JsonProcessingException e) {
+			Assert.fail("Problem occurred while creating json from map");
+		}
+
+		System.out.println("==> insightDetectionURL ==> " + insightDetectionURL);
+		System.out.println("==> formParametersJson ==> " + formParametersJson);
+		ApiStepDefinition.res = given().get(insightDetectionURL + formParametersJson);
+		System.out.println("==> ApiStepDefinition.res ==> " + ApiStepDefinition.res.asString());
+		Assert.assertNotNull("Didn't get any response", ApiStepDefinition.res);
+	}
+
+	@Then("^User verifies insight detection$")
+	public void user_verifies_insight_detection() {
+		String json = ApiStepDefinition.res.asString();
+		List<String> insights = JsonPath.with(json).get("insights");
+		Assert.assertFalse("Lenght of insight node should be >=0", insights.size() <= 0);
+	}
+
+	@Given("^User apply nlp on data for given source as \"([^\"]*)\" given phrase as \"([^\"]*)\"$")
+	public void user_apply_nlp_on_a_data_for_given_phrase(String source, String phrase) throws SQLException {
+		String insightDetectionURL = nlpDomain + getBaseDataProperties().getProperty("nlp_endpoint");
+		String sourceId = (String) CommonPage().dataBaseSelect("SELECT * FROM SOURCE WHERE NAME = '" + source + "' AND URL IS NOT NULL;", "ID");
+		Map<String, String> requestParams = new HashMap<String, String>();
+		requestParams.put("content", phrase);
+		requestParams.put("sourceId", sourceId);
+		requestParams.put("type", "restaurant");
+		requestParams.put("clientId", getBaseDataProperties().getProperty("clientId"));
+
+		String formParametersJson = null;
+		try {
+			formParametersJson = new ObjectMapper().writeValueAsString(requestParams);
+		} catch (JsonProcessingException e) {
+			Assert.fail("Problem occurred while creating json from map");
+		}
+
+		System.out.println("==> insightDetectionURL ==> " + insightDetectionURL);
+		System.out.println("==> formParametersJson ==> " + formParametersJson);
+		ApiStepDefinition.res = given().get(insightDetectionURL + formParametersJson);
+		Assert.assertNotNull("Didn't get any response", ApiStepDefinition.res);
+	}
+
+	@Then("^User verifies polarity detection$")
+	public void user_verifies_polarity_detection() {
+		String json = ApiStepDefinition.res.asString();
+		List<String> insights = JsonPath.with(json).get("insights");
+		for (int i = 0; i < insights.size(); i++) {
+			String value = JsonPath.with(json).get("insights[0].fields.polarity.value");
+			Assert.assertEquals("0.0", value);
+		}
+	}
+}

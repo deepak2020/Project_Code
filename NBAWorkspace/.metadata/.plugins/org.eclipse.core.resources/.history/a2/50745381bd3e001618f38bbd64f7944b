@@ -1,0 +1,17 @@
+Feature: Share Reviews with Google Plus
+
+  
+  Scenario: As normal user from the detailed review page
+    Given User is on login page
+    When User login with "admin1_user" and "admin1_password"
+    And User clicks on "Insight_Tab"
+    And User clicks on "Reviews_Tab"
+    And User select values "Twitter" in "source_dropdown" and apply
+    And User clicks on "Details_button" present on Review page
+    And User clicks on "Share_Google" present on Review page
+    And User switch window
+    And User fills in "Google_Email" with "selcywebdriver@gmail.com" present on Review page
+    And User clicks on "Google_Next" present on Review page
+    And User fills in "Google_Password" with "selcywebdriver44" present on Review page
+    And User clicks on "Google_submit" present on Review page
+    Then User clicks on "Google_Share_Review" present on Review page

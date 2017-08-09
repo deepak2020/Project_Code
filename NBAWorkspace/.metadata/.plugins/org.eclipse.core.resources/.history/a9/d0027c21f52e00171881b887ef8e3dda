@@ -1,0 +1,20 @@
+package Java_Day_1;
+
+public class Static_Keyword {
+
+	public static void main(String[] args) {
+		Static_Keyword obj = new Static_Keyword();
+		System.out.println(obj.sum(10, 20));
+		System.out.println(obj.sum(50, 20));
+		System.out.println(obj.sum(100, 200));
+
+	}
+	
+	
+	public Integer sum(int a, int b){
+		int sum = a+b;
+		return sum;
+	}
+	
+	
+}

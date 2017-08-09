@@ -1,0 +1,13 @@
+package com.Dashboard.StepDefinations;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.Given;
+
+public class AdvantageStepDefinition extends PageFactory {
+	@Given("^Browser Initialization$")
+	public void browser_Initialization() throws Throwable {
+		initialize("firefox", "", "");
+		wait(5);
+	}
+}

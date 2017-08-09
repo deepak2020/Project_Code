@@ -1,0 +1,15 @@
+package Calculator;
+
+public class Calculator {
+	
+	public Integer sum(int a, int b){
+		int sum = a+b;
+		return sum;
+	}
+	
+	public Integer subtract(int a, int b){
+		int subtract = a-b;
+		return subtract;
+	}
+
+}

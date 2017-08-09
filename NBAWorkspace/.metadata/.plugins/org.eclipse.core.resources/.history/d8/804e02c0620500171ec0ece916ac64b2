@@ -1,0 +1,35 @@
+public class Iterattion {
+	
+	public Iterattion() {
+		System.out.println(" I am constructor");
+	}
+	static final int a =0;
+	int b;
+	public static void main(String arg[]){
+		System.out.println(a);
+		Iterattion obj1 = new Iterattion();
+		Iterattion obj2 = new Iterattion();
+		staticPrint();
+		obj1.changeValue();
+		obj1.print();
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		obj2.print();
+		
+		
+	}
+	
+	public void print(){
+		System.out.println("Value of a " + a);
+		System.out.println("Value of b " + b);
+	}
+
+	public static void staticPrint(){
+	
+		System.out.println("Value of a changed by static "+ a);
+	}
+	
+	public void changeValue(){
+		b=20;
+		System.out.println("Value of b changed by "+ b);
+	}
+}

@@ -1,0 +1,22 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+public class Day_one {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+		WebDriverWait wait = new WebDriverWait(driver, 60);
+		
+		driver.get("https://www.google.com");
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+		System.out.println(timeStamp);
+		driver.findElement(By.xpath(".//*[text()='Deepak']"));
+	}
+
+}

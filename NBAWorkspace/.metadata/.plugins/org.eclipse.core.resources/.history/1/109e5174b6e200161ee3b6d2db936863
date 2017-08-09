@@ -1,0 +1,25 @@
+package day_1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Session1 {
+
+	public static void main(String[] args) {
+		//Open Browser
+		
+		WebDriver driver = new FirefoxDriver();
+		
+		//Get URL
+		
+//		driver.get("https://www.google.com");
+		
+		driver.navigate().to("https://in.yahoo.com/?p=us");
+//		driver.findElement(By.id("lst-ib")).click();
+//		driver.findElement(By.id("lst-ib")).sendKeys("Deepak");
+		
+		driver.findElement(By.linkText("Movie Review: Hrithik Is As Kaabil As Ever, The Rest Of This Vendetta Drama Certainly Isn’t")).click();
+	}
+
+}

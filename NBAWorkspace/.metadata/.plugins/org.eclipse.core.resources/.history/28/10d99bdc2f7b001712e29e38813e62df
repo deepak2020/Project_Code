@@ -1,0 +1,16 @@
+package day_1;
+
+public class First_Program {
+
+	public static void main(String[] args) {
+		
+		System.out.println("Hello! World");
+		
+		//Data Types
+		boolean a = false;
+		System.out.println(a);
+		byte b;
+		System.out.println(b);
+	}
+
+}

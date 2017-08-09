@@ -1,0 +1,38 @@
+package Java_Day_1;
+
+public class HumanBeing {
+
+	public static void main1(String[] args) {
+		
+		HumanBeing deepak = new HumanBeing();
+		
+		deepak.drink();
+		deepak.talk();
+		walk();
+		deepak.eat();
+		
+		deepak.age=28;
+		deepak.name="Deepak Kumar Rana";
+	}
+	
+	public static void walk(){
+		System.out.println("I can walk");
+	}
+	
+	public  void eat(){
+		System.out.println("I can eat");
+	}
+	
+	public  void drink(){
+		System.out.println("I can drink");
+	}
+	
+	public  void talk(){
+		System.out.println("I can talk");
+	}
+	
+	String name;
+	int age;
+	
+	
+}

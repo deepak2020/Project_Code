@@ -1,0 +1,24 @@
+package Java_Day_1;
+
+public class Java_Session_1 {
+
+	public static void main(String[] args) {
+
+		System.out.println("Hello World");
+		
+		int age = 10;
+		System.out.println(age);
+		
+		int b = 123;
+		System.out.println(b);
+		
+		long num= 9000000000L;
+		
+		System.out.println(num);
+		
+		
+		String name = "Deepak"
+
+	}
+
+}

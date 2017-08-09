@@ -1,0 +1,21 @@
+public class Iterattion {
+	
+	static int a;
+	int b;
+	public static void main(String arg[]){
+		System.out.println(a);
+		Iterattion obj1 = new Iterattion();
+		
+		staticPrint();
+		obj1.print();
+	}
+	
+	public void print(){
+		System.out.println("Value of a " + a);
+	}
+
+	public static void staticPrint(){
+		a=10;
+		System.out.println("Value of a changed by static "+ a);
+	}
+}

@@ -1,0 +1,24 @@
+Feature: Advantage Categories Relative Performance Widget
+
+# Background:
+#   Given Browser Initialization
+
+Scenario: Verify Widget Column Headers in Advantage/Categories
+
+	Given User is on login page
+	And User login with "nba_user" and "nba_password"
+	And User switch to "Hyatt" client
+	When User clicks on "Advantage_Tab"
+	And User clicks on "Categories_Tab" on Advantage page
+	Then "Relative_Performance_Table_Heading" should be present on Categories page
+
+Scenario: I look for performance columns in Advantage/Categories
+	Given User is on login page
+	And User login with "nba_user" and "nba_password"
+	And User switch to "Hyatt" client
+	When User clicks on "Advantage_Tab"
+	And User clicks on "Categories_Tab" on Advantage page
+	Then "Relative_Performance_Table" should be present on Categories page
+	
+	
+	

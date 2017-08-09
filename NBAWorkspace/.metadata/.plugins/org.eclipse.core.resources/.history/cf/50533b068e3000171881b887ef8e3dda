@@ -1,0 +1,31 @@
+package Java_Day_1;
+
+import java.util.Scanner;
+
+public class Calculator {
+
+	
+//	int number = scan.nextInt();
+//	String operator = scan.next();
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		Calculator obj = new Calculator();
+		System.out.println(obj.calculation(scan.nextInt(), scan.next(), scan.nextInt()));
+		
+	}
+
+	
+	public int calculation(int a, String operator,  int b ){
+		 int output = 0;
+		 if (operator.equals("+")){
+			 output = a+b;
+		 }
+		 
+		 if (operator.equals("-")){
+			 output = a-b;
+		 }
+		 
+		 return output;
+	}
+}

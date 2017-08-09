@@ -1,0 +1,11 @@
+
+public interface interface_Session {
+	
+	public void sum();
+	public void sum1();
+	public void sum2();
+	public void sum3();
+
+}
+
+

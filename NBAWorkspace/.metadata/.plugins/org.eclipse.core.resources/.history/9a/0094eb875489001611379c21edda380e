@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<<<<<<< HEAD
+<suite name="TRON Test runner" parallel="classes" thread-count="5">
+	<test name="TRON">
+		<packages>
+			<package name="" />
+		</packages>
+=======
+<suite name="Test runner" parallel="classes" thread-count="5">
+	<test name="Package with subpackages">
+		<!-- <packages> <package name="com.Dashboard.TestRunner.*" /> </packages> -->
+		<classes>
+			<!-- <class name="com.Dashboard.TestRunner.LaunchpadLaunchpadTest"/> -->
+			<class name="com.Dashboard.TestRunner.RunTronTest"/>
+		</classes>
+>>>>>>> 43dd1e07fe89242b456e7cc2ea929723d3049d38
+	</test>
+</suite>

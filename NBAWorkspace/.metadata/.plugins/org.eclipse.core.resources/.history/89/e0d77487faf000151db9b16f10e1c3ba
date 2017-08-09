@@ -1,0 +1,41 @@
+Feature: Advantage Locations Comparison Trend Widget
+
+# Background:
+#   Given Browser Initialization
+
+
+Scenario: Verify Hide All & Show All in Advantage/Location
+    Given User is on login page
+	And User login with "nba_user" and "nba_password"
+	And User switch to "Chipotle" client
+	When User clicks on "Advantage_Link"
+	And User clicks on "Locations_Link" on Advantage page
+	And User clicks on "Show_All_Button" on Locations page
+	And User clicks on "Hide_All_Button" on Locations page
+	
+
+Scenario: Individual Line Hiding
+	Given User is on login page
+	And User login with "nba_user" and "nba_password"
+	When User clicks on "Advantage_Link"
+	And User clicks on "Locations_Link" on Advantage page
+	And User clicks on "Hide_All_Button" on Locations page
+	Then "Chart_Trend_Lines" is "hidden" 
+	
+
+Scenario: Individual Line Showing
+	Given User is on login page
+	And User login with "nba_user" and "nba_password"
+	When User clicks on "Advantage_Link"
+	And User clicks on "Locations_Link" on Advantage page
+	And User clicks on "Show_All_Button" on Locations page
+	Then "Chart_Trend_Lines" is "visible"
+
+@Advantage	
+Scenario: Slider is available on Chart trend
+	Given User is on login page
+	And User login with "nba_user" and "nba_password"
+	When User clicks on "Advantage_Link"
+	And User clicks on "Locations_Link" on Advantage page	
+	And User clicks on "Show_All_Button" on Locations page
+	Then User verify "Left_Slider" and "Right_Slider" of "Chart_Trend_Lines"

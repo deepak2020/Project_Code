@@ -1,0 +1,30 @@
+package Java_Day_1;
+
+public class HumanBeing {
+
+	public static void main(String[] args) {
+		
+
+	}
+	
+	public static void walk(){
+		System.out.println("I can walk");
+	}
+	
+	public static void eat(){
+		System.out.println("I can eat");
+	}
+	
+	public static void drink(){
+		System.out.println("I can drink");
+	}
+	
+	public static void talk(){
+		System.out.println("I can talk");
+	}
+	
+	String name;
+	int age;
+	
+	
+}

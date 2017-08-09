@@ -1,0 +1,12 @@
+
+public class Overloading {
+
+	public static void main(String[] args) {
+	
+	}
+	
+	public void sum (int a, int b){
+		System.out.println(a+b);
+	}
+
+}

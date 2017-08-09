@@ -1,0 +1,22 @@
+package Java_Day_1;
+
+public class Methods {
+
+	public static void main(String[] args) {
+
+		Methods obj = new Methods();
+		obj.sum();
+	}
+	
+	
+	public void sum(){ ///no pramaterised
+		int a=10;
+		
+		int b=20;
+		
+		int sum = a+b;
+		
+		System.out.println(sum);
+	}
+
+}

@@ -1,0 +1,33 @@
+package daytwo;
+
+public class Contructo_practice {
+	
+	int a;
+	int b;
+	
+	public Contructo_practice(int a, int b) {
+		
+		this.a=a;
+		this.b=b;
+		
+	}
+	
+public Contructo_practice() {
+		
+	}
+
+	public static void main(String[] args) {
+		
+		Contructo_practice obj = new Contructo_practice(10, 20);
+		obj.sum();
+		
+		
+
+	}
+	
+	
+	public void sum (){
+		System.out.println(a+b);
+	}
+
+}

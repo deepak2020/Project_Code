@@ -1,0 +1,233 @@
+package com.Dashboard.StepDefinations;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.asserts.Assertion;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class AdvantageStepDefinition extends PageFactory {
+
+	@When("^User clicks on \"([^\"]*)\" on Advantage Tab$")
+	public void user_clicks_on_on_Advantage_page(String locator) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" table heading should be present on Categories Subtab$")
+	public void table_header_should_be_present(String table_name) {
+		try {
+
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					table_name.toLowerCase()));
+			Assert.assertEquals(
+					getText(getProperty(
+							"dashboardUIPropertiesFiles/advantageWebElement.properties",
+							"Relative_Performance")), table_name);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" table heading should be present on Source Subtab$")
+	public void table_header_should_be_present_source(String table_name) {
+		try {
+
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					table_name.toLowerCase()));
+			Assert.assertEquals(
+					getText(getProperty(
+							"dashboardUIPropertiesFiles/advantageWebElement.properties",
+							"Relative_Performance")), table_name);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User clicks on \"([^\"]*)\" on Locations Subtab$")
+	public void user_clicks_on_on_Locations_page(String locator) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^User should clicks on \"([^\"]*)\" on Locations Subtab$")
+	public void user_clicks_on_Locations_page(String locator) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" should be \"([^\"]*)\"$")
+	public void hides(String locator, String state) {
+		try {
+			wait(3);
+			locator = getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					"chart_trend_lines");
+			String Value = getDriver().findElement(By.className(locator))
+					.getAttribute("visibility");
+
+			Assert.assertEquals(Value, state);
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^User verify Slider of Chart trend$")
+	public void user_verify_Slider_of_Chart_trend() {
+		try {
+
+			WebElement element = getDriver().findElement(By.tagName("svg"));
+			List<WebElement> g = element.findElements(By.tagName("g"));
+			Iterator<WebElement> it = g.iterator();
+			boolean found = false;
+			int count = 0;
+			while (it.hasNext()) {
+				WebElement elem = it.next();
+				String str = elem.getAttribute("style").trim();
+				if (str.equals("cursor: e-resize;")) {
+					found = true;
+					count++;
+				}
+			}
+			Assert.assertTrue(found && count == 2, "element not found failed..");
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+
+	}
+
+	@Then("^\"([^\"]*)\" should be present on Location Subtab$")
+	public void table_should_be_present_location(String locator) {
+		try {
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					locator.toLowerCase()));
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" should be present on Source Subtab$")
+	public void table_should_be_present_Source(String locator) {
+		try {
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					locator.toLowerCase()));
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" should be present on Categories Subtab$")
+	public void table_should_be_present_category(String table)
+
+	{
+		try {
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					table.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^User should move \"([^\"]*)\" from  Over To Under$")
+	public void slide_theme_cloud_Under_to_Over(String locator1) {
+		try {
+			wait(10);
+			WebElement slider = waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					locator1.toLowerCase()));
+			slider.sendKeys(Keys.HOME);
+			Assert.assertEquals(isURLContains("%22polarity%22:0"), true);
+			slider.sendKeys(Keys.END);
+			slider.click();
+			Assert.assertEquals(isURLContains("%22polarity%22:10"), true);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^User should move \"([^\"]*)\" from  More To Less$")
+	public void slide_theme_cloud_Less_to_More(String locator1) {
+		try {
+			wait(10);
+			WebElement slider = waitForElement("//div[@class='slider-wordcount-container-theme-comparison']//a");
+			slider.click();
+			slider.sendKeys(Keys.HOME);
+			Assert.assertEquals(isURLContains("%22wordcount%22:5"), true);
+			slider.click();
+			slider.sendKeys(Keys.END);
+			Assert.assertEquals(isURLContains("%22wordcount%22:75"), true);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^User should toggle between \"([^\"]*)\" and \"([^\"]*)\" on Locations Subtab$")
+	public void toggle_between_showall_hideall(String showall, String hideall) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					showall.toLowerCase()));
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					hideall.toLowerCase()));
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^User verify selected filter \"([^\"]*)\" for \"([^\"]*)\"$")
+	public void verify_selected_filter(String selection, String dropDown) {
+		try {
+			wait(3);
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					".//span[text()='" + selection + "']"));
+			hover(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					dropDown.toLowerCase()), 5);
+			Assert.assertTrue(isElementPresent(".//span[text()='" + selection
+					+ "']"));
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+}

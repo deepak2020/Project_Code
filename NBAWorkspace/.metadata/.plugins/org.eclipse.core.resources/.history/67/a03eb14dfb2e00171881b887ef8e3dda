@@ -1,0 +1,34 @@
+package Java_Day_1;
+
+public class static_keyword_3 {
+	
+	String bedroom = "";
+	
+	static String kitchen;
+
+	public static void main(String[] args) {
+		
+		static_keyword_3 obj = new static_keyword_3();
+		obj.changeValue();
+		obj.displayValue();
+		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+		static_keyword_3 obj1 = new static_keyword_3();
+		obj1.displayValue();
+	}
+	
+	public void changeValue(){
+		a="A's value changed by changeValue";
+		b = "B's value changed by changeValue";
+	}
+	
+	public void displayValue(){
+		System.out.println(a);
+		System.out.println(b);
+	}
+	
+	
+	
+
+}

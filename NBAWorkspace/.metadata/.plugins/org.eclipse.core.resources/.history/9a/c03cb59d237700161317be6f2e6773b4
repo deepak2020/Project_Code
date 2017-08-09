@@ -1,0 +1,21 @@
+package testPackage;
+
+public class Variables {
+	String a = "I am instance Variable";
+	int sum;
+	
+	public static void main(String[] args) {
+		
+		Variables obj = new Variables();
+		obj.sum(20, 30);
+		obj.print();
+	}
+	
+	void sum(int a, int b){
+		sum = a+b;
+	}
+	
+	void print (){
+		System.out.println(sum);
+	}
+}

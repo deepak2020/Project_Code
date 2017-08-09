@@ -1,0 +1,17 @@
+
+public class Static_Session {
+
+	public static void main(String[] args) {
+		Static_Session obj = new Static_Session();
+		obj.student1();
+		
+	}
+	
+	public void student1(){
+		int rollno =1;
+		String name = " Deepak ";
+		String school = " Army School ";
+		System.out.println(rollno + name +school);
+	}
+
+}

@@ -1,0 +1,40 @@
+package commonMethods;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class GlobalMethods {
+
+	static WebDriver driver;
+	static WebElement element;
+
+	public static void openBrowser(String browser) {
+
+		if (browser.equals("firefox")) {
+			driver = new FirefoxDriver();
+		} else if (browser.equals("chrome")) {
+			driver = new ChromeDriver();
+		}
+	}
+
+	public static void getURL(String URL) {
+		driver.navigate().to(URL);
+	}
+
+	public static void getElement(String xpath) {
+		element = driver.findElement(By.xpath(xpath));
+	}
+
+	public static void click() {
+		element.click();
+
+	}
+	
+	public void getProperty(){
+		
+	}
+
+}

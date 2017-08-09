@@ -1,0 +1,72 @@
+package com.Dashboard.StepDefinations;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.When;
+
+public class AdminStepDefinition extends PageFactory {
+
+	@When("^User login to admin module with \"(.*)\" and \"(.*)\"$")
+	public void user_admin_login_with_someUser(String user, String password) {
+		AdminModuleLoginPage().loginAdmin(user, password);
+	}
+
+	@When("^User switch to \"([^\"]*)\" client in admin 3.0$")
+	public void user_switch_to_client_in_admin_3(String client)
+			throws Throwable {
+		try {
+			wait(3);
+			typeAndEnter(
+					getProperty(
+							"dashboardUIPropertiesFiles/commonWebElement.properties",
+							"admin_user_action_dropdown"), client);
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/admin.properties",
+					"admin_email_search_box"));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User search for \"([^\"]*)\"$")
+	public void user_search_for(String user) throws Throwable {
+		try {
+			clickAndWait(getProperty(
+					"dashboardUIPropertiesFiles/admin.properties",
+					"admin_email_search_box"));
+			typeAndEnter(
+					getProperty("dashboardUIPropertiesFiles/admin.properties",
+							"admin_email_search_box"), user);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User \"([^\"]*)\" marked as Engagement Admin$")
+	public void user_marked_as_Engagement_Admin(String user) throws Throwable {
+		try {
+			clickAndWait(".//*[text()='" + user + "']");
+
+			WebElement element = getDriver().findElement(
+					By.xpath(".//*[text()='" + user + "']"));
+			Actions action = new Actions(getDriver());
+			action.doubleClick(element).build().perform();
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/admin.properties",
+					"engage_admin_check"));
+			click(getProperty("dashboardUIPropertiesFiles/admin.properties",
+					"engage_admin_check"));
+			click(getProperty("dashboardUIPropertiesFiles/admin.properties",
+					"admin_submit_button"));
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+}

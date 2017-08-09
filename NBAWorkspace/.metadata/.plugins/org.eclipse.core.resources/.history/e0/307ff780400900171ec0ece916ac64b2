@@ -1,0 +1,15 @@
+
+public abstract class Session_4 {
+
+	public static void main(String[] args) {
+		
+		 Session_4 obj = new Session_4();
+	}
+	
+	public abstract void sum();
+	
+	public void sum1(){
+		System.out.println("bla bla");
+	}
+
+}

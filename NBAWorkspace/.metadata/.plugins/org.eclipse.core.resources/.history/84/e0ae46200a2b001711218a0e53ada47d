@@ -1,0 +1,21 @@
+package Java_Day_1;
+
+public class Java_Session_1 {
+
+	public static void main(String[] args) {
+
+		System.out.println("Hello World");
+		
+		int age = 10;
+		System.out.println(age);
+		
+		int b = 123;
+		System.out.println(b);
+		
+		byte num= 12;
+		
+		System.out.println(num);
+
+	}
+
+}

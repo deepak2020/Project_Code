@@ -1,0 +1,30 @@
+package testPackage;
+
+public class Variables {
+	String a = "I am instance Variable";
+	int sum;
+	
+	static String stat = "I am static";
+	
+	public static void main(String[] args) {
+		
+		Variables obj = new Variables();
+		obj.sum(20, 30);
+		obj.print();
+		
+		
+		Variables obj1 = new Variables();
+		obj1.print();
+				
+	}
+	
+	void sum(int a, int b){
+		sum = a+b;
+		stat= "I am static sum";
+		System.out.println(stat);
+	}
+	
+	void print (){
+		System.out.println(stat);
+	}
+}

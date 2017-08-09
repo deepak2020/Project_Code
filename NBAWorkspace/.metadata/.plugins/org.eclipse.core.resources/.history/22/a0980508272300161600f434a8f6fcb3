@@ -1,0 +1,56 @@
+package com.Dashboard.StepDefinations;
+
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.PendingException;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class ConnectStepDefinition extends PageFactory {
+
+	@When("^User clicks on \"([^\"]*)\" present on Connect tab$")
+	public void user_clicks_on_present_on_Connect_page(String locator) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/connectWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^User enters \"([^\"]*)\" on create Queue pop up$")
+	public void user_enters(String locator) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/connectWebElement.properties",
+					locator.toLowerCase()));
+			type(getProperty(
+					"dashboardUIPropertiesFiles/connectWebElement.properties",
+					locator.toLowerCase()),
+					getProperty(
+							"dashboardUIPropertiesFiles/connectWebElement.properties",
+							locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^User clicks on \"([^\"]*)\" on create Queue pop up$")
+	public void user_clicks_on_on_Connect_Page(String locator) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/connectWebElement.properties",
+					locator.toLowerCase()));
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+}

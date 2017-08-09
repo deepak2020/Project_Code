@@ -1,0 +1,30 @@
+package day_1;
+
+public class First_Program {
+
+	public static void main(String[] args) {
+		
+		System.out.println("Hello! World");
+		
+		//Data Types
+		boolean a = false;
+		System.out.println(a);
+		byte b = 127;
+		System.out.println(b);
+		short c = 32767;
+		System.out.println(c);
+		int d = 1234567890;
+		System.out.println(d);
+		long e = 999999999999999l;
+		System.out.println(e);
+		char f = '%';
+		System.out.println(f);
+		float g = 55.387777777777777777777788888888f;
+		System.out.println(g);
+		double h = 55.387777777777777777777788888888d;
+		System.out.println(h);
+		
+		String s = "Deepak";
+	}
+
+}

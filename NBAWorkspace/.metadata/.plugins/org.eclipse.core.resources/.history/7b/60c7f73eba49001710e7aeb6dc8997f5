@@ -1,0 +1,13 @@
+package daytwo;
+
+public class Exception_Handling {
+
+	public static void main(String[] args) {
+		
+		int i = 10;
+		
+		int divide = i/0;
+
+	}
+
+}

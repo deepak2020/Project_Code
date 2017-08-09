@@ -1,0 +1,21 @@
+Feature: Theme Cloud tests for Advantage
+
+# Background:
+#   Given Browser Initialization
+
+@Advantage	
+Scenario: UNDER/OVER
+	Given User is on login page
+	And User login with "nba_user" and "nba_password"
+	And User switch to "Chipotle" client
+	When User clicks on "Advantage_Link"
+	And User clicks on "Location_Theme_Comparison_Table"
+	Then Slide theme cloud from "Under" to "Over".
+
+Scenario: I look for performance columns in Advantage/Categories
+	Given User is on login page
+	And User login with "nba_user" and "nba_password"
+	And User switch to "Chipotle" client
+	When User clicks on "Advantage_Link"
+	Then "Location_Relative_Performance_table" is present on Location page.
+	

@@ -1,0 +1,14 @@
+package Java_Day_1;
+
+public class Calculator1 extends Calculator{
+
+	public static void main(String[] args) {
+		Calculator1 obj = new Calculator1();
+		System.out.println(obj.calculation(10, "+", 100));
+		
+	
+		
+
+	}
+
+}

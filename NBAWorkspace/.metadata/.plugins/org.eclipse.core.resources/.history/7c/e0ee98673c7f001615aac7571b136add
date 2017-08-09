@@ -1,0 +1,48 @@
+@admintest
+Feature: Admin Scenarios
+
+  Scenario: Admin create new random user for a client
+    Given User is on login page
+    When User login to admin module with "nba_user" and "nba_password"
+    And Admin generate random user for client "Chipotle" with below details
+      | firstname         | lastname         | password | title | emailAddress | mobile_phone | active | is_launchpad_admin | is_engagement_admin | Is_single_sign_on_user_within_client | is_sentiment_admin |
+      | test first name_1 | test last name_1 | test@123 | Mr.   | random_email |  98282262725 | Yes    | Yes                | Yes                 | Yes                                  | Yes                |
+    Then Admin should see the newly created user "random_email"
+
+  Scenario: Admin create new user for a client
+    Given User is on login page
+    When User login to admin module with "nba_user" and "nba_password"
+    And Admin generate random user for client "Chipotle" with below details
+      | firstname         | lastname         | password | title | emailAddress      | mobile_phone | active | is_launchpad_admin | is_engagement_admin | Is_single_sign_on_user_within_client | is_sentiment_admin |
+      | test first name_1 | test last name_1 | test@123 | Mr.   | new_user@test.com |  98282262725 | Yes    | Yes                | Yes                 | Yes                                  | Yes                |
+    Then Admin should see the newly created user "new_user@test.com"
+
+  Scenario: Admin add permission to random user
+    Given User is on login page
+    When User login to admin module with "nba_user" and "nba_password"
+    And Admin generate random user for client "Chipotle" with below details
+      | firstname         | lastname         | password | title | emailAddress | mobile_phone | active | is_launchpad_admin | is_engagement_admin | Is_single_sign_on_user_within_client | is_sentiment_admin |
+      | test first name_1 | test last name_1 | test@123 | Mr.   | random_email |  98282262725 | Yes    | Yes                | Yes                 | Yes                                  | Yes                |
+    And Admin add below permission to "random_email"
+      | permission | resourceTtype | location              | withChildren |
+      | read       | org           | Hyatt Regency Houston | Yes          |
+    And Admin delete user "random_email"
+
+  Scenario: Admin add permission to random user
+    Given User is on login page
+    When User login to admin module with "nba_user" and "nba_password"
+    And Admin generate random user for client "Chipotle" with below details
+      | firstname         | lastname         | password | title | emailAddress            | mobile_phone | active | is_launchpad_admin | is_engagement_admin | Is_single_sign_on_user_within_client | is_sentiment_admin |
+      | test first name_1 | test last name_1 | test@123 | Mr.   | add_permission@test.com |  98282262725 | Yes    | Yes                | Yes                 | Yes                                  | Yes                |
+    And Admin add below permission to "add_permission@test.com"
+      | permission | resourceTtype | location              | withChildren |
+      | read       | org           | Hyatt Regency Houston | Yes          |
+    And Admin delete user "add_permission@test.com"
+
+  Scenario: Admin delete created user
+    Given User is on login page
+    When User login to admin module with "nba_user" and "nba_password"
+    And Admin generate random user for client "Chipotle" with below details
+      | firstname         | lastname         | password | title | emailAddress         | mobile_phone | active | is_launchpad_admin | is_engagement_admin | Is_single_sign_on_user_within_client | is_sentiment_admin |
+      | test first name_1 | test last name_1 | test@123 | Mr.   | delete_user@test.com |  98282262725 | Yes    | Yes                | Yes                 | Yes                                  | No                 |
+    And Admin delete user "delete_user@test.com"

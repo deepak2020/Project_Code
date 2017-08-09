@@ -1,0 +1,11 @@
+1471934119606	Extract method 'verifyDatabaseValue'
+1471934348136	Extract method 'getSentimentID'
+1471934554182	Extract method 'getPolaritySlider'
+1471934843530	Extract method 'getSentimentID'
+1471934900129	Extract method 'movePolaritySlider'
+1471934998836	Extract method 'getPolarityList'
+1471944608175	Rename resource 'top_subject_by_category'
+1471949040676	Delete elements
+1471949056655	Delete elements
+1471949066357	Delete elements
+1472212097839	Copy folder

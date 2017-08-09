@@ -1,0 +1,2 @@
+Categories_link =.//*[@id='app-navigation']/ul/li[2]
+Advantage_link = id=app-navigation

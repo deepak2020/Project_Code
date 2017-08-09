@@ -1,0 +1,9 @@
+Feature: Advantage Categories Relative Performance Widget
+
+# Background:
+#   Given Browser Initialization
+
+Scenario: I look for performance columns in Advantage/Categories
+	Given User is on login page
+	When User login with "chipotle1_user" and "chipotle1_password"
+	Then URL should contain "dashboard/chipotle"

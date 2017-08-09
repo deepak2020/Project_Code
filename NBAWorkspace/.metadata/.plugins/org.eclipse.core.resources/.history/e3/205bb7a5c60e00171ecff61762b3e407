@@ -1,0 +1,11 @@
+
+public interface interface_Session {
+	
+	public void price();
+	public void modal();
+	public void color();
+	
+
+}
+
+

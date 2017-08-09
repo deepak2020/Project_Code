@@ -1,0 +1,19 @@
+package Calculator;
+
+public class Calculation  {
+
+	public static void main(String[] args) {
+		Calculator obj = new Calculator();
+		obj.sum(10, 30);
+		obj.subtract(10, 40);
+		obj.division(40, 10);
+		obj.multiply(10, 10);
+		
+		
+		
+		
+		
+
+	}
+
+}

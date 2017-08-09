@@ -1,0 +1,3 @@
+email=.//*[@id='identifierId']
+nextButton=.//*[text()='Next']
+password=.//*[@class='Xb9hP']

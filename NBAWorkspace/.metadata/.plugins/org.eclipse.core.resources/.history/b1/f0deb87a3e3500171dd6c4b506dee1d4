@@ -1,0 +1,16 @@
+package Java_Day_4;
+
+public class Polymorphism {
+
+	public static void main(String[] args) {
+		
+
+	}
+	
+	
+	//Method overloading
+	public void sum(int a, int b){
+		System.out.println(a+b);
+	}
+
+}

@@ -1,0 +1,28 @@
+package testPackage;
+
+public class AccessModifier {
+	
+	static int a;
+
+	public static void main(String[] args) {
+		//Public
+		//Private//
+		//Default
+		//protected
+		
+//		AccessModifier obj = new AccessModifier();
+//		obj.sum();
+		staticSum();
+		a = 10;
+
+	}
+	
+	protected void sum (){
+		System.out.println("I am private method");
+	}
+	
+	static void staticSum(){
+		System.out.println("I am static sum");
+	}
+
+}

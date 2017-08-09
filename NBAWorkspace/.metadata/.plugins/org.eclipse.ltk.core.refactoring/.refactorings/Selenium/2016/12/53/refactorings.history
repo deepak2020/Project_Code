@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;Check_Box&apos; to &apos;radio_button&apos;&#x0D;&#x0A;- Original project: &apos;Selenium&apos;&#x0D;&#x0A;- Original element: &apos;Check_Box&apos;&#x0D;&#x0A;- Renamed element: &apos;radio_button&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Check_Box&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{Check_Box.java[Check_Box" matchStrategy="1" name="radio_button" qualified="false" references="true" similarDeclarations="false" stamp="1482845594879" textual="false" version="1.0"/>
+</session>

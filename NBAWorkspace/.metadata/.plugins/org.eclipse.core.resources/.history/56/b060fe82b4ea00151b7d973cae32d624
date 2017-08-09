@@ -1,0 +1,7 @@
+package com.Dashboard.StepDefinations;
+
+import com.Dashboard.global.PageFactory;
+
+public class AdvantageStepDefinition extends PageFactory {
+
+}

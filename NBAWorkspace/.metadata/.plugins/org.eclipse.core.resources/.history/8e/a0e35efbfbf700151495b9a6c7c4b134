@@ -1,0 +1,159 @@
+package com.Dashboard.StepDefinations;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.By.ById;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+import com.sun.jna.platform.unix.X11.Cursor;
+
+import cucumber.api.PendingException;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class AdvantageStepDefinition extends PageFactory {
+
+	@When("^User clicks on \"([^\"]*)\" on Advantage page$")
+	public void user_clicks_on_on_Advantage_page(String locator) throws Throwable {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception PendingException) {
+		}
+	}
+	
+	@Then("^\"([^\"]*)\" table heading should be present on Categories page$")
+	public void table_header_should_be_present(String table_name) throws Throwable {
+		try {
+			
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					"Relative_Performance"));
+			System.out.println("Text is"+ getText(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					"Relative_Performance")));
+			Assert.assertEquals(
+					getText(getProperty(
+							"dashboardUIPropertiesFiles/advantageWebElement.properties",
+							"Relative_Performance")), table_name);
+		} catch (Exception PendingException) {
+		}
+	}
+	
+
+	@Then("^\"([^\"]*)\" table is present on Categories page\\.$")
+	public void table_should_be_present(String table_name) throws Throwable {
+		try {
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					"Relative_Performance_Table"));
+	
+		} catch (Exception PendingException) {
+		}
+	}
+	
+	@When("^User clicks on \"([^\"]*)\" on Locations page$")
+	public void user_clicks_on_on_Locations_page(String locator) throws Throwable {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception PendingException) {
+		}
+	}
+	
+
+	
+	@Then("^\"([^\"]*)\" is \"([^\"]*)\"\\$")
+	public void hides(String locator, String state) throws Throwable {
+		try {
+			wait(3);
+	locator =getProperty("dashboardUIPropertiesFiles/advantageWebElement.properties", "chart_trend_lines");		
+	String Value = getDriver().findElement( By.className(locator)).getAttribute("visibility");
+		
+	Assert.assertEquals(Value,state);		
+	    		  
+	}catch (Exception PendingException){
+	}
+	}
+	
+
+	@Then("^User verify \"([^\"]*)\" and \"([^\"]*)\" of \"([^\"]*)\"$")
+	public void user_moves_and_of(String left_slider, String right_slider, String locator) throws Throwable {
+		try {
+	    
+			WebElement element = getDriver().findElement(By.tagName("svg"));
+			List<WebElement> g=element.findElements(By.tagName("g"));
+			Iterator<WebElement> it= g.iterator();
+			boolean found = false;
+			int count=0;
+			while(it.hasNext()){
+				WebElement elem=it.next();
+				String str=elem.getAttribute("style").trim();
+				if(str.equals("cursor: e-resize;")){
+					found= true;
+					count++;
+				}
+			}
+			Assert.assertTrue(found && count==2, "element not found failed..");
+		}catch (Exception PendingException){
+	}
+	}
+	
+	@Then("^User select \"([^\"]*)\"  in Categories facet and \"([^\"]*)\"$")
+	public void user_select_in_Categories_facet_and(String locator1, String locator2) throws Throwable {
+		try {
+	    // Write code here that turns the phrase above into concrete actions
+		click(getProperty("dashboardUIPropertiesFiles/advantageWebElement.properties", locator1.toLowerCase()));
+		click(getProperty("dashboardUIPropertiesFiles/advantageWebElement.properties", locator2.toLowerCase()));
+		} catch (Exception PendingException){		
+	}
+}
+	
+	@Then("^User select \"([^\"]*)\"  in Source facet and \"([^\"]*)\"$")
+	public void user_select_in_Source_facet_and(String locator1, String locator2) throws Throwable {
+		try {
+	    // Write code here that turns the phrase above into concrete actions
+		click(getProperty("dashboardUIPropertiesFiles/advantageWebElement.properties", locator1.toLowerCase()));
+		click(getProperty("dashboardUIPropertiesFiles/advantageWebElement.properties", locator2.toLowerCase()));
+		} catch (Exception PendingException){		
+	}
+}
+	
+	@Then("^\"([^\"]*)\" is present on Location page\\.$")
+	public void table_should_be_present_location(String locator) throws Throwable {
+		try {
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/advantageWebElement.properties",
+					locator.toLowerCase()));
+	
+		} catch (Exception PendingException) {
+		}
+	}
+	
+	@Then("^Slide theme cloud from \"([^\"]*)\" to \"([^\"]*)\"\\.$")
+	public void slide_theme_cloud_from_to(String Under, String over) throws Throwable {
+		try {
+			
+			WebElement slider = waitForElement(".//*[@class='ui-slider-handle ui-state-default ui-corner-all']");
+			WebElement Over =waitForElement(".//*[@class='slider-advice-subtle' and @title = 'Over Perform']");
+			String beforepageUrl = getPageUrl();
+			dragAndDropElement(slider.toString(), Over.toString());
+			String afterpageUrl = getPageUrl();
+			Assert.assertEquals(beforepageUrl, afterpageUrl);
+		} catch (Exception PendingException) {
+		}
+	}
+}
+

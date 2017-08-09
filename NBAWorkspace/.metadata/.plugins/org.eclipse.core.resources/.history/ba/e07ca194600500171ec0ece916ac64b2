@@ -1,0 +1,17 @@
+public class Iterattion {
+	
+	static int a;
+	public static void main(String arg[]){
+		System.out.println(a);
+		Iterattion obj1 = new Iterattion();
+		obj1.print();
+	}
+	
+	public void print(){
+		System.out.println(a);
+	}
+
+	public static void staticPrint(){
+		System.out.println(a);
+	}
+}

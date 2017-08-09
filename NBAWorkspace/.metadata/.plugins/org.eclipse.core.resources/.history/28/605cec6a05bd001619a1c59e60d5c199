@@ -1,0 +1,393 @@
+package com.Dashboard.StepDefinations;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
+import org.apache.commons.lang.RandomStringUtils;
+import org.jsoup.safety.Cleaner;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+import com.Dashboard.properties.AdminWebElement;
+import com.Dashboard.properties.CommonWebElement;
+import com.Dashboard.properties.LaunchpadWebElement;
+import com.Dashboard.properties.LoginWebElement;
+import com.Dashboard.properties.PreferenceWEbElement;
+
+import cucumber.api.DataTable;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class AdminStepDefinition extends PageFactory {
+
+	public static String recentUserFname = "Recent";
+	public static String recentUserLname = " User";
+	public static String recentUserEmail = "recentUser@mail.com";
+	public static String recentUserPassword = "password";
+	String randomEmail;
+	String title;
+
+	@When("^User login to admin module with \"(.*)\" and \"(.*)\"$")
+	public void user_admin_login_with_someUser(final String user,
+			final String password) {
+		AdminModuleLoginPage().loginAdmin(user, password);
+	}
+
+	@When("^User switch to \"([^\"]*)\" client in admin 3.0$")
+	public void user_switch_to_client_in_admin_3(final String client)
+			throws Throwable {
+		try {
+			wait(3);
+			click(CommonWebElement.admin_user_action_dropdown.getProperty());
+			typeAndEnter(CommonWebElement.admin_section_search.getProperty(),
+					client);
+			waitForElement(AdminWebElement.admin_email_search_box.getProperty());
+
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@When("^User search for \"([^\"]*)\"$")
+	public void user_search_for(final String user) throws Throwable {
+		try {
+			clickAndWait(AdminWebElement.admin_email_search_box.getProperty());
+			typeAndEnter(AdminWebElement.admin_email_search_box.getProperty(),
+					user);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("^User \"([^\"]*)\" should be marked as Engagement Admin$")
+	public void user_marked_as_Engagement_Admin(final String user)
+			throws Throwable {
+		try {
+			clickAndWait(".//*[text()='" + user + "']");
+
+			WebElement element = getDriver().findElement(
+					By.xpath(".//*[text()='" + user + "']"));
+			Actions action = new Actions(getDriver());
+			action.doubleClick(element).build().perform();
+			waitForElement(AdminWebElement.engage_admin_check.getProperty());
+			click(AdminWebElement.engage_admin_check.getProperty());
+			click(AdminWebElement.admin_submit_button.getProperty());
+
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@When("^User logout from admin$")
+	public void user_logout_admin() {
+		AdminModuleLoginPage().logoutAdmin();
+	}
+
+	@Before("@TopSubjectWidgetWithRecentUserWithoutPermission")
+	public void createUserWithoutPermissionOntopSubjectWidget() {
+		try {
+			String browser = getConfigProperties().getProperty("browser");
+			String platform = getConfigProperties().getProperty("platform");
+			String hub_URL = "";
+			if (getConfigProperties().getProperty("hub_url").contains(
+					"nonSouce"))
+				hub_URL = getConfigProperties().getProperty(
+						"hub_url_nonSauceLab");
+			else {
+				hub_URL = getConfigProperties().getProperty("hub_url_SauceLab");
+			}
+			initializeBrowser(browser, "", platform, hub_URL);
+
+			AdminModuleLoginPage().loginAdmin("nba_user", "nba_password");
+			pause(10);
+			click(AdminWebElement.clinet_dropdown.getProperty());
+			typeAndEnter(AdminWebElement.client_search.getProperty(), "Hyatt");
+			waitForElement(AdminWebElement.admin_email_search_box.getProperty());
+
+			// check if Recent User is already there
+			try {
+				clickAndWait(AdminWebElement.admin_email_search_box
+						.getProperty());
+				typeAndEnter(
+						AdminWebElement.admin_email_search_box.getProperty(),
+						recentUserEmail);
+				if (getDriver().findElement(
+						By.xpath(".//*[@title='" + recentUserEmail + "']"))
+						.isDisplayed()) {
+					click(".//*[@title='" + recentUserEmail + "']");
+					click(LaunchpadWebElement.admin_delete_icon.getProperty());
+					click(LaunchpadWebElement.admin_delete_popup.getProperty());
+				}
+			} catch (Exception e) {
+				log("Checking if user is already present: False");
+			}
+			// checking done, it was deleted if present
+
+			click(AdminWebElement.create_user_plus_icon.getProperty());
+			typeAndEnter(AdminWebElement.first_name_textbox.getProperty(),
+					recentUserFname);
+			typeAndEnter(AdminWebElement.last_name_textbox.getProperty(),
+					recentUserLname);
+			typeAndEnter(AdminWebElement.password_textbox.getProperty(),
+					recentUserPassword);
+			typeAndEnter(AdminWebElement.email_textbox.getProperty(),
+					recentUserEmail);
+			click(AdminWebElement.active_checkbox.getProperty());
+
+			click(AdminWebElement.user_creation_submit_button.getProperty());
+			waitForElement(AdminWebElement.user_grant_permissions_plus_icon
+					.getProperty());
+			if (getDriver().findElement(
+					By.xpath(LaunchpadWebElement.is_sso_user.getProperty()))
+					.isSelected()) {
+				System.out
+						.println("************is_sso_user: Selected *******************");
+				click(LaunchpadWebElement.is_sso_user.getProperty());
+				pause(3);
+			}
+			click(AdminWebElement.user_creation_submit_button.getProperty());
+			pause(3);
+			getDriver().close();
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
+	}
+
+	@When("^Recent user is deleted$")
+	public void recent_user_is_deleted() {
+		try {
+			pause(3);
+			getDriver().manage().deleteAllCookies();
+			AdminModuleLoginPage().loginAdmin("nba_user", "nba_password");
+			pause(10);
+			click(AdminWebElement.clinet_dropdown.getProperty());
+			typeAndEnter(AdminWebElement.client_search.getProperty(), "Hyatt");
+			waitForElement(AdminWebElement.admin_email_search_box.getProperty());
+
+			clickAndWait(AdminWebElement.admin_email_search_box.getProperty());
+			typeAndEnter(AdminWebElement.admin_email_search_box.getProperty(),
+					recentUserEmail);
+			click(".//*[@title='" + recentUserEmail + "']");
+			click(LaunchpadWebElement.admin_delete_icon.getProperty());
+			click(LaunchpadWebElement.admin_delete_popup.getProperty());
+		} catch (Exception e) {
+			log("Problem occurred while deleting recent user or user is not present to delete");
+		}
+	}
+
+	@Before("@TopSubjectWidgetWithRecentUserWithPermission")
+	public void createUserWithPermissionOntopSubjectWidget() {
+		try {
+			String browser = getConfigProperties().getProperty("browser");
+			String platform = getConfigProperties().getProperty("platform");
+			String hub_URL = "";
+			if (getConfigProperties().getProperty("hub_url").contains(
+					"nonSouce"))
+				hub_URL = getConfigProperties().getProperty(
+						"hub_url_nonSauceLab");
+			else {
+				hub_URL = getConfigProperties().getProperty("hub_url_SauceLab");
+			}
+			initializeBrowser(browser, "", platform, hub_URL);
+
+			AdminModuleLoginPage().loginAdmin("nba_user", "nba_password");
+			pause(10);
+			click(AdminWebElement.clinet_dropdown.getProperty());
+			typeAndEnter(AdminWebElement.client_search.getProperty(), "Hyatt");
+			waitForElement(AdminWebElement.admin_email_search_box.getProperty());
+			// check if Recent User is already there
+			try {
+				clickAndWait(AdminWebElement.admin_email_search_box
+						.getProperty());
+				typeAndEnter(
+						AdminWebElement.admin_email_search_box.getProperty(),
+						recentUserEmail);
+				if (getDriver().findElement(
+						By.xpath(".//*[@title='" + recentUserEmail + "']"))
+						.isDisplayed()) {
+					click(".//*[@title='" + recentUserEmail + "']");
+					click(LaunchpadWebElement.admin_delete_icon.getProperty());
+					click(LaunchpadWebElement.admin_delete_popup.getProperty());
+				}
+			} catch (Exception e) {
+				log("Checking if user is already present: False");
+			}
+			// checking done, it was deleted if present
+			click(AdminWebElement.create_user_plus_icon.getProperty());
+			typeAndEnter(AdminWebElement.first_name_textbox.getProperty(),
+					recentUserFname);
+			typeAndEnter(AdminWebElement.last_name_textbox.getProperty(),
+					recentUserLname);
+			typeAndEnter(AdminWebElement.password_textbox.getProperty(),
+					recentUserPassword);
+			typeAndEnter(AdminWebElement.email_textbox.getProperty(),
+					recentUserEmail);
+			click(AdminWebElement.active_checkbox.getProperty());
+
+			click(AdminWebElement.user_creation_submit_button.getProperty());
+			pause(3);
+			// Assigning a required role
+			click(AdminWebElement.user_grant_permissions_plus_icon
+					.getProperty());
+			select(AdminWebElement.resource_type_dropdown.getProperty(), "Page");
+			click(AdminWebElement.none_resource.getProperty());
+			click(AdminWebElement.insight_resource.getProperty());
+			click(AdminWebElement.user_grant_permissions_save_button
+					.getProperty());
+			// Assigning another required role
+			click(AdminWebElement.user_grant_permissions_plus_icon
+					.getProperty());
+			select(AdminWebElement.resource_type_dropdown.getProperty(),
+					"Source");
+			click(AdminWebElement.none_resource.getProperty());
+			click(AdminWebElement.external_resource.getProperty());
+			click(AdminWebElement.user_grant_permissions_save_button
+					.getProperty());
+			// Assigning another required role
+			click(AdminWebElement.user_grant_permissions_plus_icon
+					.getProperty());
+			click(AdminWebElement.none_resource.getProperty());
+			click(AdminWebElement.hyatt_resource.getProperty());
+			click(AdminWebElement.user_grant_permissions_save_button
+					.getProperty());
+			if (getDriver().findElement(
+					By.xpath(LaunchpadWebElement.is_sso_user.getProperty()))
+					.isSelected()) {
+				click(LaunchpadWebElement.is_sso_user.getProperty());
+				pause(3);
+			}
+
+			click(AdminWebElement.user_creation_submit_button.getProperty());
+			pause(3);
+			getDriver().close();
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
+	}
+
+	@Then("^Admin should see the newly created user \"([^\"]*)\"$")
+	public void admin_verify_user_creation(final String emailaddress) {
+		if (emailaddress.equalsIgnoreCase("random_email")) {
+			AdminModuleLoginPage().adminVerifyUserCreations(randomEmail);
+		} else
+			AdminModuleLoginPage().adminVerifyUserCreations(emailaddress);
+	}
+
+	@When("^Admin generate random user for client \"([^\"]*)\" with below details$")
+	public void admin_generate_random_user_with_below_details(
+			final String client, DataTable data) {
+		randomEmail = generateEmail(20);
+		AdminModuleLoginPage().createUser(client, data, randomEmail);
+	}
+
+	@When("^Admin add below permission to \"([^\"]*)\"$")
+	public void admin_add_permission(final String emailAddress, DataTable data) {
+		if (emailAddress.equalsIgnoreCase("random_email")) {
+			AdminModuleLoginPage().userPermission(randomEmail, data);
+		} else
+			AdminModuleLoginPage().userPermission(emailAddress, data);
+	}
+
+	@When("^Admin delete user \"([^\"]*)\"$")
+	public void admin_delete_user(final String emailAddress) {
+		if (emailAddress.equalsIgnoreCase("random_email")) {
+			AdminModuleLoginPage().admin_delete_user(randomEmail);
+		} else
+			AdminModuleLoginPage().admin_delete_user(emailAddress);
+	}
+
+	@When("^User login to Dasboard with email \"([^\"]*)\" and password \"([^\"]*)\"$")
+	public void user_login_with_new_user(final String emailAddress,
+			final String password) {
+		try {
+			if (emailAddress.equalsIgnoreCase("random_email")) {
+				AdminModuleLoginPage().adminCreatedUserlogin(randomEmail,
+						password);
+			} else
+				AdminModuleLoginPage().adminCreatedUserlogin(emailAddress,
+						password);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+
+		}
+
+	}
+
+	@When("^User \"(.*)\" is assigned \"(.*)\"$")
+	public void user_Assigned_role(final String emailAddress, final String Role) {
+		try {
+			if (emailAddress.equalsIgnoreCase("random_email")) {
+				AdminModuleLoginPage().adminAssignRole(randomEmail, Role);
+			} else
+				AdminModuleLoginPage().adminAssignRole(emailAddress, Role);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Given("^User clicks on \"([^\"]*)\" present on Admin 3.0$")
+	public void user_clicks_on_insight_tab(String locator) {
+		try {
+			waitForElement(AdminWebElement.getProperty(locator.toLowerCase()),
+					15);
+			click(AdminWebElement.getProperty(locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@When("^User creates source on Admin 3.0$")
+	public void user_enters_tile() {
+
+		try {
+			waitForElement(AdminWebElement.source_tile.getProperty());
+			String allowedChars = "abcdefghijklmnopqrstuvwxyz" + // alphabets
+					"1234567890";
+			String temp = RandomStringUtils.random(10, allowedChars);
+			title = temp.substring(0, temp.length() - 9) + "_automation";
+			typeAndEnter(AdminWebElement.source_tile.getProperty(), title);
+			click(AdminWebElement.add_button.getProperty());
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+
+		}
+	}
+	
+	@When("User verify created source on Admin 3.0$")
+	public void user_verify_source(){
+		try {
+			waitForElement("//*[text()='Internal']");
+			click("//span[@title='Internal']/preceding::span[1]");	
+			click("//*[text()='Internal']");
+			waitForElement("//*[@class='selected']");
+			WebElement element = getDriver().findElement(By.xpath("//*[@class='selected']"));
+			List<WebElement> source = element.findElements(By.tagName("li"));
+			Iterator<WebElement> it = source.iterator();
+			while (it.hasNext()){
+				WebElement sourceOption = (WebElement) it.next();
+				String option = sourceOption.getText();
+//				if(option.equalsIgnoreCase(title)) {
+//					sourceOption.click();
+//				} else 
+//				{
+					Assert.assertEquals(option, "test");
+//				}
+			}
+			
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+
+		}
+		
+	}
+
+}

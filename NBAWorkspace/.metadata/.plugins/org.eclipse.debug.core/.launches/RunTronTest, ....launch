@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.testng.eclipse.launchconfig">
+<stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.testng.remote.RemoteTestNG"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="dashboard-UI"/>
+<stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
+<mapAttribute key="org.testng.eclipse.ALL_CLASS_METHODS"/>
+<listAttribute key="org.testng.eclipse.CLASS_TEST_LIST">
+<listEntry value="com.Dashboard.properties.LoginWebElement"/>
+<listEntry value="com.Dashboard.StepDefinations.PreferencesAndOtherTabsStepDefinition"/>
+<listEntry value="com.Dashboard.properties.EndToEndWebElement"/>
+<listEntry value="com.Dashboard.properties.AdvantageWebElement"/>
+<listEntry value="com.Dashboard.StepDefinations.ConnectStepDefinition"/>
+<listEntry value="com.Dashboard.StepDefinations.LoginStepDefinition"/>
+<listEntry value="com.Dashboard.global.GlobalCommonMethods"/>
+<listEntry value="com.Dashboard.global.PageFactory"/>
+<listEntry value="com.Dashboard.pages.AlertPage"/>
+<listEntry value="com.Dashboard.StepDefinations.AlertStepDefinition"/>
+<listEntry value="com.Dashboard.properties.PreferenceWEbElement"/>
+<listEntry value="com.Dashboard.pages.CommonPage"/>
+<listEntry value="com.Dashboard.pages.PreferencesAndOtherTabsPage"/>
+<listEntry value="com.Dashboard.StepDefinations.CommonStepdefinition"/>
+<listEntry value="com.Dashboard.properties.ConnectWebElement"/>
+<listEntry value="com.Dashboard.pages.AdminModuleLoginPage"/>
+<listEntry value="com.Dashboard.properties.LaunchpadWebElement"/>
+<listEntry value="com.Dashboard.StepDefinations.NLPStepDefinition"/>
+<listEntry value="com.Dashboard.properties.CommonWebElement"/>
+<listEntry value="com.Dashboard.StepDefinations.LaunchpadStepDefinition"/>
+<listEntry value="com.Dashboard.pages.ConnectPage"/>
+<listEntry value="com.Dashboard.properties.AdminWebElement"/>
+<listEntry value="com.Dashboard.StepDefinations.ApiStepDefinition"/>
+<listEntry value="com.Dashboard.StepDefinations.AdvantageStepDefinition"/>
+<listEntry value="com.Dashboard.StepDefinations.EndToEndStepDefinition"/>
+<listEntry value="com.Dashboard.pages.AdvantagePage"/>
+<listEntry value="com.Dashboard.pages.InsightPage"/>
+<listEntry value="com.Dashboard.pages.LoginPage"/>
+<listEntry value="com.Dashboard.StepDefinations.InsightStepDefinition"/>
+<listEntry value="com.Dashboard.pages.LaunchpadPage"/>
+<listEntry value="com.Dashboard.TestRunner.RunTronTest"/>
+<listEntry value="com.Dashboard.properties.InsightWebElement"/>
+<listEntry value="com.Dashboard.StepDefinations.AdminStepDefinition"/>
+</listAttribute>
+<listAttribute key="org.testng.eclipse.METHOD_TEST_LIST"/>
+<listAttribute key="org.testng.eclipse.PACKAGE_TEST_LIST"/>
+<mapAttribute key="org.testng.eclipse.PARAMETERS"/>
+<stringAttribute key="org.testng.eclipse.PRE_DEFINED_LISTENERS" value=""/>
+<intAttribute key="org.testng.eclipse.TYPE" value="1"/>
+</launchConfiguration>

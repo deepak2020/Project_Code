@@ -1,0 +1,19 @@
+package com.Dashboard.StepDefinations;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.Given;
+
+public class AdvantageStepDefinition extends PageFactory {
+	
+	@Given("^User is on login page$")
+	public void user_is_on_login_page() throws Throwable {
+		try {
+			initialize("firefox", "", "");
+			wait(5);
+		} catch (Exception PendingException) {
+		}
+
+	}
+
+}

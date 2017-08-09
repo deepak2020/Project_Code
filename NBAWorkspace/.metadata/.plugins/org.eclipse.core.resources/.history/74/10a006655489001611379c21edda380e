@@ -1,0 +1,438 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.nba.dashboard</groupId>
+	<artifactId>dashboard-UI</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<cucumber.tags>${tags}</cucumber.tags>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.temyers</groupId>
+				<artifactId>cucumber-jvm-parallel-plugin</artifactId>
+				<version>1.3.0</version>
+				<executions>
+					<execution>
+						<id>generateRunners</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>generateRunners</goal>
+						</goals>
+						<configuration>
+							<source>1.7</source>
+							<glue>com.Dashboard.StepDefinations</glue>
+							<outputDirectory>src/test/java/com/Dashboard/TestRunner</outputDirectory>
+							<featuresDirectory>src/test/resources/features/</featuresDirectory>
+							<cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
+							<format>html,json</format>
+							<strict>true</strict>
+							<monochrome>false</monochrome>
+							<tags>"${tags}"</tags>
+							<useTestNG>true</useTestNG>
+							<namingScheme>pattern</namingScheme>
+							<namingPattern>Parallel{c}TRON</namingPattern>
+							<filterFeaturesByTags>true</filterFeaturesByTags>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>src/test/java/com/Dashboard/TestRunner</directory>
+							<includes>
+								<include>**/*TRON.java</include>
+							</includes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.19.1</version>
+					<configuration>
+						<suiteXmlFiles>
+							<file>testNG.xml</file>
+						</suiteXmlFiles>
+
+						<!-- <configuration> <parallel>classes</parallel> <threadCount>5</threadCount> 
+							<reuseForks>true</reuseForks> <includes> <include>**/*TRON.class</include> 
+							</includes> </configuration> -->
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+	</build>
+
+	<profiles>
+
+		<profile>
+			<id>qa-firefox-windows</id>
+			<properties>
+				<run.browser>firefox</run.browser>
+				<run.platform>windows</run.platform>
+				<run.url>http://qa-dash.nba.internal/dashboard/hyatt</run.url>
+				<run.admin_url>http://qa-dash.nba.internal/admin</run.admin_url>
+				<db.host>qa-db.nba.internal</db.host>
+				<db.user>root</db.user>
+				<db.pass>root</db.pass>
+				<run.hub_url>nonSouce</run.hub_url>
+				<app.domain>http://qa-dash.nba.internal/</app.domain>
+				<app.nlpDomain>http://qa-nlp.nba.internal/</app.nlpDomain>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>perf-firefox-windows</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<run.browser>firefox</run.browser>
+				<run.platform>windows</run.platform>
+				<run.url>https://perf-app.newbrandanalytics.com/dashboard/hyatt</run.url>
+				<run.admin_url>https://perf-app.newbrandanalytics.com/admin</run.admin_url>
+				<db.host>db1</db.host>
+				<db.user>pneema</db.user>
+				<db.pass>Aw33uBlyn57</db.pass>
+				<run.hub_url>nonSouce</run.hub_url>
+				<app.domain>https://perf-app.newbrandanalytics.com/</app.domain>
+				<app.nlpDomain>http://nlp1/</app.nlpDomain>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>perf-firefox-mac</id>
+			<properties>
+				<run.browser>firefox</run.browser>
+				<run.platform>mac</run.platform>
+				<run.url>https://perf-app.newbrandanalytics.com/dashboard/hyatt</run.url>
+				<run.admin_url>https://perf-app.newbrandanalytics.com/admin</run.admin_url>
+				<db.host>db1</db.host>
+				<db.user>pneema</db.user>
+				<db.pass>Aw33uBlyn57</db.pass>
+				<run.hub_url>nonSouce</run.hub_url>
+				<app.domain>https://perf-app.newbrandanalytics.com/</app.domain>
+<<<<<<< HEAD
+				<app.nlpDomain>http://nlp1/</app.nlpDomain>
+=======
+				<app.nlpDomain>http://nlp1.nba.internal/</app.nlpDomain>
+>>>>>>> 43dd1e07fe89242b456e7cc2ea929723d3049d38
+			</properties>
+
+		</profile>
+		<profile>
+			<id>perf-chrome-windows</id>
+			<properties>
+				<run.browser>chrome</run.browser>
+				<run.platform>windows</run.platform>
+				<run.url>https://perf-app.newbrandanalytics.com/dashboard/hyatt</run.url>
+				<run.admin_url>https://perf-app.newbrandanalytics.com/admin</run.admin_url>
+				<db.host>db1</db.host>
+				<db.user>pneema</db.user>
+				<db.pass>Aw33uBlyn57</db.pass>
+				<run.hub_url>nonSouce</run.hub_url>
+				<app.domain>https://perf-app.newbrandanalytics.com/</app.domain>
+				<app.nlpDomain>http://nlp1.nba.internal/</app.nlpDomain>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>perf-chrome-mac</id>
+			<properties>
+				<run.browser>chrome</run.browser>
+				<run.platform>mac</run.platform>
+				<run.url>https://perf-app.newbrandanalytics.com/dashboard/hyatt</run.url>
+				<run.admin_url>https://perf-app.newbrandanalytics.com/admin</run.admin_url>
+<<<<<<< HEAD
+				<db.host>db1</db.host>
+=======
+				<db.host>db3</db.host>
+>>>>>>> 43dd1e07fe89242b456e7cc2ea929723d3049d38
+				<db.user>pneema</db.user>
+				<db.pass>Aw33uBlyn57</db.pass>
+				<run.hub_url>nonSouce</run.hub_url>
+				<app.domain>https://perf-app.newbrandanalytics.com/</app.domain>
+<<<<<<< HEAD
+				<app.nlpDomain>http://nlp1/</app.nlpDomain>
+=======
+				<app.nlpDomain>http://nlp1.nba.internal/</app.nlpDomain>
+>>>>>>> 43dd1e07fe89242b456e7cc2ea929723d3049d38
+			</properties>
+		</profile>
+
+		<profile>
+			<id>perf-firefox-mac-Sauce</id>
+			<properties>
+				<run.browser>firefox</run.browser>
+				<run.platform>mac</run.platform>
+				<run.url>https://perf-app.newbrandanalytics.com/dashboard/hyatt</run.url>
+				<run.admin_url>https://perf-app.newbrandanalytics.com/admin</run.admin_url>
+<<<<<<< HEAD
+				<db.host>db1</db.host>
+=======
+				<db.host>db3</db.host>
+>>>>>>> 43dd1e07fe89242b456e7cc2ea929723d3049d38
+				<db.user>pneema</db.user>
+				<db.pass>Aw33uBlyn57</db.pass>
+				<run.hub_url>Souce</run.hub_url>
+				<app.domain>https://perf-app.newbrandanalytics.com/</app.domain>
+<<<<<<< HEAD
+				<app.nlpDomain>http://nlp1/</app.nlpDomain>
+=======
+				<app.nlpDomain>http://nlp1.nba.internal/</app.nlpDomain>
+>>>>>>> 43dd1e07fe89242b456e7cc2ea929723d3049d38
+			</properties>
+		</profile>
+
+		<profile>
+			<id>qa-firefox-mac-Sauce</id>
+			<properties>
+				<run.browser>firefox</run.browser>
+				<run.platform>windows</run.platform>
+				<run.url>http://qa-dash.nba.internal/dashboard/hyatt</run.url>
+				<run.admin_url>https://perf.newbrandanalytics.com/admin</run.admin_url>
+				<db.host>qa-db.nba.internal</db.host>
+				<db.user>root</db.user>
+				<db.pass>root</db.pass>
+				<run.hub_url>Souce</run.hub_url>
+				<app.domain>http://qa-dash.nba.internal/</app.domain>
+				<app.nlpDomain>http://qa-nlp.nba.internal/</app.nlpDomain>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>perf-chrome-mac-Sauce</id>
+			<properties>
+				<run.browser>chrome</run.browser>
+				<run.platform>mac</run.platform>
+				<run.url>https://perf-app.newbrandanalytics.com/dashboard/hyatt</run.url>
+				<run.admin_url>https://perf-app.newbrandanalytics.com/admin</run.admin_url>
+<<<<<<< HEAD
+				<db.host>db1</db.host>
+=======
+				<db.host>db3</db.host>
+>>>>>>> 43dd1e07fe89242b456e7cc2ea929723d3049d38
+				<db.user>pneema</db.user>
+				<db.pass>Aw33uBlyn57</db.pass>
+				<run.hub_url>Souce</run.hub_url>
+				<app.domain>https://perf-app.newbrandanalytics.com/</app.domain>
+				<app.nlpDomain>http://nlp1/</app.nlpDomain>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>perf-firefox-windows-Sauce</id>
+			<properties>
+				<run.browser>firefox</run.browser>
+				<run.platform>windows</run.platform>
+				<run.url>https://perf-app.newbrandanalytics.com/dashboard/hyatt</run.url>
+				<run.admin_url>https://perf-app.newbrandanalytics.com/admin</run.admin_url>
+				<db.host>db1</db.host>
+				<db.user>pneema</db.user>
+				<db.pass>Aw33uBlyn57</db.pass>
+				<run.hub_url>Souce</run.hub_url>
+				<app.domain>https://perf-app.newbrandanalytics.com/</app.domain>
+				<app.nlpDomain>http://nlp1/</app.nlpDomain>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>perf-chrome-windows-Sauce</id>
+			<properties>
+				<run.browser>chrome</run.browser>
+				<run.platform>windows</run.platform>
+				<run.url>https://perf-app.newbrandanalytics.com/dashboard/hyatt</run.url>
+				<run.admin_url>https://perf-app.newbrandanalytics.com/admin</run.admin_url>
+				<db.host>db1</db.host>
+				<db.user>pneema</db.user>
+				<db.pass>Aw33uBlyn57</db.pass>
+				<run.hub_url>Souce</run.hub_url>
+				<app.domain>https://perf-app.newbrandanalytics.com/</app.domain>
+				<app.nlpDomain>http://nlp1/</app.nlpDomain>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>perf-firefox-linux-Sauce</id>
+			<properties>
+				<run.browser>firefox</run.browser>
+				<run.platform>Linux</run.platform>
+				<run.url>https://perf-app.newbrandanalytics.com/dashboard/hyatt</run.url>
+				<run.admin_url>https://perf-app.newbrandanalytics.com/admin</run.admin_url>
+<<<<<<< HEAD
+				<db.host>db1</db.host>
+=======
+				<db.host>db3</db.host>
+>>>>>>> 43dd1e07fe89242b456e7cc2ea929723d3049d38
+				<db.user>pneema</db.user>
+				<db.pass>Aw33uBlyn57</db.pass>
+				<run.hub_url>Souce</run.hub_url>
+				<app.domain>https://perf-app.newbrandanalytics.com/</app.domain>
+				<app.nlpDomain>http://nlp1/</app.nlpDomain>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>perf-chrome-linux-Sauce</id>
+			<properties>
+				<run.browser>chrome</run.browser>
+				<run.platform>Linux</run.platform>
+				<run.url>https://perf.newbrandanalytics.com/dashboard/hyatt</run.url>
+				<run.admin_url>https://perf.newbrandanalytics.com/admin</run.admin_url>
+				<db.host>db1</db.host>
+				<db.user>pneema</db.user>
+				<db.pass>Aw33uBlyn57</db.pass>
+				<run.hub_url>Souce</run.hub_url>
+				<app.domain>https://perf.newbrandanalytics.com/</app.domain>
+				<app.nlpDomain>http://nlp1/</app.nlpDomain>
+			</properties>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<!-- <dependency> <groupId>org.testng</groupId> <artifactId>testng</artifactId> 
+			<version>6.8</version> <scope>test</scope> </dependency> -->
+		<dependency>
+			<groupId>SAF</groupId>
+			<artifactId>saf</artifactId>
+			<version>1.3</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/saf-1.3.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-testng</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>2.44.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.11-beta3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<!-- <dependency> <groupId>com.github.mkolisnyk</groupId> <artifactId>cucumber-reports</artifactId> 
+			<version>1.0.1</version> </dependency> -->
+		<dependency>
+			<groupId>net.masterthought</groupId>
+			<artifactId>cucumber-reporting</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.36</version>
+		</dependency>
+
+		<!-- REst Assured -->
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>spring-mock-mvc</artifactId>
+			<version>2.4.1</version>
+		</dependency>
+	</dependencies>
+</project>

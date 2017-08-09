@@ -1,0 +1,11 @@
+package com.Dashboard.StepDefinations;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.Given;
+
+public class AdvantageStepDefinition extends PageFactory {
+	
+	
+
+}

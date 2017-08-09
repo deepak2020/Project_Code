@@ -1,0 +1,29 @@
+package Java_Day_1;
+
+public class static_keyword_2 {
+	
+	String instanceVariable =;
+	static String staticVariable;
+	
+	
+	public static void main(String[] args) {
+		
+		static_keyword_2 obj1 = new static_keyword_2();
+		obj1.sum("I am obj1 instance varible", "I am obj1 static variable");
+		
+		static_keyword_2 obj2 = new static_keyword_2();
+		obj2.sum(instanceVariable, staticV);
+	}
+	
+	public void  sum(String instance, String staticV){
+		instanceVariable = instance;
+		staticVariable = staticV;
+		String localVariable= "I am local Variable";
+		System.out.println(instanceVariable);
+		System.out.println(staticVariable);
+		System.out.println(localVariable);
+		
+		
+	}
+
+}

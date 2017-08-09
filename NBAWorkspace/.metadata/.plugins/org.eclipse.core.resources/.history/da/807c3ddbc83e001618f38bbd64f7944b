@@ -1,0 +1,23 @@
+@end
+Feature: Alerts as normal user
+
+  Scenario: Create Role Based Alerts
+    Given User is on login page
+    When User login with "chipotle2_user" and "chipotle2_password"
+    And User clicks on "Insight_Tab"
+    And User clicks on "Reviews_Tab"
+    And User clicks on "Add_Alert"
+    And User fills in "Alert_Title" with "Test Alert" present on Alert popup
+    And User fills in "Alert_Description" with "Test Description" present on Alert popup
+    And User clicks on "Frequency_Daily" present on Alert popup
+    And User clicks on "Save_Alert" present on Alert popup
+    Then User verify alert "created" with "Test Alert" title on Alert popup
+    When User clicks on "Preferences_Command" present on Insight tab
+    And User clicks on "Alert_Tab" present on Preference tab
+    And User clicks on "Edit_Action" present on Preference tab
+    And User fills in "Alert_Title" with "Update Alert Title" present on Alert popup
+    And User fills in "Alert_Description" with "Update Test Description" present on Alert popup
+    And User clicks on "Frequency_Weekly" present on Alert popup
+    And User clicks on "Update_Alert" present on Alert popup
+    Then User verify alert "updated" with "Update Alert Title" title on Alert popup
+   

@@ -1,0 +1,316 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.nba.dashboard</groupId>
+  <artifactId>dashboard-UI</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <build>
+	    <plugins>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <version>3.3</version>
+	            <configuration>
+	                <source>1.7</source>
+	                <target>1.7</target>
+	            </configuration>
+	        </plugin>
+	    </plugins>
+	    
+	    <pluginManagement>
+    		<plugins>
+		      <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <version>2.16</version>
+		      </plugin>
+   	 		</plugins>
+  		</pluginManagement>
+  		
+  		<resources>
+     		 <resource>
+		        <directory>src/main/resources</directory>
+		        <filtering>true</filtering>
+     		 </resource>
+    	</resources>
+    
+	</build>
+	
+	<profiles>
+	    <profile>
+	      <id>qa-firefox-windows</id>
+	      <properties>
+	        <run.browser>firefox</run.browser>
+	        <run.platform>windows</run.platform>
+	        <run.url>http://qa-dash.nba.internal/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>qa-db.nba.internal</db.host>
+	        <db.user>root</db.user>
+	        <db.pass>root</db.pass>
+	        <run.hub_url>nonSouce</run.hub_url>
+	      </properties>
+	    </profile>
+	    
+	    <profile>
+	      <id>perf-firefox-windows</id>  
+	      <properties>
+	        <run.browser>firefox</run.browser>
+	        <run.platform>windows</run.platform>
+	        <run.url>https://perf.newbrandanalytics.com/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>db3</db.host>
+	        <db.user>pneema</db.user>
+	        <db.pass>Aw33uBlyn57</db.pass>
+	        <run.hub_url>nonSouce</run.hub_url>
+	      </properties>
+	    </profile>
+	    
+	    <profile>
+	      <id>perf-firefox-mac</id> 
+	      <properties>
+	        <run.browser>firefox</run.browser>
+	        <run.platform>mac</run.platform>
+	        <run.url>https://perf.newbrandanalytics.com/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>db3</db.host>
+	        <db.user>pneema</db.user>
+	        <db.pass>Aw33uBlyn57</db.pass>
+	        <run.hub_url>nonSouce</run.hub_url>
+	      </properties>
+	    </profile><profile>
+	      <id>perf-chrome-windows</id>
+	      <properties>
+	        <run.browser>chrome</run.browser>
+	        <run.platform>windows</run.platform>
+	        <run.url>https://perf.newbrandanalytics.com/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>db3</db.host>
+	        <db.user>pneema</db.user>
+	        <db.pass>Aw33uBlyn57</db.pass>
+	        <run.hub_url>nonSouce</run.hub_url>
+	      </properties>
+	    </profile>
+	    
+	    <profile>
+	      <id>perf-chrome-mac</id>	 
+	      <properties>
+	        <run.browser>chrome</run.browser>
+	        <run.platform>mac</run.platform>
+	        <run.url>https://perf.newbrandanalytics.com/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>db3</db.host>
+	        <db.user>pneema</db.user>
+	        <db.pass>Aw33uBlyn57</db.pass>
+	        <run.hub_url>nonSouce</run.hub_url>
+	      </properties>
+	    </profile>
+	    
+	    <profile>
+	      <id>perf-firefox-mac-Sauce</id>
+	      <properties>
+	        <run.browser>firefox</run.browser>
+	        <run.platform>mac</run.platform>
+	        <run.url>https://perf.newbrandanalytics.com/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>db3</db.host>
+	        <db.user>pneema</db.user>
+	        <db.pass>Aw33uBlyn57</db.pass>
+	        <run.hub_url>Souce</run.hub_url>
+	      </properties>
+	    </profile>
+	    
+	    <profile>
+	      <id>qa-firefox-mac-Sauce</id>
+	      <properties>
+	        <run.browser>firefox</run.browser>
+	        <run.platform>windows</run.platform>
+	        <run.url>http://qa-dash.nba.internal/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>qa-db.nba.internal</db.host>
+	        <db.user>root</db.user>
+	        <db.pass>root</db.pass>
+	        <run.hub_url>Souce</run.hub_url>
+	      </properties>
+	    </profile>
+	    
+	    <profile>
+	      <id>perf-chrome-mac-Sauce</id>
+	      <properties>
+	        <run.browser>chrome</run.browser>
+	        <run.platform>mac</run.platform>
+	        <run.url>https://perf.newbrandanalytics.com/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>db3</db.host>
+	        <db.user>pneema</db.user>
+	        <db.pass>Aw33uBlyn57</db.pass>
+	        <run.hub_url>Souce</run.hub_url>
+	      </properties>
+	    </profile>
+	    
+	    <profile>
+	      <id>perf-firefox-windows-Sauce</id>
+	      <properties>
+	        <run.browser>firefox</run.browser>
+	        <run.platform>windows</run.platform>
+	        <run.url>https://perf.newbrandanalytics.com/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>db3</db.host>
+	        <db.user>pneema</db.user>
+	        <db.pass>Aw33uBlyn57</db.pass>
+	        <run.hub_url>Souce</run.hub_url>
+	      </properties>
+	    </profile>
+	    
+	    <profile>
+	      <id>perf-chrome-windows-Sauce</id>
+	      <properties>
+	        <run.browser>chrome</run.browser>
+	        <run.platform>windows</run.platform>
+	        <run.url>https://perf.newbrandanalytics.com/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>db3</db.host>
+	        <db.user>pneema</db.user>
+	        <db.pass>Aw33uBlyn57</db.pass>
+	        <run.hub_url>Souce</run.hub_url>
+	      </properties>
+	    </profile>
+	    
+	    <profile>
+	      <id>perf-firefox-linux-Sauce</id>
+	      <properties>
+	        <run.browser>firefox</run.browser>
+	        <run.platform>Linux</run.platform>
+	        <run.url>https://perf.newbrandanalytics.com/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>db3</db.host>
+	        <db.user>pneema</db.user>
+	        <db.pass>Aw33uBlyn57</db.pass>
+	        <run.hub_url>Souce</run.hub_url>
+	      </properties>
+	    </profile>
+	    
+	    <profile>
+	      <id>perf-chrome-linux-Sauce</id>
+	      <properties>
+	        <run.browser>chrome</run.browser>
+	        <run.platform>Linux</run.platform>
+	        <run.url>https://perf.newbrandanalytics.com/dashboard/hyatt</run.url>
+	        <run.admin_url>perf.newbrandanalytics.com/admin</run.admin_url>
+	        <db.host>db3</db.host>
+	        <db.user>pneema</db.user>
+	        <db.pass>Aw33uBlyn57</db.pass>
+	        <run.hub_url>Souce</run.hub_url>
+	      </properties>
+	    </profile>
+  	</profiles>
+	
+  	<dependencies>
+	 <!--  
+	 	<dependency>
+			  <groupId>org.testng</groupId>
+			  <artifactId>testng</artifactId>
+			  <version>6.8</version>
+			  <scope>test</scope>
+		 </dependency>
+	 -->	
+		<dependency>
+		   <groupId>SAF</groupId>
+		   <artifactId>saf</artifactId>
+		   <version>1.3</version>
+		   <scope>system</scope>
+		   <systemPath>${basedir}/lib/saf-1.3.jar</systemPath>
+  		</dependency>
+  		
+  		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-testng</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>2.44.0</version>
+		</dependency>
+ 
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.9</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.11-beta3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+ 
+		<dependency>
+			<groupId>xerces</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<!-- 
+		<dependency>
+			 <groupId>com.github.mkolisnyk</groupId>
+			 <artifactId>cucumber-reports</artifactId>
+			 <version>1.0.1</version>
+		</dependency>
+		 -->
+		<dependency>
+			<groupId>net.masterthought</groupId>
+			<artifactId>cucumber-reporting</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.36</version>
+		</dependency>
+		
+	</dependencies>	
+  
+</project>

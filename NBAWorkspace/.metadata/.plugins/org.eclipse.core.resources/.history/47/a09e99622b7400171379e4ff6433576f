@@ -1,0 +1,62 @@
+package commonMethods;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class GlobalMethods {
+
+	public static WebDriver driver;
+	public static WebElement element;
+
+	public static void openBrowser(String browser) {
+
+		if (browser.equals("firefox")) {
+			driver = new FirefoxDriver();
+		} else if (browser.equals("chrome")) {
+			driver = new ChromeDriver();
+		}
+	}
+
+	public static Object getURL(Object object) {
+		driver.navigate().to(object);
+	}
+
+	public static WebElement getElement(Object object) {
+		element = driver.findElement(By.xpath((String) object));
+		return element;
+	}
+
+	public static void click() {
+		element.click();
+
+	}
+	
+	public static void enterValue(Object object) {
+		element.sendKeys((String)object);
+
+	}
+
+	public static Object getProperty(String FileName, String key) throws IOException {
+
+		File file = new File(
+				"C:\\Users\\deepak.kumar\\NBAWorkspace\\July_Framework\\"
+						+ FileName);
+
+		FileInputStream input = new FileInputStream(file);
+
+		Properties property = new Properties();
+		property.load(input);
+		Object value = property.get(key);
+		return value;
+
+	}
+
+}

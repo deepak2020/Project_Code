@@ -1,0 +1,17 @@
+package collections;
+
+import java.util.Hashtable;
+
+public class HashTable {
+
+	public static void main(String[] args) {
+		Hashtable<Integer, String> hm = new Hashtable<Integer, String>();
+		hm.put(100, "Gaurav");
+		hm.put(101, "Sayali");
+		hm.put(102, "Sayali");
+		
+		System.out.println(hm.get(100) + hm.containsValue("Sayali"));
+
+	}
+
+}

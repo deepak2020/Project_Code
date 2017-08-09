@@ -1,0 +1,11 @@
+package daytwo;
+
+public class Exception_Handling {
+
+	public static void main(String[] args) {
+		
+		int i = "String";
+
+	}
+
+}

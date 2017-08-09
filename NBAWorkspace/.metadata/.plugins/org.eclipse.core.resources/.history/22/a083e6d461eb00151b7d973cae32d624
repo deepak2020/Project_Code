@@ -1,0 +1,155 @@
+package com.Dashboard.StepDefinations;
+
+import org.testng.Assert;
+
+import com.Dashboard.global.GlobalCommonMethods;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class LoginStepDefinition extends GlobalCommonMethods {
+
+	@Given("^Browser Initialization$")
+	public void browser_Initialization() throws Throwable {
+		initialize("firefox", "", "");
+		wait(5);
+	}
+
+	@Given("^User is on login page$")
+	public void user_is_on_login_page() throws Throwable {
+		try {
+			initialize("firefox", "", "");
+			wait(5);
+		} catch (Exception PendingException) {
+		}
+
+	}
+
+	@When("^User gives credentials$")
+	public void user_gives_credentials() throws Throwable {
+		try {
+			type(getProperty("loginWebElement.properties",
+					"username_textbox"),
+					getProperty("baseData.properties", "nba_user"));
+			type(getProperty("loginWebElement.properties",
+					"password_textbox"),
+					getProperty("baseData.properties", "nbaPassword"));
+			click(getProperty("loginWebElement.properties",
+					"login_button"));
+			wait(5);
+		} catch (Exception PendingException) {
+		}
+	}
+
+	@Then("^User should get logged in to the application$")
+	public void user_should_get_logged_in_to_the_application() throws Throwable {
+		try {
+			waitForElement(
+					getProperty("loginWebElement.properties",
+							"user_data_container"), 5);
+		} catch (Exception PendingException) {
+		}
+	}
+
+	@When("^User login with \"(.*)\" and \"(.*)\"$")
+	public void user_login_with_someUser(String user, String password)
+			throws Throwable {
+		try {
+			
+			System.out.println("User: "+user);
+			System.out.println("locator: "+getProperty("loginWebElement.properties","username_textbox")+"\nValue: "+getProperty("baseData.properties", user));
+			
+			type(getProperty("loginWebElement.properties",
+					"username_textbox"),
+					getProperty("baseData.properties", user));
+			System.out.println("locator: "+getProperty("loginWebElement.properties",
+					"username_textbox")+"\nValue: "+getProperty("baseData.properties", user));
+			type(getProperty("loginWebElement.properties",
+					"password_textbox"),
+					getProperty("baseData.properties", password));
+			click(getProperty("loginWebElement.properties",
+					"login_button"));
+			waitForElement(getProperty("loginWebElement.properties",
+                    "title_prefix"), 20);
+		} catch (Exception PendingException) {
+		}
+	}
+
+	@Then("^URL should contain \"(.*)\"$")
+	public void URL_should_contain(String pieceOfURL) {
+		try {
+			waitForElement(
+					getProperty("loginWebElement.properties",
+							"user_data_container"), 5);
+			wait(10);
+			Assert.assertEquals(isURLContains(pieceOfURL), true,
+					"Current URL does not contain said piece, which is: "
+							+ pieceOfURL);
+		} catch (Exception PendingException) {
+		}
+	}
+
+	@Then("^User should see \"(.*)\" in login box$")
+	public void Then_User_should_see(String message) {
+		try {
+			waitForElement(getProperty("loginWebElement.properties",
+					"invalid_credential_message"));
+			Assert.assertEquals(
+					getText(getProperty("loginWebElement.properties",
+							"invalid_credential_message")), message);
+		} catch (Exception PendingException) {
+		}
+	}
+
+	@Given("^User clicks on Forgot Password button$")
+	public void user_clicks_on_Forgot_Password_button() throws Throwable {
+		try {
+			wait(3);
+			click(getProperty("loginWebElement.properties", "forgot_password_button"));
+		} catch (Exception PendingException) {
+		}
+	}
+
+	@When("^User fills in \"(.*)\" with \"(.*)\"$")
+	public void user_fills_in_with(String locator, String value)
+			throws Throwable {
+		try {
+			wait(3);
+			type(getProperty("loginWebElement.properties", locator.toLowerCase()),
+					getProperty("baseData.properties", value));
+		} catch (Exception PendingException) {
+		}
+	}
+
+	@When("^User clicks on Send Email button$")
+	public void user_clicks_on_Send_Email_button() throws Throwable {
+		try {
+			wait(3);
+			click(getProperty("loginWebElement.properties", "send_email_button"));
+		} catch (Exception PendingException) {
+		}
+	}
+
+	@Given("^User clicks on \"([^\"]*)\"$")
+	public void user_clicks_on(String locator) throws Throwable {
+		try {
+			wait(3);
+			System.out.println("User clicks on " + getProperty("loginWebElement.properties", locator.toLowerCase()));
+			click(getProperty("loginWebElement.properties", locator.toLowerCase()));
+		} catch (Exception PendingException) {
+		}
+	}
+
+	@Then("^\"([^\"]*)\" should be present$")
+	public void should_be_present(String locator) throws Throwable {
+		try {
+			wait(3);
+			System.out.println(locator.toLowerCase() + " should be present");
+			waitForElement(
+					getProperty("loginWebElement.properties", locator.toLowerCase()),
+					5);
+		} catch (Exception PendingException) {
+		}
+	}
+}

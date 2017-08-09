@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;Session_1.Keys&apos; to &apos;KeysAction&apos;&#x0D;&#x0A;- Original project: &apos;Selenium_Batch&apos;&#x0D;&#x0A;- Original element: &apos;Session_1.Keys&apos;&#x0D;&#x0A;- Renamed element: &apos;Session_1.KeysAction&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Keys&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;Session_1{Keys.java[Keys" matchStrategy="1" name="KeysAction" qualified="false" references="true" similarDeclarations="false" stamp="1491476042530" textual="false" version="1.0"/>
+</session>

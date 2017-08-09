@@ -1,0 +1,16 @@
+Feature: Tweet Reviews
+
+
+  Scenario: As normal user from the detailed review page
+    Given User is on login page
+    When User login with "chipotle5_user" and "chipotle5_password"
+    And User clicks on "Insight_Tab"
+    And User clicks on "Reviews_Tab"
+    And User select values "Google Places" in "source_dropdown" and apply
+    And User clicks on "Details_button" present on Review page
+    And User clicks on "Share_Twitter" present on Review page
+    And User switch window
+    And User fills in "Twitter_Email" with "selcywebdriver" present on Review page
+    And User fills in "Twitter_Password" with "selcywebdriver44" present on Review page
+    And User clicks on "Twitter_submit" present on Review page
+    Then User clicks on "Tweet_Share_Review" present on Review page

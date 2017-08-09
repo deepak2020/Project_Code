@@ -1,0 +1,32 @@
+package com.Dashboard.StepDefinations;
+
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class LaunchpadStepDefinition extends PageFactory{
+	
+	@When("^User generate random user for \"(.*)\"$")
+	public void should_be_present_and_it_should_be_clickable(String client)
+		throws Throwable {
+			try {
+				wait(3);
+				clickAndWait(
+						getProperty(
+								"dashboardUIPropertiesFiles/commonWebElement.properties",
+								"admin_user_action_dropdown"));
+				typeAndEnter(
+						getProperty(
+								"dashboardUIPropertiesFiles/commonWebElement.properties",
+								"admin_user_action_dropdown"), client);
+				//click(getProperty(key));
+	
+			} catch (Exception e) {
+				Assert.fail(e.getStackTrace().toString());
+			}
+	}
+		
+}

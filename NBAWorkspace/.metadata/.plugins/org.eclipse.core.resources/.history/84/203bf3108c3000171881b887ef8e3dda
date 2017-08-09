@@ -1,0 +1,16 @@
+package Java_Day_1;
+
+import java.util.Scanner;
+
+public class Calculator {
+
+	Scanner scan = new Scanner(System.in);
+	int number = scan.nextInt();
+	
+	
+	public static void main(String[] args) {
+		
+
+	}
+
+}

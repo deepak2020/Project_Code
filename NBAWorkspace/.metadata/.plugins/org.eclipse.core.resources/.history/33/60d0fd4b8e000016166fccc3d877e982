@@ -1,0 +1,18 @@
+Feature: Engagement Tests
+
+# Background:
+#   Given Browser Initialization
+
+Scenario: In Admin 3.0 click engageAdmin check box
+	Given User is on login page
+	And User clicks on "Forgot_Password_Button" present on login page
+	When User fills in "username_textbox" with "invalid_user" present on login page
+	And User clicks on "send_email_button" present on login page
+	Then User should see "There is no such user." in login box
+
+Scenario: Verify Forgot Password functionality - Cancel
+	Given User is on login page
+	And User clicks on "Forgot_Password_Button" present on login page
+	When User clicks on "Cancel_Button" present on login page
+	Then "forgot_password_button" should be present on login page
+	And "login_button" should be present on login page

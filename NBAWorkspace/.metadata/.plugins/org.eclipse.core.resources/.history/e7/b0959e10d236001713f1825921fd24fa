@@ -1,0 +1,12 @@
+package Java_Day_4;
+
+public abstract class Sesssion_Abstract {
+
+	public static void main(String[] args) {
+		
+
+	}
+	
+	public abstract void sum(int a, int b);
+
+}

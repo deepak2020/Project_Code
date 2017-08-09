@@ -1,0 +1,9 @@
+username_textbox=id=username
+password_textbox=id=password
+login_button=//*[@class='ui-dialog-buttonset']/*[2]
+user_data_container=//*[@id='user-data-container']
+invalid_credential_message=//*[@id='login']/div
+forgot_password_button=//*[@class='ui-dialog-buttonset']/*[1]
+send_email_button=//*[text()='Send Email']
+cancel_button=//*[text()='Cancel']
+advantage_link=id=app-navigation

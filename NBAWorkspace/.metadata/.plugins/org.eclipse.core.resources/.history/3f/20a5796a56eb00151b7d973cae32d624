@@ -1,0 +1,12 @@
+Feature: Advantage Categories Relative Performance Widget
+
+# Background:
+#   Given Browser Initialization
+@honda
+Scenario: I look for performance columns in Advantage/Categories
+	Given User is on login page
+	And User login with "nba_user" and "nba_password"
+	And URL should contain "dashboard/hyatt"
+	When User clicks on "Advantage_link"
+	And User clicks on "Categories_link"
+	Then "Relative_Performance_Table" should be present 

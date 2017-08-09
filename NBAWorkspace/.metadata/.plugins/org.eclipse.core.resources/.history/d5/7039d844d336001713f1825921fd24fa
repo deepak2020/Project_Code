@@ -1,0 +1,18 @@
+package Java_Day_4;
+
+public  class Sesssion_Abstract {
+
+	public static void main(String[] args) {
+		
+
+	}
+	
+	public  void sum(int a, int b){
+		
+	};
+	
+	public void subtract (int a, int b){
+		System.out.println(a-b);
+	}
+
+}

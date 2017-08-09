@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;Public_Access.java&apos; to &apos;Selenium_2/src/Package_1&apos;&#x0D;&#x0A;- Original project: &apos;Selenium_2&apos;&#x0D;&#x0A;- Destination element: &apos;Selenium_2/src/Package_1&apos;&#x0D;&#x0A;- Original element: &apos;Public_Access.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;Package_1" element1="/src&lt;{Public_Access.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1484627417686" units="1" version="1.0"/>
+</session>

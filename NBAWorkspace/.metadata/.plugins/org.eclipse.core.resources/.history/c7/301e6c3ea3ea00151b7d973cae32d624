@@ -1,0 +1,6 @@
+Feature: Advantage Categories Relative Performance Widget
+
+# Background:
+#   Given Browser Initialization
+
+Scenario: I look for performance columns in Advantage/Categories

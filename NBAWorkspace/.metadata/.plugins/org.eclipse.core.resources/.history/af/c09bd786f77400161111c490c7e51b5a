@@ -1,0 +1,430 @@
+package com.Dashboard.StepDefinations;
+
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.math.RandomUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+import com.Dashboard.properties.AdminWebElement;
+import com.Dashboard.properties.CommonWebElement;
+import com.Dashboard.properties.InsightWebElement;
+import com.Dashboard.properties.LaunchpadWebElement;
+import com.Dashboard.properties.LoginWebElement;
+
+import cucumber.api.DataTable;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class LaunchpadStepDefinition extends PageFactory {
+
+	String password = "test@123";
+	String emailaddress;
+	String name;
+	int sentimentID;
+	WebElement slider;
+
+	@When("^User generate random user for \"(.*)\"$")
+	public void generate_random_user(String client) {
+		try {
+			pause(3);
+			click(AdminWebElement.clinet_dropdown.getProperty());
+			typeAndEnter(AdminWebElement.client_search.getProperty(), client);
+			click(LaunchpadWebElement.create_user_icon.getProperty());
+			typeAndEnter(LaunchpadWebElement.first_name.getProperty(), "firstnamechipotle" + RandomUtils.nextInt(100));
+			typeAndEnter(LaunchpadWebElement.last_name.getProperty(), "lastnamechipotle" + RandomUtils.nextInt(100));
+			typeAndEnter(LaunchpadWebElement.password.getProperty(), password);
+			emailaddress = generateEmail(20);
+
+			typeAndEnter(LaunchpadWebElement.emailaddress.getProperty(), emailaddress);
+			click(LaunchpadWebElement.active.getProperty());
+			click(LaunchpadWebElement.is_launchpad_admin.getProperty());
+			click(LaunchpadWebElement.is_engagement_admin.getProperty());
+			click(LaunchpadWebElement.submit.getProperty());
+			click(".//*[@id='refresh_user_grant_permissions_table']");
+			click(LaunchpadWebElement.create_user_icon.getProperty());
+			click(LaunchpadWebElement.location.getProperty());
+			typeAndEnter(LaunchpadWebElement.select_location.getProperty(), "Chipotle Mexican Grill");
+			wait(10);
+			click(LaunchpadWebElement.save_button.getProperty());
+			click(LaunchpadWebElement.create_user_icon.getProperty());
+			typeAndEnter(LaunchpadWebElement.select_permission.getProperty(), "engage");
+			click(LaunchpadWebElement.save_button.getProperty());
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("^User create launchpad$")
+	public void user_create_launchpad() {
+		try {
+			waitForElement(LaunchpadWebElement.hover_element.getProperty());
+			hoverClick(LaunchpadWebElement.hover_element.getProperty());
+			click(LaunchpadWebElement.create_launchpad.getProperty());
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			name = dateFormat.format(date);
+			type(LaunchpadWebElement.launchpad_name.getProperty(), name);
+			click(LaunchpadWebElement.save_launchpad.getProperty());
+			waitForElement(LaunchpadWebElement.lunchpad_success_message.getProperty());
+			String nm = getText(LaunchpadWebElement.lunchpad_success_message.getProperty());
+			Assert.assertTrue(nm.contains(name), name + " is not present in success message");
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+
+		}
+	}
+
+	@Then("^User clean launchpad$")
+	public void user_clean_up_launchpad() {
+		try {
+			click(LaunchpadWebElement.delete_launchpad.getProperty());
+			click(LaunchpadWebElement.delete_popup.getProperty());
+			LoginPage().logoutDashboard();
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+
+		}
+	}
+
+
+
+	@Then("^User clean up created user$")
+	public void user_delete_new_user() {
+		try {
+
+			clickAndWait(AdminWebElement.admin_email_search_box.getProperty());
+			typeAndEnter(AdminWebElement.admin_email_search_box.getProperty(), emailaddress);
+			click(".//*[@title='" + emailaddress + "']");
+			click(LaunchpadWebElement.admin_delete_icon.getProperty());
+			click(LaunchpadWebElement.admin_delete_popup.getProperty());
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+
+		}
+
+	}
+
+	@Then("^User share launchpad with a \"(.*)\"$")
+	public void user_share_launchpad(String user) {
+		try {
+			wait(3);
+			click(LaunchpadWebElement.share_the_launchpad.getProperty());
+			click(LaunchpadWebElement.share_the_launchpad.getProperty());
+			click(LaunchpadWebElement.dashboard_only.getProperty());
+			waitForElement(LaunchpadWebElement.search_reciept.getProperty());
+			click(LaunchpadWebElement.search_reciept.getProperty());
+			if ((user != null)) {
+				wait(3);
+				typeAndEnter(LaunchpadWebElement.search_reciept.getProperty(), user);
+				click(LaunchpadWebElement.add_subscription.getProperty());
+			}
+
+			click(LaunchpadWebElement.exit_subscription.getProperty());
+
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+
+		}
+
+	}
+
+	@Then("^User update launchpad \"(.*)\" frequency$")
+	public void user_update_frequency(String frequency) {
+		try {
+			click(LaunchpadWebElement.launchpad_preference.getProperty());
+			click(LaunchpadWebElement.edit_preference.getProperty());
+			click(LaunchpadWebElement.enter_frequency.getProperty());
+			typeAndEnter(LaunchpadWebElement.enter_frequency.getProperty(), frequency);
+			click(LaunchpadWebElement.save_frequency.getProperty());
+			click(LaunchpadWebElement.close_preference.getProperty());
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
+	}
+
+	@When("^User opens latest launchpad$")
+	public void User_opens_latest_launchpad() {
+		try {
+			click(CommonWebElement.launchpad_tab.getProperty());
+			List<WebElement> elements = getDriver().findElements(By.xpath(LaunchpadWebElement.all_saved_launchpad.getProperty()));
+			String size = String.valueOf(elements.size());
+			click(LaunchpadWebElement.latest_launchpad_title.getProperty().replace("size", size));
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
+	}
+
+	@When("^User delete latest launchpad$")
+	public void User_delete_latest_launchpad() {
+		try {
+			List<WebElement> elements = getDriver().findElements(By.xpath(LaunchpadWebElement.all_saved_launchpad.getProperty()));
+			String size = String.valueOf(elements.size());
+			click(LaunchpadWebElement.delete_latest_launchpad.getProperty().replace("size", size));
+			click(LaunchpadWebElement.delete_popup.getProperty());
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+
+		}
+
+	}
+
+	@Then("^User should see second filter row on edit$")
+	public void User_should_see_second_filter_row_on_edit() {
+		try {
+			click(LaunchpadWebElement.show_filters_button.getProperty());
+			click(LaunchpadWebElement.edit_launchpad_button.getProperty());
+			waitForElement(CommonWebElement.connect_facet_filter.getProperty());
+			waitForElement(CommonWebElement.reviewer_info_facet_filter.getProperty());
+
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
+	}
+
+	@Then("^User verify creation of latest launchpad$")
+	public void user_verify_creation_of_latest_launchpad() {
+		try {
+			click(LaunchpadWebElement.launchpad_tab.getProperty());
+			waitForElement(LaunchpadWebElement.all_saved_launchpad.getProperty());
+			List<WebElement> elements = getDriver().findElements(By.xpath(LaunchpadWebElement.all_saved_launchpad.getProperty()));
+			String launchpad = getText(LaunchpadWebElement.latest_launchpad_title.getProperty().replace("size", String.valueOf(elements.size())));
+			Assert.assertEquals(launchpad, name);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
+	}
+
+	@Then("^User verify launchpad sharing with \"(.*)\"$")
+	public void user_verify_launchpad_sharing(String Reciept) {
+		click(LaunchpadWebElement.share_the_launchpad.getProperty());
+		click(LaunchpadWebElement.search_user.getProperty());
+		typeAndEnter(LaunchpadWebElement.search_user.getProperty(), Reciept);
+		WebElement elem = waitForElement(LaunchpadWebElement.search_list.getProperty());
+		String user = elem.getText();
+		Assert.assertTrue(user.contains(Reciept));
+
+	}
+
+	@When("^User is assigned \"(.*)\"$")
+	public void user_Assigned_role(String Role) {
+		try {
+			click(AdminWebElement.user_role.getProperty());
+			click(AdminWebElement.getProperty(Role.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@When("^User change polarity to \"(.*)\"$")
+	public void user_change_polarity(String polarity) {
+		try {
+			WebElement element = getDriver().findElement(By.xpath("//*[@class='ratingcontainer']"));
+			sentimentID = Integer.parseInt(element.getAttribute("sentiment-id"));
+			WebElement slider = getDriver().findElement(By.xpath(".//a[@class='ui-slider-handle ui-state-default ui-corner-all']"));
+			click(".//*[@class='ui-slider-handle ui-state-default ui-corner-all']");
+			Actions action = new Actions(getDriver());
+			action.doubleClick(slider).build();
+			pause(10);
+			slider.sendKeys(Keys.HOME);
+			ArrayList<String> polarity1 = new ArrayList<String>();
+			polarity1.add(0, "Negative");
+			polarity1.add(1, "Weak Negative");
+			polarity1.add(2, "Neutral");
+			polarity1.add(3, "Weak Positive");
+			polarity1.add(4, "Positive");
+			int m = polarity1.indexOf(polarity);
+			for (int i = 0; i < m; i++) {
+				action.doubleClick(slider).build();
+				slider.sendKeys(Keys.ARROW_RIGHT);
+				pause(10);
+				action.doubleClick(slider).build();
+			}
+			action.doubleClick(slider).build();
+			slider.click();
+			action.perform();
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
+	}
+
+	@When("^User change polarity and verify data in database$")
+	public void user_change_polarity_and_verify_data_in_database(DataTable dataTable) {
+		try {
+			String polarity;
+			String databaseValue;
+			WebElement webElement;
+
+			List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
+			int rows = data.size();
+			for (int i = 0; i < rows; i++) {
+				polarity = data.get(i).get("Polarity");
+				databaseValue = data.get(i).get("DatabaseValue");
+				// Get Polarity Slider
+				getPolaritySlider();
+
+				// Get Polarity from arraylist
+				ArrayList<String> polarity1 = getPolarityList();
+
+				getSentimentID();
+				slider.click();
+				movePolaritySlider(polarity, polarity1);
+				pause(3);
+				waitForElement(CommonWebElement.save_polarity_button.getProperty().toLowerCase());
+				click(CommonWebElement.save_polarity_button.getProperty().toLowerCase());
+
+				// Getting Sentiment Data
+				verifyDatabaseValue(databaseValue);
+			}
+
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	public ArrayList<String> getPolarityList() {
+		ArrayList<String> polarity1 = new ArrayList<String>();
+		polarity1.add(0, "Negative");
+		polarity1.add(1, "Weak Negative");
+		polarity1.add(2, "Neutral");
+		polarity1.add(3, "Weak Positive");
+		polarity1.add(4, "Positive");
+		return polarity1;
+	}
+
+	public void movePolaritySlider(String polarity, ArrayList<String> polarity1) {
+		Actions action = new Actions(getDriver());
+		action.doubleClick(slider).build();
+		pause(10);
+		slider.sendKeys(Keys.HOME);
+
+		int m = polarity1.indexOf(polarity);
+		for (int x = 0; x < m; x++) {
+			action.doubleClick(slider).build();
+			slider.sendKeys(Keys.ARROW_RIGHT);
+			pause(10);
+			action.doubleClick(slider).build();
+		}
+		action.doubleClick(slider).build();
+		slider.click();
+		action.perform();
+	}
+
+	public void getSentimentID() throws NumberFormatException {
+		WebElement webElement;
+		slider = getDriver().findElement(By.xpath(".//a[@class='ui-slider-handle ui-state-default ui-corner-all']"));
+		webElement = getDriver().findElement(By.xpath("//*[@class='ratingcontainer']"));
+		sentimentID = Integer.parseInt(webElement.getAttribute("sentiment-id"));
+	}
+
+	public void getPolaritySlider() {
+		waitForElement(InsightWebElement.polarity_change_icon.getProperty().toLowerCase(), 5);
+		click(InsightWebElement.polarity_change_icon.getProperty().toLowerCase());
+
+		waitForElement(InsightWebElement.polarity_edit_icon.getProperty().toLowerCase(), 5);
+		click(InsightWebElement.polarity_edit_icon.getProperty().toLowerCase());
+	}
+
+	public void verifyDatabaseValue(String databaseValue) throws SQLException {
+		log("Getting sentiment ID: " + sentimentID);
+		String sentimentValue = (String) CommonPage().dataBaseSelect("SELECT SCORE FROM SENTIMENT WHERE ID=" + sentimentID + ";", "SCORE");
+		log("Getting Score for sentiment ID: " + sentimentID);
+		Assert.assertEquals(sentimentValue, databaseValue);
+	}
+
+	@Then("^User should see \"([^\"]*)\"$")
+	public void user_verify_success_message(String locator) {
+		try {
+			waitForElement(InsightWebElement.success_message.getProperty());
+			WebElement message = getDriver().findElement(By.xpath(InsightWebElement.getProperty(locator.toLowerCase())));
+			String actual = message.getText().toString();
+			String expected = "Saved successfully. Changes will be reflected within a minute or two.";
+			Assert.assertEquals(actual, expected);
+
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" should not be present$")
+	public void element_should_not_present(String locator) {
+		try {
+			String element = getProperty("dashboardUIPropertiesFiles/insightWebElement.properties", locator.toLowerCase());
+			Assert.assertEquals(element, false);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@When("^User reads the sentiment id and should get the sentiment from database as \"([^\"]*)\"$")
+	public void user_reads_the_sentiment_id_from_database(String polarity) {
+		try {
+
+			log("Getting sentiment ID: " + sentimentID);
+			String sentimentValue = (String) CommonPage().dataBaseSelect("SELECT SCORE FROM SENTIMENT WHERE ID=" + sentimentID + ";", "SCORE");
+			log("Getting Score for sentiment ID: " + sentimentID);
+			Assert.assertEquals(sentimentValue, polarity);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("^User save \"([^\"]*)\" widget to launchpad$")
+	public void user_save_this_widget_on_launchpad(String widget) {
+		try {
+			waitForElement(LaunchpadWebElement.hover_element_on_this_Widget.getProperty().replace("thisWidget", widget));
+			// hoverClick(getProperty(
+			// "dashboardUIPropertiesFiles/launchpad.properties",
+			// "hover_element_on_this_Widget").replace("thisWidget", widget));
+			String locator = LaunchpadWebElement.hover_element.getProperty().replace("thisWidget", widget);
+			hoverClick(locator);
+			System.out.println("#################Hover widget is " + widget);
+			click(locator);
+			// click(getProperty(
+			// "dashboardUIPropertiesFiles/launchpad.properties",
+			// "create_launchpad"));
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			name = dateFormat.format(date);
+			type(LaunchpadWebElement.launchpad_name.getProperty(), name);
+			click(LaunchpadWebElement.save_launchpad.getProperty());
+			waitForElement(LaunchpadWebElement.lunchpad_success_message.getProperty());
+			String nm = getText(LaunchpadWebElement.lunchpad_success_message.getProperty());
+			Assert.assertTrue(nm.contains(name), name + " is not present in success message");
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+
+		}
+	}
+
+	@Then("^User shares this launchpad to recent user$")
+	public void User_shares_this_launchpad_to_recent_user() {
+		try {
+			waitForElement(LaunchpadWebElement.share_the_launchpad.getProperty());
+			click(LaunchpadWebElement.share_the_launchpad.getProperty());
+			click(LaunchpadWebElement.search_reciept.getProperty());
+			typeAndEnter(LaunchpadWebElement.search_reciept.getProperty(), AdminStepDefinition.recentUserFname);
+			pause(3);
+			click(LaunchpadWebElement.add_subscription.getProperty());
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+
+		}
+	}
+
+}

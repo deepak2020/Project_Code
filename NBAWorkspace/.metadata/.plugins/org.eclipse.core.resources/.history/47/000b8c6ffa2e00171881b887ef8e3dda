@@ -1,0 +1,30 @@
+package Java_Day_1;
+
+public class static_keyword_3 {
+	
+	String a = "";
+	
+	static String b;
+
+	public static void main(String[] args) {
+		
+		static_keyword_3 obj = new static_keyword_3();
+		obj.changeValue();
+		
+
+	}
+	
+	public void changeValue(){
+		a="A's value changed by changeValue";
+		b = "B's value changed by changeValue";
+	}
+	
+	public void displayValue(){
+		System.out.println(a);
+		System.out.println(b);
+	}
+	
+	
+	
+
+}

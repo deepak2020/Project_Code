@@ -1,0 +1,43 @@
+@regression
+Feature: Check addition in Google calculatorcontent
+   In order to verify that Google calculator work correctly
+   As a user of Google
+   I should be able to get correct addition result
+
+  Scenario: Addition                     # HelloWorld.feature:7
+    Given I open Google                  # HelloWorldStepDefinition.I_open_google()
+    When I enter "2+2" in search textbox # HelloWorldStepDefinition.I_enter_in_search_textbox(String)
+      org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"id","selector":"gbqfq"}
+      Command duration or timeout: 185 milliseconds
+      For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+      Build info: version: '2.53.0', revision: '35ae25b', time: '2016-03-15 16:57:40'
+      System info: host: 'MVTL1076LT', ip: '192.168.15.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.7.0_67'
+      *** Element info: {Using=id, value=gbqfq}
+      Session ID: ac9eca22-2c68-4f46-b235-f1b92f401567
+      Driver info: org.openqa.selenium.firefox.FirefoxDriver
+      Capabilities [{platform=WINDOWS, acceptSslCerts=true, javascriptEnabled=true, cssSelectorsEnabled=true, databaseEnabled=true, browserName=firefox, handlesAlerts=true, nativeEvents=false, webStorageEnabled=true, rotatable=false, locationContextEnabled=true, applicationCacheEnabled=true, takesScreenshot=true, version=45.0}]
+      	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+      	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+      	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+      	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+      	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+      	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+      	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+      	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
+      	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:413)
+      	at org.openqa.selenium.By$ById.findElement(By.java:218)
+      	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
+      	at com.poc.HelloWorldTest.HelloWorldStepDefinition.I_enter_in_search_textbox(HelloWorldStepDefinition.java:37)
+      	at ✽.When I enter "2+2" in search textbox(HelloWorld.feature:9)
+      Caused by: org.openqa.selenium.NoSuchElementException: Unable to locate element: {"method":"id","selector":"gbqfq"}
+      For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+      Build info: version: '2.53.0', revision: '35ae25b', time: '2016-03-15 16:57:40'
+      System info: host: 'MVTL1076LT', ip: '192.168.15.1', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.7.0_67'
+      Driver info: driver.version: unknown
+      	at <anonymous class>.FirefoxDriver.prototype.findElementInternal_(file:///C:/Users/DEEPAK~1.KUM/AppData/Local/Temp/anonymous686614033852087386webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10770)
+      	at <anonymous class>.FirefoxDriver.prototype.findElement(file:///C:/Users/DEEPAK~1.KUM/AppData/Local/Temp/anonymous686614033852087386webdriver-profile/extensions/fxdriver@googlecode.com/components/driver-component.js:10779)
+      	at <anonymous class>.DelayedCommand.prototype.executeInternal_/h(file:///C:/Users/DEEPAK~1.KUM/AppData/Local/Temp/anonymous686614033852087386webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12661)
+      	at <anonymous class>.DelayedCommand.prototype.executeInternal_(file:///C:/Users/DEEPAK~1.KUM/AppData/Local/Temp/anonymous686614033852087386webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12666)
+      	at <anonymous class>.DelayedCommand.prototype.execute/<(file:///C:/Users/DEEPAK~1.KUM/AppData/Local/Temp/anonymous686614033852087386webdriver-profile/extensions/fxdriver@googlecode.com/components/command-processor.js:12608)
+
+    Then I should get result as "4"      # HelloWorldStepDefinition.I_should_get_correct_result(String)

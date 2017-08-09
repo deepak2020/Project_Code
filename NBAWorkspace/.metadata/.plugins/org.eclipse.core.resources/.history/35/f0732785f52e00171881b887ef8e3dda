@@ -1,0 +1,17 @@
+package Java_Day_1;
+
+public class Static_Keyword {
+
+	public static void main(String[] args) {
+		Static_Keyword obj = new Static_Keyword();
+
+	}
+	
+	 public void studentDetails(String name, int rollNo, String school){
+		 System.out.println(name);
+		 System.out.println(rollNo);
+		 System.out.println(school);
+		 
+	 }
+	
+}

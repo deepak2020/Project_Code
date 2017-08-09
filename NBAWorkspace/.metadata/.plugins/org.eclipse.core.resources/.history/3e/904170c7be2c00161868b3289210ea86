@@ -1,0 +1,44 @@
+@tron
+Feature: Theme Cloud tests for Advantage
+
+  # Background:
+  #   Given Browser Initialization
+  
+  Scenario: UNDER/OVER sliders should work
+    Given User is on login page
+    And User login with "chipotle1_user" and "chipotle1_password"
+    When User clicks on "Advantage_Tab"
+    And User clicks on "Location_Theme_Comparison_Table" on Locations Subtab
+    Then User should move "Under/Over_Slider" To Over
+    When User clicks on "Location_Theme_Comparison_Table" on Locations Subtab
+    Then User should move "Under/Over_Slider" To Under
+    
+
+  Scenario: LESS/MORE sliders should work
+    Given User is on login page
+    And User login with "chipotle1_user" and "chipotle1_password"
+    When User clicks on "Advantage_Tab"
+    And User clicks on "Location_Theme_Comparison_Table" on Locations Subtab
+    Then User should move "Less/More_Slider"To Less
+    When User clicks on "Advantage_Tab"
+    And User clicks on "Location_Theme_Comparison_Table" on Locations Subtab
+    Then User should move "Less/More_Slider"To More
+
+  Scenario: NAMED should work
+    Given User is on login page
+   	And User login with "chipotle1_user" and "chipotle1_password"
+    When User clicks on "Advantage_Tab"
+    Then User should clicks on "Named_Button" on Locations Subtab
+
+  Scenario: COMMON THEMES should work
+    Given User is on login page
+   	And User login with "chipotle1_user" and "chipotle1_password"
+    When User clicks on "Advantage_Tab"
+    Then User should clicks on "Common_Theme_Button" on Locations Subtab
+
+  Scenario: TOP & BOTTOM should show Top & Bottom view. Subjects, Attributes, and sliders should go away in this view
+    Given User is on login page
+    And User login with "chipotle1_user" and "chipotle1_password"
+    When User clicks on "Advantage_Tab"
+    Then User should clicks on "Top/Bottom_Button" on Locations Subtab
+

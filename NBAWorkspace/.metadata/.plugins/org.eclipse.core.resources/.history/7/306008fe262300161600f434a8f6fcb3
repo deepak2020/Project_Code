@@ -1,0 +1,291 @@
+package com.Dashboard.StepDefinations;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class CommonStepdefinition extends PageFactory {
+
+	@Given("^User clicks on \"([^\"]*)\"$")
+	public void user_clicks_on(String locator) {
+		try {
+			wait(3);
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/commonWebElement.properties",
+							locator.toLowerCase()), 5);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^URL should contain \"(.*)\"$")
+	public void URL_should_contain(String pieceOfURL) {
+		try {
+
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/commonWebElement.properties",
+							"user_data_container"), 5);
+			Assert.assertEquals(isURLContains(pieceOfURL.toLowerCase()), true,
+					"Current URL does not contain said piece, which is: "
+							+ pieceOfURL);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User fills in \"(.*)\" with \"(.*)\"$")
+	public void user_fills_in_with(String locator, String value) {
+		try {
+			wait(3);
+			type(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					locator.toLowerCase()),
+					getProperty(
+							"dashboardUIPropertiesFiles/baseData.properties",
+							value));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" should be present$")
+	public void should_be_present(String locator) {
+		try {
+			wait(3);
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/commonWebElement.properties",
+							locator.toLowerCase()), 5);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User switch to \"([^\"]*)\" client$")
+	public void user_switch_to_client(String client) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"user_action_dropdown"));
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"admin_link"));
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"client_dropdown_under_admin_section_search"));
+			typeAndEnter(
+					getProperty(
+							"dashboardUIPropertiesFiles/commonWebElement.properties",
+							"search_client_searchbox"), client);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"insight_tab"));
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User type \"([^\"]*)\" to search client \"([^\"]*)\"$")
+	public void user_select_client_from_dropdown(String search, String client) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"user_action_dropdown"));
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"admin_link"));
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"client_dropdown_under_admin_section_search"));
+
+			type(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"search_client_searchbox"), search);
+			WebElement elements = getDriver()
+					.findElement(
+							By.xpath(".//*[@id='select2-switcher-client-select-results']"));
+			List<WebElement> g = elements.findElements(By.tagName("div"));
+			Iterator<WebElement> it = g.iterator();
+
+			while (it.hasNext()) {
+				WebElement elem = it.next();
+				String option = elem.getText();
+				if (option.equalsIgnoreCase(client)) {
+					wait(30);
+					elem.click();
+				}
+			}
+		} catch (StaleElementReferenceException elementHasDisappeared) {
+			elementHasDisappeared.printStackTrace();
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+
+		}
+	}
+
+	@When("^User refresh the page$")
+	public void user_refresh_the_page() {
+		try {
+			wait(3);
+			refreshPage();
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User switch to \"([^\"]*)\" user$")
+	public void user_switch_to_user(String user) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"user_action_dropdown"));
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"admin_link"));
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"user_dropdown_under_admin_section"));
+			typeAndEnter(
+					getProperty(
+							"dashboardUIPropertiesFiles/commonWebElement.properties",
+							"user_textbox_under_admin_section"), user);
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User scroll down \"([^\"]*)\" times$")
+	public void user_scroll_down_times(int count) {
+		try {
+			wait(10);
+			for (int i = 0; i < count; i++)
+				((JavascriptExecutor) getDriver())
+						.executeScript("scroll(0,1000)");
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^URL should not contain \"(.*)\"$")
+	public void URL_should_not_contain(String pieceOfURL) {
+		try {
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/commonWebElement.properties",
+							"user_data_container"), 5);
+			wait(10);
+			Assert.assertEquals(isURLContains(pieceOfURL), false,
+					"Current URL contains said piece, which is: " + pieceOfURL);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User waits for \"(.*)\"$")
+	public void user_waits_for(String locator) {
+		try {
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/commonWebElement.properties",
+							locator.toLowerCase()), 10);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("Admin link should not be visible to the user$")
+	public void admin_link_not_visible() {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/commonWebElement.properties",
+					"user_action_dropdown"));
+
+			WebElement adminLink = getDriver().findElement(
+					By.xpath(".//*[@id='user-actions']"));
+			List<WebElement> element = adminLink.findElements(By.tagName("li"));
+			Iterator<WebElement> it = element.iterator();
+			while (it.hasNext()) {
+				WebElement elem = it.next();
+				String linktext = elem.getText();
+				Assert.assertNotEquals(linktext, "admin");
+			}
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+
+		}
+	}
+
+	/*********************************************************************************************************
+	 *********************************** Operations on Filter Bar *********************************************
+	 **********************************************************************************************************/
+	@When("^User select \"(.*)\" in \"(.*)\" and apply$")
+	public void user_select_in_filter_and_apply(String value, String dropDown) {
+		try {
+			CommonPage().selectInFilter(value, dropDown);
+			wait(3);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User select values \"(.*)\" in \"(.*)\" and apply$")
+	public void user_select_value_in_filter_and_apply(String multipleValues,
+			String dropDown) {
+		try {
+			String[] values = multipleValues.split(",");
+			for (String value : values) {
+				CommonPage().typeInFilter(value, dropDown);
+			}
+			wait(3);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Given("^User clears all filters selected$")
+	public void user_clears_all_filters_selected() {
+		try {
+			CommonPage().clearAllFilters();
+			wait(3);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" should be present on filters$")
+	public void should_be_present_on_filters(String locator) {
+		try {
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/commonWebElement.properties",
+							locator.toLowerCase()), 5);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+}

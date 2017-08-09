@@ -1,0 +1,12 @@
+package pageMethod;
+
+import java.io.IOException;
+
+import commonMethods.GlobalMethods;
+
+public class LoginPage extends GlobalMethods {
+	
+	public static void loginFunctionality() throws IOException{
+		getElement(getProperty("locators.properties", "emailXpath"));
+	}
+}

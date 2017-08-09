@@ -1,0 +1,70 @@
+package com.Dashboard.global;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+import org.apache.commons.lang.RandomStringUtils;
+
+import com.saf.global.Global;
+
+public class GlobalCommonMethods extends Global {
+
+	private final String propConfigFileName = "config.properties";
+	private final String propBaseFileName = "baseData.properties";
+	private Properties configProperties = new Properties();
+	private Properties baseDataProperties = new Properties();
+
+	public boolean isURLContains(String str) {
+		String URL = getPageUrl().toLowerCase();
+		log("checking that if " + URL + " contains " + str.toLowerCase() + ".");
+		if (URL.contains(str.toLowerCase()))
+			return true;
+		else
+			return false;
+	}
+
+	public void initializeBrowser(String browser, String version, String platform, String hub_URL) {
+		try {
+			initialize(browser, version, platform, hub_URL);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String generateEmail(int length) {
+		String allowedChars = "abcdefghijklmnopqrstuvwxyz" + // alphabets
+				"1234567890";
+		String email = "";
+		String temp = RandomStringUtils.random(length, allowedChars);
+		email = temp.substring(0, temp.length() - 9) + "@chipotle.com";
+		return email;
+	}
+
+	public Properties getConfigProperties() {
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propConfigFileName);
+		try {
+			if (inputStream != null) {
+				baseDataProperties.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propConfigFileName + "' not found in the classpath");
+			}
+		} catch (Exception ex) {
+		}
+		return configProperties;
+	}
+
+	public Properties getBaseDataProperties() {
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propBaseFileName);
+		try {
+			if (inputStream != null) {
+				baseDataProperties.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propBaseFileName + "' not found in the classpath");
+			}
+		} catch (Exception ex) {
+		}
+		return baseDataProperties;
+	}
+}

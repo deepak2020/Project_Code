@@ -1,0 +1,27 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class Session1 {
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://www.amazon.com");
+//		// driver.wait(10);
+//		driver.findElement(By.id("lst-ib")).sendKeys("Deepak");
+//		driver.findElement(By.id("sblsbb")).click();
+//		//driver.findElement("test");
+//		driver.findElement(By.linkText("Deepak - Wikipedia, the free encyclopedia")).click();
+//		Select listbox = new Select(element)
+//	
+		Actions action = new Actions(driver);
+		WebElement signin = driver.findElement(By.xpath(".//*[@id='nav-link-yourAccount']"));
+		action.moveToElement(signin);
+		action.perform();
+	}
+
+}

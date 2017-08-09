@@ -1,0 +1,90 @@
+package com.Dashboard.StepDefinations;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.DoubleClickAction;
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.PendingException;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class ConnectStepDefinition extends PageFactory {
+
+	@When("^User clicks on \"([^\"]*)\" present on Connect tab$")
+	public void user_clicks_on_present_on_Connect_page(String locator) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/connectWebElement.properties",
+					locator.toLowerCase()));
+			wait(10);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("^User enters \"([^\"]*)\" on create Queue pop up$")
+	public void user_enters(String locator) {
+		try {
+			click(".//*[@class='title-editable utils-editable']");
+			wait(2);
+			click(".//*[@class='title-editable utils-editable active']");
+			typeAndEnter(
+					".//*[@class='title-editable utils-editable active']", "Test Queue title");
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("^User clicks on \"([^\"]*)\" on create Queue pop up$")
+	public void user_clicks_on_on_Connect_Page(String locator) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/connectWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("^User verify \"([^\"]*)\"$")
+	public void user_verify_success_message(String locator) {
+		try {
+			wait(2);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/connectWebElement.properties",
+					locator.toLowerCase()));
+
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@When("^User select \"(.*)\" in \"(.*)\" and apply on create Queue pop up$")
+	public void user_select_in_filter_and_apply_create_queue(String value, String dropDown) {
+		try {
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/connectWebElement.properties",
+							dropDown.toLowerCase()), 5);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/connectWebElement.properties",
+					dropDown.toLowerCase()));
+			click(getProperty(
+					"dashboardUIPropertiesFiles/connectWebElement.properties",
+					value.toLowerCase()));
+			click(getProperty(
+					"dashboardUIPropertiesFiles/connectWebElement.properties",
+					"apply_button_on_filter_queue"));
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+}

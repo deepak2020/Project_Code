@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;advantageWebElement.properties&apos; to &apos;dashboardUIPropertiesFiles&apos;&#x0D;&#x0A;- Original project: &apos;dashboard-UI&apos;&#x0D;&#x0A;- Destination element: &apos;dashboardUIPropertiesFiles&apos;&#x0D;&#x0A;- Original element: &apos;advantageWebElement.properties&apos;" description="Copy file" element1="dashboardUIPropertiesFiles/advantageWebElement.properties" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1461071288546" target="/dashboard-UI/dashboardUIPropertiesFiles" units="0" version="1.0"/>
+</session>

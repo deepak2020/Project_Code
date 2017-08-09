@@ -1,0 +1,25 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Find_Element {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+
+		driver.get("https://www.jabong.com");
+
+		// Find Element by class Name
+
+		// driver.findElement(By.className("nav-women")).click();
+
+		// Find Element by ID
+
+		// driver.findElement(By.id("search")).click();
+		
+		driver.findElement(By.tagName("input")).click();;
+
+	}
+
+}

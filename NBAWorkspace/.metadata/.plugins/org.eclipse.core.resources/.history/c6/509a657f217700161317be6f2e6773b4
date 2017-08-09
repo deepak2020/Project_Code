@@ -1,0 +1,17 @@
+package testPackage;
+
+public class AccessModifier1 {
+	
+	AccessModifier1(){
+		System.out.println("Hey you called me");
+	}
+	static int a;
+	public static void main(String[] args) {
+		AccessModifier obj = new AccessModifier(); 
+//		obj.sum();
+//		System.out.println("Value of a is " + a);
+
+	}
+
+	
+}

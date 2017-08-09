@@ -1,0 +1,21 @@
+package java_basics;
+
+public class While {
+
+	public static void main(String[] args) {
+		
+		int i =0;		
+		while (i<=10){
+			System.out.println(" WHile number is "+ i);
+			i++;
+		}
+		
+		int n =0;
+		do {
+			System.out.println(" DO while loop number is "+ n);
+			n++;
+		} while (n<=10);
+		
+	}
+
+}

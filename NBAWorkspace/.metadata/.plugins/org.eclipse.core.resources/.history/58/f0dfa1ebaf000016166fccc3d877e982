@@ -1,0 +1,19 @@
+Feature: Engagement Tests
+
+# Background:
+#   Given Browser Initialization
+
+Scenario: In Admin 3.0 click engageAdmin check box
+	Given User is on login page
+	And User login with "Zaphod@bbb.com" and "snoop"
+	And User switch to "Five Guys" client
+	When User clicks on "Advantage_Tab"
+	And User clicks on "Categories_Tab" on Advantage page
+	Then "Relative_Performance_Table_Heading" should be present on Categorie
+
+Scenario: Verify Forgot Password functionality - Cancel
+	Given User is on login page
+	And User clicks on "Forgot_Password_Button" present on login page
+	When User clicks on "Cancel_Button" present on login page
+	Then "forgot_password_button" should be present on login page
+	And "login_button" should be present on login page

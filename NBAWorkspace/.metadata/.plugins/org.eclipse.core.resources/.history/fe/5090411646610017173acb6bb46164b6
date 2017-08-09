@@ -1,0 +1,16 @@
+import java.net.URL;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+
+public class Grid {
+
+	public static void main(String[] args) {
+		
+		URL url = new URL("");
+		
+		WebDriver driver = new RemoteWebDriver(remoteAddress, desiredCapabilities)
+	}
+
+}

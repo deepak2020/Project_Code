@@ -1,0 +1,14 @@
+package testPackage;
+
+public class Variables {
+	String a = "I am instance Variable";
+	
+	public static void main(String[] args) {
+		
+		
+	}
+	
+	void sum(){
+	
+	}
+}

@@ -1,0 +1,13 @@
+package testMethod;
+
+import org.testng.annotations.BeforeTest;
+
+import commonMethods.GlobalMethods;
+
+public class Test extends GlobalMethods {
+	@BeforeTest
+	public void openBrowser(){
+		openBrowser("firefox");
+	}
+
+}

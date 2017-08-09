@@ -1,0 +1,204 @@
+package com.Dashboard.StepDefinations;
+
+import static com.jayway.restassured.RestAssured.given;
+
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashMap;
+
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+import com.jayway.restassured.path.json.JsonPath;
+import com.jayway.restassured.response.Response;
+
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class ApiStepDefinition extends PageFactory {
+	
+	public static Response res;
+	public static String titleName;
+	public static int queue_id;
+	public static String domain;
+	public static String user_with_engage_permission_on_connect = "";
+	public static String other_user_with_engage_permission_on_connect = "";
+	public static String user_without_engage_permission_on_connect = "";
+	public static String non_admin_user_with_engage_permission_on_connect = "";
+
+	/*
+	 * This Before method initializes the different users needed for the all api
+	 * scenario
+	 */
+	@Before("@api")
+	public void userPrerequisite() {
+		domain = getConfigProperties().getProperty("domain");
+		try {
+			user_with_engage_permission_on_connect = (String) CommonPage()
+					.dataBaseSelect(
+							"SELECT C.ID FROM CLIENT_USER C INNER JOIN USER_PERMISSION U ON C.ID = U.USER_ID WHERE U.PERMISSION_TYPE = 'ENGAGE' AND U.PERMIT = 1 AND U.RESOURCE_TYPE = 'page' AND U.ENTITY_ID = 400 AND C.IS_ACTIVE=1 AND C.ENGAGE_ADMIN = 1 ORDER BY C.ID DESC LIMIT 1;",
+							"ID");
+			log("user_with_engage_permission_on_connect: " + user_with_engage_permission_on_connect);
+			other_user_with_engage_permission_on_connect = (String) CommonPage()
+					.dataBaseSelect(
+							"SELECT C.ID FROM CLIENT_USER C INNER JOIN USER_PERMISSION U ON C.ID = U.USER_ID WHERE U.PERMISSION_TYPE = 'ENGAGE' AND U.PERMIT = 1 AND U.RESOURCE_TYPE = 'page' AND U.ENTITY_ID = 400 AND C.IS_ACTIVE=1 AND C.ENGAGE_ADMIN = 1  AND C.ID <> "
+									+ user_with_engage_permission_on_connect + " ORDER BY C.ID DESC LIMIT 1;", "ID");
+			log("other_user_with_engage_permission_on_connect: " + other_user_with_engage_permission_on_connect);
+			user_without_engage_permission_on_connect = (String) CommonPage()
+					.dataBaseSelect(
+							"SELECT C.ID FROM CLIENT_USER C INNER JOIN USER_PERMISSION U ON C.ID = U.USER_ID WHERE U.PERMISSION_TYPE <> 'ENGAGE' AND U.RESOURCE_TYPE <> 'page' AND U.ENTITY_ID <> 400 AND C.IS_ACTIVE=1 AND C.ENGAGE_ADMIN = 1  ORDER BY C.ID DESC LIMIT 1;",
+							"ID");
+			log("user_without_engage_permission_on_connect: " + user_without_engage_permission_on_connect);
+			non_admin_user_with_engage_permission_on_connect = (String) CommonPage()
+					.dataBaseSelect(
+							"SELECT C.ID FROM CLIENT_USER C INNER JOIN USER_PERMISSION U ON C.ID = U.USER_ID WHERE U.PERMISSION_TYPE = 'ENGAGE' AND U.PERMIT = 1 AND U.RESOURCE_TYPE = 'page' AND U.ENTITY_ID = 400 AND C.IS_ACTIVE=1 AND C.ENGAGE_ADMIN = 0 ORDER BY C.ID DESC LIMIT 1;",
+							"ID");
+			log("non_admin_user_with_engage_permission_on_connect: " + non_admin_user_with_engage_permission_on_connect);
+		} catch (SQLException e) {
+			log("Problem occured while fetching required user from database");
+			Assert.fail();
+		}
+	}
+
+	@Given("^User creates engagement queue through api call$")
+	public void user_creates_engagement_queue_through_api_call() {
+		HashMap<String, String> requestParams = new HashMap<String, String>();
+		titleName = "nba " + (new Date()).toString();
+		requestParams.put("subscribers", other_user_with_engage_permission_on_connect);
+		requestParams.put("title", titleName);
+		requestParams.put("goal", getBaseDataProperties().getProperty("goal"));
+		requestParams.put("filters", getBaseDataProperties().getProperty("filters_to_create_queue"));
+		requestParams.put("user", user_with_engage_permission_on_connect);
+		res = given().queryParameters(requestParams).post(domain + getBaseDataProperties().getProperty("create_queue_endpoint"));
+		String json = res.asString();
+		queue_id = JsonPath.with(json).get("id");
+		Assert.assertNotNull(res, "Didn't get any response");
+	}
+
+	@Then("^User verifies status code$")
+	public void user_verifies_status_code() {
+		Assert.assertEquals(res.statusCode(), 200);
+	}
+
+	@Then("^User verifies title of queue in database$")
+	public void user_verifies_title_of_queue_in_database() throws SQLException {
+		String titleInDB = (String) CommonPage().dataBaseSelect("SELECT TITLE FROM ENGAGEMENT_QUEUE WHERE ID = " + queue_id + ";", "TITLE");
+		Assert.assertEquals(titleName, titleInDB);
+	}
+
+	@Then("^User verifies entry in ENGAGEMENT_QUEUE table$")
+	public void user_verifies_entry_in_ENGAGEMENT_QUEUE_table() throws SQLException {
+		String subscribersInDB = (String) CommonPage().dataBaseSelect("SELECT AUTHORIZABLE_ID FROM ENGAGEMENT_QUEUE_AUTHORIZABLE WHERE QUEUE_ID =" + queue_id + ";", "AUTHORIZABLE_ID");
+		Assert.assertEquals(other_user_with_engage_permission_on_connect, subscribersInDB);
+	}
+
+	@Then("^User verifies ENGAGEMENT_QUEUE_AUDIT entries$")
+	public void user_verifies_ENGAGEMENT_QUEUE_AUDIT_entries() throws SQLException {
+		boolean audit_entry_found = false;
+		String action_name = (String) CommonPage().dataBaseSelect("SELECT ACTION_NAME, ACTION_TARGET_TYPE, ACTION_TARGET_ID FROM ENGAGEMENT_AUDIT WHERE QUEUE_ID =" + queue_id + ";", "ACTION_NAME");
+		String action_target_type = (String) CommonPage().dataBaseSelect("SELECT ACTION_NAME, ACTION_TARGET_TYPE, ACTION_TARGET_ID FROM ENGAGEMENT_AUDIT WHERE QUEUE_ID =" + queue_id + ";",
+				"ACTION_TARGET_TYPE");
+		int action_target_id = Integer.parseInt((String) CommonPage().dataBaseSelect(
+				"SELECT ACTION_NAME, ACTION_TARGET_TYPE, ACTION_TARGET_ID FROM ENGAGEMENT_AUDIT WHERE QUEUE_ID =" + queue_id + ";", "ACTION_TARGET_ID"));
+		if (action_name.equalsIgnoreCase("CREATE") && action_target_type.equalsIgnoreCase("QUEUE") && action_target_id == queue_id) {
+			audit_entry_found = true;
+		}
+		Assert.assertEquals(audit_entry_found, true, "Did not any find audit entries for queue id: " + queue_id);
+	}
+
+	@Given("^User creates engagement queue with \"([^\"]*)\"$")
+	public void user_creates_engagement_queue_with(String goal) {
+		HashMap<String, String> requestParams = new HashMap<String, String>();
+		titleName = "nba " + (new Date()).toString();
+		requestParams.put("subscribers", other_user_with_engage_permission_on_connect);
+		requestParams.put("title", titleName);
+		requestParams.put("goal", goal);
+		requestParams.put("filters", getBaseDataProperties().getProperty("filters_to_create_queue"));
+		requestParams.put("user", user_with_engage_permission_on_connect);
+		res = given().queryParameters(requestParams).post(domain + getBaseDataProperties().getProperty("create_queue_endpoint"));
+		Assert.assertNotNull(res, "Didn't get any response");
+
+		if (res.statusCode() == 200) {
+			String json = res.asString();
+			queue_id = JsonPath.with(json).get("id");
+		}
+	}
+
+	@Then("^User verifies status code as \"([^\"]*)\"$")
+	public void user_verifies_status_code_as(String status_code) {
+		Assert.assertEquals(res.statusCode(), Integer.parseInt(status_code));
+	}
+
+	@Given("^User creates engagement queue without engagement permissions$")
+	public void user_creates_engagement_queue_without_engagement_permissions() {
+		HashMap<String, String> requestParams = new HashMap<String, String>();
+		titleName = "nba " + (new Date()).toString();
+		requestParams.put("subscribers", other_user_with_engage_permission_on_connect);
+		requestParams.put("title", titleName);
+		requestParams.put("goal", getBaseDataProperties().getProperty("goal"));
+		requestParams.put("filters", getBaseDataProperties().getProperty("filters_to_create_queue"));
+		requestParams.put("user", user_without_engage_permission_on_connect);
+		res = given().queryParameters(requestParams).post(domain + getBaseDataProperties().getProperty("create_queue_endpoint"));
+	}
+
+	@Given("^User creates engagement queue without subscriber having engagement permissions$")
+	public void user_creates_engagement_queue_without_subscriber_having_engagement_permissions() {
+		HashMap<String, String> requestParams = new HashMap<String, String>();
+		titleName = "nba " + (new Date()).toString();
+		requestParams.put("subscribers", user_without_engage_permission_on_connect);
+		requestParams.put("title", titleName);
+		requestParams.put("goal", getBaseDataProperties().getProperty("goal"));
+		requestParams.put("filters", getBaseDataProperties().getProperty("filters_to_create_queue"));
+		requestParams.put("user", user_with_engage_permission_on_connect);
+		res = given().queryParameters(requestParams).post(domain + getBaseDataProperties().getProperty("create_queue_endpoint"));
+		String json = res.asString();
+		queue_id = JsonPath.with(json).get("id");
+		Assert.assertNotNull(res, "Didn't get any response");
+	}
+
+	@Given("^User creates engagement queue without subscriber$")
+	public void user_creates_engagement_queue_without_subscriber() {
+		HashMap<String, String> requestParams = new HashMap<String, String>();
+		titleName = "nba " + (new Date()).toString();
+		requestParams.put("title", titleName);
+		requestParams.put("goal", getBaseDataProperties().getProperty("goal"));
+		requestParams.put("filters", getBaseDataProperties().getProperty("filters_to_create_queue"));
+		requestParams.put("user", user_with_engage_permission_on_connect);
+		res = given().queryParameters(requestParams).post(domain + getBaseDataProperties().getProperty("create_queue_endpoint"));
+		String json = res.asString();
+		queue_id = JsonPath.with(json).get("id");
+		Assert.assertNotNull(res, "Didn't get any response");
+	}
+
+	@When("^User deletes engagement queue with non engage admin$")
+	public void user_deletes_engagement_queue_with_non_engage_admin() {
+		String endpoint = getBaseDataProperties().getProperty("delete_queue_endpoint");
+		String nonAdminUser = non_admin_user_with_engage_permission_on_connect;
+		String del_url = domain + endpoint.replace("queue_id", String.valueOf(queue_id)).replace("user_id", nonAdminUser);
+		res = given().delete(del_url);
+	}
+
+	@When("^User deletes engagement queue with engage admin$")
+	public void user_deletes_engagement_queue_with_engage_admin() {
+		String endpoint = getBaseDataProperties().getProperty("delete_queue_endpoint");
+		String adminUser = user_with_engage_permission_on_connect;
+		String del_url = domain + endpoint.replace("queue_id", String.valueOf(queue_id)).replace("user_id", adminUser);
+		res = given().delete(del_url);
+	}
+
+	@After("@api")
+	public void deleteTheQueueCreated() {
+		try {
+			String endpoint = getBaseDataProperties().getProperty("delete_queue_endpoint");
+			String adminUser = user_with_engage_permission_on_connect;
+			String del_url = domain + endpoint.replace("queue_id", String.valueOf(queue_id)).replace("user_id", adminUser);
+			res = given().delete(del_url);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log("Problem Occurred while deleting queues: " + queue_id);
+		}
+	}
+}

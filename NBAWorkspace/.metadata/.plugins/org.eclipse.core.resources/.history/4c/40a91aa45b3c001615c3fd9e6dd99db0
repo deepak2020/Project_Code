@@ -1,0 +1,67 @@
+package com.Dashboard.StepDefinations;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class EndToEndStepDefinition extends PageFactory {
+
+	@When("^User fills in \"(.*)\" with \"(.*)\" present on Alert popup$")
+	public void user_fills_in_with(String locator, String value) {
+		try {
+			wait(3);
+			type(getProperty(
+					"dashboardUIPropertiesFiles/endToEnd.properties",
+					locator.toLowerCase()),
+					getProperty(
+							"dashboardUIPropertiesFiles/baseData.properties",
+							value));
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Given("^User clicks on \"([^\"]*)\" and \"([^\"]*)\" present on Alert popup$")
+	public void user_clicks_on_subscription_frequency(String locator1,
+			String locator2) {
+		try {
+			wait(3);
+			click("//input[@id='" + locator1 + "']");
+			click("//input[@id='" + locator2 + "']");
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Given("^User clicks on \"([^\"]*)\" present on Alert popup$")
+	public void user_clicks_on(String locator) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/loginWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("User should see \"([^\"]*)\" present on Alert popup$")
+	public void should_be_present(String locator) {
+		try {
+			wait(3);
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/endToEnd.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+}

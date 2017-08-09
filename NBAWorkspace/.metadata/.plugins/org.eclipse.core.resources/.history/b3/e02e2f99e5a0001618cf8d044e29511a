@@ -1,0 +1,28 @@
+package com.Dashboard.StepDefinations;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+import com.Dashboard.properties.ConnectWebElement;
+import com.Dashboard.properties.EndToEndWebElement;
+
+import cucumber.api.java.en.Then;
+
+public class AlertStepDefinition extends PageFactory {
+
+	@Then("^User verify alert \"([^\"]*)\" with \"([^\"]*)\" title on Alert popup$")
+	public void user_verify_success_message(String locator, String title) {
+		try {
+			waitForElement(ConnectWebElement.queue_success_message.getProperty());
+			WebElement message = getDriver().findElement(By.xpath(EndToEndWebElement.getProperty(locator.toLowerCase())));
+			String actual = message.getText().toString();
+			String expected = "The alert '" + title + "' was " + locator + " successfully";
+			Assert.assertEquals(actual, expected);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+}

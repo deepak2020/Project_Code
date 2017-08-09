@@ -1,0 +1,12 @@
+package pageMethod;
+
+import java.sql.Driver;
+
+import commonMethods.GlobalMethods;
+
+public class LoginPage extends GlobalMethods {
+	
+	public static void loginFunctionality(){
+		
+	}
+}

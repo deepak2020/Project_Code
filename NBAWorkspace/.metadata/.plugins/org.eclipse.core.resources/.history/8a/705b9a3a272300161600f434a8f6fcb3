@@ -1,0 +1,195 @@
+package com.Dashboard.StepDefinations;
+
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class LoginStepDefinition extends PageFactory {
+
+	@Given("^User is on login page$")
+	public void user_is_on_login_page() {
+		try {
+			String browser = getProperty("target/classes/config.properties",
+					"browser");
+			String platform = getProperty("target/classes/config.properties",
+					"platform");
+			String hub_URL = "";
+			if (getProperty("target/classes/config.properties", "hub_url")
+					.contains("nonSouce"))
+				hub_URL = getProperty("target/classes/config.properties",
+						"hub_url_nonSauceLab");
+			else {
+				hub_URL = getProperty("target/classes/config.properties",
+						"hub_url_SauceLab");
+			}
+			initializeBrowser(browser, "", platform, hub_URL);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+
+	}
+
+	@Then("^User should get logged in to the application$")
+	public void user_should_get_logged_in_to_the_application() {
+		try {
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/loginWebElement.properties",
+							"user_data_container"), 5);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User login with \"(.*)\" and \"(.*)\"$")
+	public void user_login_with_someUser(String user, String password) {
+		LoginPage().loginDashboard(user, password);
+	}
+
+	@When("^User login with invalid \"(.*)\" and \"(.*)\"$")
+	public void user_login_with_invalidUser(String user, String password) {
+		try {
+			open(getProperty("target/classes/config.properties", "app_url"));
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/loginWebElement.properties",
+							"login_button"), 10);
+			type(getProperty(
+					"dashboardUIPropertiesFiles/loginWebElement.properties",
+					"username_textbox"),
+					getProperty(
+							"dashboardUIPropertiesFiles/baseData.properties",
+							user));
+			type(getProperty(
+					"dashboardUIPropertiesFiles/loginWebElement.properties",
+					"password_textbox"),
+					getProperty(
+							"dashboardUIPropertiesFiles/baseData.properties",
+							password));
+			click(getProperty(
+					"dashboardUIPropertiesFiles/loginWebElement.properties",
+					"login_button"));
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^User should see \"(.*)\" in login box$")
+	public void Then_User_should_see(String message) {
+		try {
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/loginWebElement.properties",
+					"invalid_credential_message"));
+			Assert.assertEquals(
+					getText(getProperty(
+							"dashboardUIPropertiesFiles/loginWebElement.properties",
+							"invalid_credential_message")), message);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User fills in \"(.*)\" with \"(.*)\" present on login page$")
+	public void user_fills_in_with(String locator, String value) {
+		try {
+			wait(3);
+			type(getProperty(
+					"dashboardUIPropertiesFiles/loginWebElement.properties",
+					locator.toLowerCase()),
+					getProperty(
+							"dashboardUIPropertiesFiles/baseData.properties",
+							value));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Given("^User clicks on \"([^\"]*)\" present on login page$")
+	public void user_clicks_on(String locator) {
+		try {
+			wait(3);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/loginWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" should be present on login page$")
+	public void should_be_present(String locator) {
+		try {
+			wait(3);
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/loginWebElement.properties",
+							locator.toLowerCase()), 5);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^User should be on login page$")
+	public void user_should_be_login_page() {
+		try {
+			wait(3);
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/loginWebElement.properties",
+							"login_button"), 5);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User removes all cookies$")
+	public void user_removes_all_cookies() {
+		try {
+			wait(3);
+			getDriver().manage().deleteAllCookies();
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" cookie should exist$")
+	public void cookie_should_exist(String cookie) {
+		try {
+			wait(3);
+			log("Verifying that value of " + cookie
+					+ " is not null.\nThe actual value is: "
+					+ getDriver().manage().getCookieNamed(cookie));
+			Assert.assertNotNull(getDriver().manage().getCookieNamed(cookie));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" cookie should not exist$")
+	public void cookie_should_not_exist(String cookie) {
+		try {
+			wait(3);
+			log("Verifying that value of " + cookie
+					+ " is null.\nThe actual value is: "
+					+ getDriver().manage().getCookieNamed(cookie));
+			Assert.assertNull(getDriver().manage().getCookieNamed(cookie));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User logout$")
+	public void user_logout() {
+		try {
+			wait(3);
+			LoginPage().logoutDashboard();
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+}

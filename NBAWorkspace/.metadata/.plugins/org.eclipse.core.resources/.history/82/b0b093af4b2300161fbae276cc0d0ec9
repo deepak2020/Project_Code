@@ -1,0 +1,79 @@
+package com.Dashboard.StepDefinations;
+
+import java.util.Random;
+
+import org.apache.commons.lang.math.RandomUtils;
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.When;
+
+public class LaunchpadStepDefinition extends PageFactory {
+
+	String password = "test@123";
+
+	@When("^User generate random user for \"(.*)\"$")
+	public void should_be_present_and_it_should_be_clickable(String client)
+			throws Throwable {
+		try {
+			wait(3);
+			// click(getProperty(
+			// "dashboardUIPropertiesFiles/commonWebElement.properties",
+			// "admin_user_action_dropdown"));
+			typeAndEnter(
+					getProperty(
+							"dashboardUIPropertiesFiles/commonWebElement.properties",
+							"admin_user_action_dropdown"), client);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/launchpad.properties",
+					"create_user_icon"));
+			typeAndEnter(
+					getProperty(
+							"dashboardUIPropertiesFiles/launchpad.properties",
+							"first_name"),
+					"firstnamechipotle" + RandomUtils.nextInt(100));
+			typeAndEnter(
+					getProperty(
+							"dashboardUIPropertiesFiles/launchpad.properties",
+							"last_name"),
+					"lastnamechipotle" + RandomUtils.nextInt(100));
+			typeAndEnter(
+					getProperty(
+							"dashboardUIPropertiesFiles/launchpad.properties",
+							"password"), password);
+
+			typeAndEnter(
+					getProperty(
+							"dashboardUIPropertiesFiles/launchpad.properties",
+							"emailaddress"), generateEmail(20));
+			click(getProperty(
+					"dashboardUIPropertiesFiles/launchpad.properties", "active"));
+			click(getProperty(
+					"dashboardUIPropertiesFiles/launchpad.properties",
+					"is_launchpad_admin"));
+			click(getProperty(
+					"dashboardUIPropertiesFiles/launchpad.properties",
+					"is_engagement_admin"));
+			click(getProperty(
+					"dashboardUIPropertiesFiles/launchpad.properties", "submit"));
+			waitForElement(".//*[@id='user_tabs_container']");
+			click(getProperty(
+					"dashboardUIPropertiesFiles/launchpad.properties",
+					"create_user_icon"));
+			waitForElement(getProperty(
+					"dashboardUIPropertiesFiles/launchpad.properties",
+					"location"));
+			click(getProperty(
+					"dashboardUIPropertiesFiles/launchpad.properties",
+					"location"));
+			typeAndEnter(
+					getProperty(
+							"dashboardUIPropertiesFiles/launchpad.properties",
+							"select_location"), "Chipotle Mexican Grill");
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+}

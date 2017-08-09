@@ -1,0 +1,20 @@
+package day_1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Session1 {
+
+	public static void main(String[] args) {
+		//Open Browser
+		
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://toolsqa.wpengine.com/automation-practice-form/");
+		
+//		driver.findElement(By.partialLinkText("Partial Link Test1")).click();
+		driver.findElement(By.linkText("Link Test")).click();
+		driver.findElement(By.className("btn btn-info")).click();
+	}
+
+}

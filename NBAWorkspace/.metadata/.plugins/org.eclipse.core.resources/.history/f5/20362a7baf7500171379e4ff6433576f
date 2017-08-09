@@ -1,0 +1,30 @@
+package day_one;
+
+public class Human {
+	
+	
+	String name;
+	static int age;
+	
+	public void run(){
+		System.out.println("I can run");
+	}
+	
+	public void eat(){
+		System.out.println("I can eat");
+	}
+
+	public static void main(String[] args) {
+		Human deepak = new Human();
+		
+		
+		deepak.eat();
+		deepak.run();
+		deepak.name="Deepak Kumar";
+		deepak.age=29;
+		System.out.println(deepak.name);
+		System.out.println(age);
+
+	}
+
+}

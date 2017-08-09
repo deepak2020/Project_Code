@@ -1,0 +1,39 @@
+@end_to_end
+Feature: Alerts as nba user
+
+  @sanity
+  Scenario Outline: Create Role Based Alerts
+    Given User is on login page
+    When User login with "nba_user" and "nba_password"
+    And User clicks on "Insight_Tab"
+    And User clicks on "Reviews_Tab"
+    And User clicks on "Add_Alert_Button"
+    And User fills in "Alert_Title" with "Test Alert" present on Alert popup
+    And User fills in "Alert_Description" with "Test Description" present on Alert popup
+    And User clicks on "Save_Alert" present on Alert popup
+    ## Then User verify alert "created" with "Test Alert" title on Alert popup
+    And User clicks on "User_Search" present on Alert popup
+    And User clicks on "User_Options" present on Alert popup
+    And User clicks on <Subcriptions> and <Frequency> present on Alert popup
+    And User clicks on "Add_Subcription" present on Alert popup
+    Then User should see <Subcribe> present on Alert popup
+    When User clicks on "Edit_Subcribe" present on Alert popup
+    And User clicks on "Available_option" present on Alert popup
+    And User clicks on "Save_options" present on Alert popup
+    Then User should see "Available" present on Alert popup
+
+    Examples: 
+      | Subcriptions               | Frequency           | Subcribe          |
+      | "subscription_type_append" | "frequency_daily"   | "Subscribe"       |
+      | "subscription_type_append" | "frequency_weekly"  | "Subscribe"       |
+      | "subscription_type_append" | "frequency_monthly" | "Subscribe"       |
+      | "subscription_type_force"  | "frequency_daily"   | "Force_Subscribe" |
+      | "subscription_type_force"  | "frequency_weekly"  | "Force_Subscribe" |
+      | "subscription_type_force"  | "frequency_monthly" | "Force_Subscribe" |
+
+  Scenario: User creates instant alert
+    Given User is on login page
+    When User login with "nba_user" and "nba_password"
+    And User clicks on "Insight_Tab"
+    And User clicks on "Reviews_Tab"
+    Then User should not see "Add_Alert_Button"

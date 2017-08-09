@@ -1,0 +1,11 @@
+Feature: Email Share
+
+  
+  Scenario: As normal user from the detailed review page
+    Given User is on login page
+    When User login with "chipotle5_user" and "chipotle5_password"
+    And User clicks on "Insight_Tab"
+    And User clicks on "Reviews_Tab"
+    And User clicks on "Details_button" present on Review page
+    Then User clicks on "Share_Email" present on Review page
+    

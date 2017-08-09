@@ -1,0 +1,101 @@
+Feature: Engagement Tests
+
+# Background:
+#   Given Browser Initialization
+
+Scenario Outline: Validate login of different user
+	Given User is on login page
+	When User login with <User> and <Password>
+	Then User should get logged in to the application
+
+	Examples:
+		|	User					|	Password				|
+		|	"nba_user"				|	"nba_password"			|
+		|	"chipotle1_user"		|	"chipotle1_password"	|
+		|	"chipotle2_user"		|	"chipotle2_password"	|
+		|	"chipotle3_user"		|	"chipotle3_password"	|
+		|	"chipotle4_user"		|	"chipotle4_password"	|
+	
+Scenario: User automatically goes to the correct client
+	Given User is on login page
+	When User login with "chipotle1_user" and "chipotle1_password"
+	Then URL should contain "dashboard/chipotle"
+
+Scenario Outline: Verify Invalid Credential
+	Given User is on login page
+	When User login with <userName> and <password>
+	Then User should see <message> in login box
+	
+	Examples:
+		| userName         	 | password         	 | message      											|
+ 	    | "invalid_user"     | "invalid_password" 	 | "This email address does not exist. Please try again."  	|
+ 		| "nba_user"  		 | "invalid_password" 	 | "Your password is incorrect. Please try again." 		  	|
+
+Scenario: Verify Forgot Password functionality - Send Email
+	Given User is on login page
+	And User clicks on "Forgot_Password_Button" present on login page
+	When User fills in "username_textbox" with "invalid_user" present on login page
+	And User clicks on "send_email_button" present on login page
+	Then User should see "There is no such user." in login box
+
+Scenario: Verify Forgot Password functionality - Cancel
+	Given User is on login page
+	And User clicks on "Forgot_Password_Button" present on login page
+	When User clicks on "Cancel_Button" present on login page
+	Then "forgot_password_button" should be present on login page
+	And "login_button" should be present on login page
+	
+Scenario: Verify logout functionality
+	Given User is on login page
+	And User login with "nba_user" and "nba_password"
+	When User clicks on "User_Action_Dropdown"
+	And User clicks on "Logout_Link"
+	Then User should be login page
+	
+Scenario Outline: Admin user should be able to switch clients
+	Given User is on login page
+	When User login with <User> and <Password>
+	And User switch to "Chipotle" client
+	Then URL should contain "dashboard/chipotle"
+	And User switch to "Brio" client
+	Then URL should contain "dashboard/brio"
+	
+	Examples:
+		|	User				|	Password			|
+		|	"nba_user"			|	"nba_password"		|
+		|	"zaphod_user"		|	"zaphod_password"	|
+
+Scenario: Next request after session expiration should send you to the login screen
+	Given User is on login page
+	And User login with "chipotle1_user" and "chipotle1_password"
+	When User removes all cookies
+	And User refresh the page
+	Then User should be login page
+	
+Scenario: Verify that nBAPersistAuthCookie exist
+	Given User is on login page
+	And User login with "nba_user" and "nba_password"
+	When User switch to "Chipotle" client
+	And User switch to "chipotle3@mail.com" user
+	Then "nBAPersistAuthCookie" cookie should exist
+		
+Scenario Outline: Verify that below cookies exist on login
+	Given User is on login page
+	And User login with "chipotle4_user" and "chipotle4_password"
+	Then <Cookie> cookie should exist
+	
+	Examples:
+		|	  Cookie				|
+		|	"JSESSIONID"			|
+		|	"nBAPersistAuthCookie"	|
+		
+Scenario Outline: Verify that nBAPersistAuthCookie doesn't exist on logout
+	Given User is on login page
+	And User login with <User> and <Password>
+	When User logout
+	Then "nBAPersistAuthCookie" cookie should not exist
+	
+	Examples:
+		|	User				|	Password			|
+		|	"nba_user"			|	"nba_password"		|
+		|	"zaphod_user"		|	"zaphod_password"	|

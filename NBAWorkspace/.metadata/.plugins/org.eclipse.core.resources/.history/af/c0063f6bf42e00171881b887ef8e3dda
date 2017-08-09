@@ -1,0 +1,17 @@
+package Java_Day_1;
+
+public class Static_Keyword {
+
+	public static void main(String[] args) {
+		Static_Keyword obj = new Static_Keyword();
+
+	}
+	
+	
+	public Integer sum(int a, int b){
+		int sum = a+b;
+		return sum;
+	}
+	
+	
+}

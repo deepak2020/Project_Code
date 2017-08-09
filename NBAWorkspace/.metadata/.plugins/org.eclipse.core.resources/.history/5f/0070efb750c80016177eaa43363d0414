@@ -1,0 +1,118 @@
+package com.Dashboard.StepDefinations;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+import com.Dashboard.properties.ConnectWebElement;
+
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class ConnectStepDefinition extends PageFactory {
+
+	String title;
+
+	@When("^User clicks on \"([^\"]*)\" present on Connect tab$")
+	public void user_clicks_on_present_on_Connect_page(final String locator) {
+		try {
+			wait(3);
+			click(ConnectWebElement.getProperty(locator.toLowerCase()));
+			wait(10);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("^User should enters \"([^\"]*)\" on create Queue pop up$")
+	public void user_enters(final String locator) {
+		try {
+			pause(10);
+			click(ConnectWebElement.queue_title_textbox.getProperty());
+			typeAndEnter(ConnectWebElement.queue_title.getProperty(),
+					title = "Test title");
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("^User should clicks on \"([^\"]*)\" on create Queue pop up$")
+	public void user_clicks_on_on_Connect_Page(final String locator) {
+		try {
+			wait(3);
+			click(ConnectWebElement.getProperty(locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("^User should verify \"([^\"]*)\"$")
+	public void user_verify_success_message(final String locator) {
+		try {
+			waitForElement(ConnectWebElement.queue_success_message
+					.getProperty());
+			WebElement message = getDriver().findElement(
+					By.xpath(ConnectWebElement.getProperty(locator
+							.toLowerCase())));
+			String actual = message.getText().toString();
+			String expected = "The queue " + title
+					+ " was created successfully.";
+			System.out.println("Text is " + actual);
+			Assert.assertEquals(actual, expected);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@When("^User select \"(.*)\" in \"(.*)\" and apply on create Queue pop up$")
+	public void user_select_in_filter_and_apply_create_queue(
+			final String value, final String dropDown) {
+		try {
+			waitForElement(
+					ConnectWebElement.getProperty(dropDown.toLowerCase()), 5);
+			click(ConnectWebElement.getProperty(dropDown.toLowerCase()));
+			getDriver()
+					.findElement(
+							By.xpath(ConnectWebElement.getProperty(value
+									.toLowerCase()))).click();
+			// click(ConnectWebElement.getProperty(value.toLowerCase()));
+			click(ConnectWebElement.apply_button_on_filter_queue.getProperty());
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("User should mark Review as \"(.*)\" and should see review marked \"(.*)\" successfully$")
+	public void user_mark_review(String enagagement, String message) {
+		try {
+			waitForElement("//*[@class='command-container']/button");
+			click("//*[@class='command-container']/button");
+			SwitchBack();
+			String action = message;
+			if(message=="INPROGRESS"){
+				message="In Progress";			}
+			click("//*[@class='engage-center command-container']//*[text()='"+enagagement+"']");
+			waitForElement(ConnectWebElement.success_message.getProperty());
+			String actual = getText(ConnectWebElement.engagement_success_message.getProperty());
+			String expected = "Review marked as "+message+" successfully.";
+			Assert.assertEquals(actual, expected);
+			
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	@Then("User should see review marked \"(.*)\" successfully")
+	public void review_enagage_message(String enagagement) {
+		try {
+			waitForElement(ConnectWebElement.success_message.getProperty());
+			String actual = getText(ConnectWebElement.engagement_success_message.getProperty());
+//			String expected = "Review marked as "+message+" successfully.";
+//			Assert.assertEquals(actual, expected);
+		} catch (Exception e) {
+			Assert.fail(e.getMessage());
+		}
+
+	}
+}

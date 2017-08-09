@@ -1,0 +1,23 @@
+categories_subtab=.//li[text()='CATEGORIES']
+relative_performance_table_heading=.//*[text()='Relative Performance']
+relative_performance_table=.//*[@class='header ui-helper-clearfix']
+locations_subtab=.//li[text()='LOCATIONS']
+show_all_button=.//*[text()='show all']
+hide_all_button=.//*[text()='hide all']
+chart_trend_lines=highcharts-markers
+title_prefix=//*[@class='title-prefix'] | //*[@id='launchpad-sidebar']
+location_relative_performance_table=.//*[@class='widget relative-performance']
+location_relative_performance_text=.//*[text()='Relative Performance']
+location_theme_comparison_table=.//*[text()='Common Themes']
+under/over_slider=.//*[@class='ui-slider-handle ui-state-default ui-corner-all']
+over_to_under=.//*[@class='slider-advice-subtle' and @title = 'Under Perform']
+less/more_slider=//div[@class='slider-wordcount-container-theme-comparison']//a
+more_to_less=.//*[@class='slider-advice-subtle' and @title = 'Less Words']
+named_button=.//*[@class='small-button' and text()='Named']
+common_theme_button=.//*[text()='Common Themes' and text()='Common Themes']
+top/bottom_button=.//*[@class='small-button' and text()='show top/bottom']
+sources_subtab=.//*[text()='SOURCES']
+source_relative_performance_text=.//*[text()='Relative Performance']
+sources_relative_performance=.//*[@class='header ui-helper-clearfix']
+
+

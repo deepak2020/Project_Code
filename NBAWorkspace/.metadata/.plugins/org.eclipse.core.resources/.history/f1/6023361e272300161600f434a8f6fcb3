@@ -1,0 +1,304 @@
+package com.Dashboard.StepDefinations;
+
+import java.util.ArrayList;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.testng.Assert;
+
+import com.Dashboard.global.PageFactory;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class InsightStepDefinition extends PageFactory {
+
+	@Then("^User should see that source count is greater than \"([^\"]*)\"$")
+	public void user_should_see_that_source_count_is_greater_than(int s) {
+		try {
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/insightWebElement.properties",
+							"all_source"), 10);
+			int size = getDriver()
+					.findElements(
+							By.xpath(getProperty(
+									"dashboardUIPropertiesFiles/insightWebElement.properties",
+									"all_source"))).size();
+			boolean boo = size > s ? true : false;
+			Assert.assertEquals(true, boo);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" should be present on Engage window and it should be clickable$")
+	public void should_be_present_and_it_should_be_clickable(String locator) {
+		try {
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/insightWebElement.properties",
+							locator.toLowerCase()), 10);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/insightWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Given("^User clicks on \"([^\"]*)\" present on Insight tab$")
+	public void user_clicks_on_insight_tab(String locator) {
+		try {
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/insightWebElement.properties",
+							locator.toLowerCase()), 15);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/insightWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Given("^Review pop up should appear$")
+	public void review_pop_up_should_appear() {
+		try {
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/insightWebElement.properties",
+							"review_pop_up_on_distribution_widget"), 5);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" should be present on Insight tab$")
+	public void should_be_present_on_insight_tab(String locator) {
+		try {
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/insightWebElement.properties",
+							locator.toLowerCase()), 5);
+			click(getProperty(
+					"dashboardUIPropertiesFiles/insightWebElement.properties",
+					locator.toLowerCase()));
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^\"([^\"]*)\" should not be present on Insight tab$")
+	public void should_not_be_present_on_insight_tab(String locator) {
+		try {
+			waitForElementNotPresent(
+					getProperty(
+							"dashboardUIPropertiesFiles/insightWebElement.properties",
+							locator.toLowerCase()), 5);
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User slide theme cloud to \"([^\"]*)\"$")
+	public void user_slide_theme_cloud_to(String position) {
+		try {
+			waitForElement(
+					getProperty(
+							"dashboardUIPropertiesFiles/insightWebElement.properties",
+							"theme_cloud_container"), 10);
+			if (position.equalsIgnoreCase("Negative_Polarity")) {
+				log("Sliding to Negative");
+				click(getProperty(
+						"dashboardUIPropertiesFiles/insightWebElement.properties",
+						"start_of_positive_negative"));
+				click(getProperty(
+						"dashboardUIPropertiesFiles/insightWebElement.properties",
+						"start_of_positive_negative"));
+				getDriver()
+						.findElement(
+								By.xpath(getProperty(
+										"dashboardUIPropertiesFiles/insightWebElement.properties",
+										"start_of_positive_negative")))
+						.sendKeys(Keys.HOME);
+			} else if (position.equalsIgnoreCase("Positive_Polarity")) {
+				log("Sliding to Positive");
+				click(getProperty(
+						"dashboardUIPropertiesFiles/insightWebElement.properties",
+						"start_of_positive_negative"));
+				click(getProperty(
+						"dashboardUIPropertiesFiles/insightWebElement.properties",
+						"start_of_positive_negative"));
+				getDriver()
+						.findElement(
+								By.xpath(getProperty(
+										"dashboardUIPropertiesFiles/insightWebElement.properties",
+										"start_of_positive_negative")))
+						.sendKeys(Keys.END);
+			}
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@Then("^Theme cloud text should be in \"([^\"]*)\"$")
+	public void negative_theme_cloud_text_should_be_in(String color) {
+		try {
+			wait(5);
+			clickAndWait(
+					getProperty(
+							"dashboardUIPropertiesFiles/insightWebElement.properties",
+							"first_word_in_theme_cloud"), 5);
+			String css = getDriver()
+					.findElement(
+							By.xpath(getProperty(
+									"dashboardUIPropertiesFiles/insightWebElement.properties",
+									"first_word_in_theme_cloud")))
+					.getAttribute("style");
+			if (color.equalsIgnoreCase("Red"))
+				Assert.assertTrue(css.contains("rgb(178, 33, 33)"),
+						"Expected color Red was not found");
+			else if (color.equalsIgnoreCase("Green"))
+				Assert.assertTrue(css.contains("rgb(68, 161, 53)"),
+						"Expected color Green was not found");
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User reads the document id from URL and make only associated email id null$")
+	public void user_reads_the_document_id_from_URL_and_make_associated_email_id_null() {
+		try {
+			String currentDocument = null;
+			String url = getPageUrl();
+			String[] parts = url.split(",");
+			for (String part : parts) {
+				if (part.contains("currentDocument")) {
+					currentDocument = part;
+					break;
+				}
+			}
+			parts = currentDocument.split(":");
+			int documentId = Integer.parseInt(parts[1].split("}")[0]);
+			log("Getting Author Id for Document Id: " + documentId);
+			String auhtorId = (String) CommonPage().dataBaseSelect(
+					"SELECT AUTHOR_ID FROM DOCUMENT WHERE ID=" + documentId
+							+ ";", "AUTHOR_ID");
+			log("Making Email of Author Id: " + auhtorId + " as null");
+			CommonPage().dataBaseUpdate(
+					"UPDATE AUTHOR SET EMAIL=NULL WHERE ID=\"" + auhtorId
+							+ "\";");
+			String testEnagePath = "http://www.twitter.com/KevinRZuber/status/724514865256128512";
+			log("Making Engage path of Document Id: " + documentId
+					+ " as non null to make sure ID has Engage Path");
+			CommonPage().dataBaseUpdate(
+					"UPDATE DOCUMENT SET ENGAGE_PATH=\"" + testEnagePath
+							+ "\" WHERE ID=" + documentId + ";");
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User reads the document id from URL and make associated email id and engage path null$")
+	public void user_reads_the_document_id_from_URL_and_make_associated_email_id_and_engage_path_null() {
+		try {
+			String currentDocument = null;
+			String url = getPageUrl();
+			String[] parts = url.split(",");
+			for (String part : parts) {
+				if (part.contains("currentDocument")) {
+					currentDocument = part;
+					break;
+				}
+			}
+			parts = currentDocument.split(":");
+			int documentId = Integer.parseInt(parts[1].split("}")[0]);
+			log("Getting Author Id for Document Id: " + documentId);
+			String auhtorId = (String) CommonPage().dataBaseSelect(
+					"SELECT AUTHOR_ID FROM DOCUMENT WHERE ID=" + documentId
+							+ ";", "AUTHOR_ID");
+			log("Making Email of Author Id: " + auhtorId + " as null");
+			CommonPage().dataBaseUpdate(
+					"UPDATE AUTHOR SET EMAIL=NULL WHERE ID=\"" + auhtorId
+							+ "\";");
+			log("Update query to make Email null: "
+					+ "UPDATE AUTHOR SET EMAIL=NULL WHERE ID=\"" + auhtorId
+					+ "\";");
+			log("Making Engage path of Document Id: " + documentId + " as null");
+			CommonPage().dataBaseUpdate(
+					"UPDATE DOCUMENT SET ENGAGE_PATH=NULL WHERE ID="
+							+ documentId + ";");
+			log("Update query to make Engage Path null: "
+					+ "UPDATE DOCUMENT SET ENGAGE_PATH=NULL WHERE ID="
+					+ documentId + ";");
+			log("Update is done");
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^User reads the document id from URL and make only associated engage path null$")
+	public void user_reads_the_document_id_from_URL_and_make_only_associated_engage_path_null() {
+		try {
+			String currentDocument = null;
+			String url = getPageUrl();
+			String[] parts = url.split(",");
+			for (String part : parts) {
+				if (part.contains("currentDocument")) {
+					currentDocument = part;
+					break;
+				}
+			}
+			parts = currentDocument.split(":");
+			int documentId = Integer.parseInt(parts[1].split("}")[0]);
+			log("Getting Author Id for Document Id: " + documentId);
+			String auhtorId = (String) CommonPage().dataBaseSelect(
+					"SELECT AUTHOR_ID FROM DOCUMENT WHERE ID=" + documentId
+							+ ";", "AUTHOR_ID");
+			log("Making Email of Author Id: " + auhtorId
+					+ " as test@test.com to make sure this ID has email.");
+			CommonPage().dataBaseUpdate(
+					"UPDATE AUTHOR SET EMAIL=\"test@test.com\" WHERE ID=\""
+							+ auhtorId + "\";");
+			log("Update query to make Email null: "
+					+ "UPDATE AUTHOR SET EMAIL=\"test@test.com\" WHERE ID=\""
+					+ auhtorId + "\";");
+			log("Making Engage path of Document Id: " + documentId + " as null");
+			CommonPage().dataBaseUpdate(
+					"UPDATE DOCUMENT SET ENGAGE_PATH=NULL WHERE ID="
+							+ documentId + ";");
+			log("Update query to make Engage Path null: "
+					+ "UPDATE DOCUMENT SET ENGAGE_PATH=NULL WHERE ID="
+					+ documentId + ";");
+			log("Update is done");
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+
+	@When("^Outlook should get opened up$")
+	public void outlook_should_get_opened_up() {
+		try {
+			/*
+			 * Not able to perform any action on switched tab. Hence, have
+			 * commented these lines and would look in to it later on.
+			 * Deprioritizing it.
+			 */
+			// String oldTab = getDriver().getWindowHandle();
+			// ArrayList<String> tabs = new
+			// ArrayList<String>(getDriver().getWindowHandles());
+			// tabs.remove(oldTab);
+			// // change focus to new tab
+			// getDriver().switchTo().window(tabs.get(0));
+			// CommonPage().isURLContains("mail");
+
+		} catch (Exception e) {
+			Assert.fail(e.getStackTrace().toString());
+		}
+	}
+}

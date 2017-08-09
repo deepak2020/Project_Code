@@ -1,0 +1,23 @@
+package com.poc.Test;
+
+import cucumber.api.CucumberOptions;
+import cucumber.api.testng.AbstractTestNGCucumberTests;
+
+@CucumberOptions(plugin = { "html:reports/cucumber-html-report",
+"json:reports/cucumber.json", "pretty:reports/cucumber-pretty.txt", }, 
+dryRun = false,
+strict = true,
+monochrome = true,
+features = "src/test/resources/features", 
+glue = { "com/Dashboard/StepDefinations" },
+tags = {"@regression"}
+		)
+
+public class TestRunner  extends AbstractTestNGCucumberTests {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
